@@ -1,67 +1,97 @@
 package kr.co.godtrip.member;
 
 public class MemberDTO {
-	private String p_ID;
-	private String p_passwd;
-	private String p_name;
-	private String p_tel;
-	private String p_email;
-	private String p_info;
-	private String p_grade;
-	private String p_category;
+
+	private String id;
+	private String passwd;
+	private String mname;
+	private String tel;
+	private String email;
+	private String address1;
+	private String address2;
+	private String zipcode;
+	private String mlevel;
 	
-	public String getP_ID() {
-		return p_ID;
+	public MemberDTO() {}
+
+	public String getId() {
+		return id;
 	}
-	public void setP_ID(String p_ID) {
-		this.p_ID = p_ID;
+
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getP_passwd() {
-		return p_passwd;
+
+	public String getPasswd() {
+		return passwd;
 	}
-	public void setP_passwd(String p_passwd) {
-		this.p_passwd = p_passwd;
+
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
 	}
-	public String getP_name() {
-		return p_name;
+
+	public String getMname() {
+		return mname;
 	}
-	public void setP_name(String p_name) {
-		this.p_name = p_name;
+
+	public void setMname(String mname) {
+		this.mname = mname;
 	}
-	public String getP_tel() {
-		return p_tel;
+
+	public String getTel() {
+		return tel;
 	}
-	public void setP_tel(String p_tel) {
-		this.p_tel = p_tel;
+
+	public void setTel(String tel) {
+		this.tel = tel;
 	}
-	public String getP_email() {
-		return p_email;
+
+	public String getEmail() {
+		return email;
 	}
-	public void setP_email(String p_email) {
-		this.p_email = p_email;
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getP_info() {
-		return p_info;
+
+	public String getAddress1() {
+		return address1;
 	}
-	public void setP_info(String p_info) {
-		this.p_info = p_info;
+
+	public void setAddress1(String address1) {
+		this.address1 = address1;
 	}
-	public String getP_grade() {
-		return p_grade;
+
+	public String getAddress2() {
+		return address2;
 	}
-	public void setP_grade(String p_grade) {
-		this.p_grade = p_grade;
+
+	public void setAddress2(String address2) {
+		this.address2 = address2;
 	}
-	public String getP_category() {
-		return p_category;
+
+	public String getZipcode() {
+		return zipcode;
 	}
-	public void setP_category(String p_category) {
-		this.p_category = p_category;
+
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
+
+	public String getMlevel() {
+		return mlevel;
+	}
+
+	public void setMlevel(String mlevel) {
+		this.mlevel = mlevel;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberDTO [p_ID=" + p_ID + ", p_passwd=" + p_passwd + ", p_name=" + p_name + ", p_tel=" + p_tel
-				+ ", p_email=" + p_email + ", p_info=" + p_info + ", p_grade=" + p_grade + ", p_category=" + p_category
+		return "MemberDTO [id=" + id + ", passwd=" + passwd + ", mname=" + mname + ", tel=" + tel + ", email=" + email
+				+ ", address1=" + address1 + ", address2=" + address2 + ", zipcode=" + zipcode + ", mlevel=" + mlevel
 				+ "]";
-	}	
+	}
+
+	
 }
