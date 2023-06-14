@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="product">
+
+	<select id="transproList" resultType="java.util.Map">
+		SELECT trans_code, departure_Date, departure_code, arrival_code, departure_Time, arrival_Time, Price, seat
+		FROM transpro
+		ORDER BY transpro_code 	
+	</select>	
+
+	
+</mapper>
