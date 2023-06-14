@@ -4,8 +4,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="../header.jsp" %> 
 
-<h3>관광지소개</h3>
-<form name="attraction" id="attraction" method="post" action="attractioninsert" enctype="multipart/form-data" >
+<h3>관광지소개수정</h3>
+<form name="attraction" id="attraction" method="post" action="attractionupdate" enctype="multipart/form-data" >
  <table class="table table-hover">
 <tr>
 	<td>지역</td>
@@ -56,6 +56,7 @@
 			<option value="6">바다</option>
 			<option value="7">자연</option>
 		</select>
+	</td>
 </tr>
 <tr>
 	<td>내용</td>
@@ -68,7 +69,7 @@
 <tr>
 	<td colsapn="2" align="center">
 		<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">
-		<input type="submit" value="등록">
+		<input type="submit" value="수정">
 	</td>
 </tr>
 
