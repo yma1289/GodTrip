@@ -103,7 +103,7 @@ footer p {
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
-					<a class="nav-link" href="../product/">내만패</a>
+					<a class="nav-link" href="../product/transproList">내만패</a>
 	        	</li>
 	        	<li class="nav-item">
 	          		<a class="nav-link" href="#">여행추천</a>
@@ -132,8 +132,8 @@ footer p {
 	</div>
 </nav>
 
-<header class="w3-display-container w3-content w3-hide-small" style="max-width:1400px">
-	<img class="w3-image" src="../images/london2.jpg" alt="London" width="1400" height="600">
+<header class="w3-display-container w3-content w3-hide-small" style="max-width:100%;">
+	<img class="w3-image" src="../images/header2.jpg" alt="header2" width="100%" max-height="50vh">
 	<div class="w3-display-middle" style="width:65%">
 		<div class="w3-display-left w3-padding w3-hide-small" style="width:100%">
 		<div class="w3-black w3-opacity w3-hover-opacity-off w3-padding-large w3-round-large ">
