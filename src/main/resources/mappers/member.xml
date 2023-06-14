@@ -1,10 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-     
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="member">
-	<insert id="insert" parameterType="kr.co.godtrip.member.MemberDTO">
-		insert into partner3(p_ID,p_passwd,p_name,p_tel,p_email,p_info,p_grade)
-		values (#{p_ID},#{p_passwd},#{p_name},#{p_tel},#{p_email},#{p_info},#{p_grade})
-	</insert>
+
+<insert parameterType="kr.co.godtrip.member.MemberDTO" id="insert">
+insert into member(id,passwd,mname,tel,email,zipcode,address1,address2,mlevel)
+values(#{id},#{passwd},#{mname},#{tel},#{email},#{zipcode},#{address1},#{address2},'B1')
+</insert>
+
+
+
+<select id="duplicateId" parameterType="kr.co.godtrip.member.MemberDTO" resultType="int">
+select count(id) as cnt
+from member
+where id=#{id}
+</select>
+
+<select id="duplicateEmail" resultType="int" parameterType="kr.co.godtrip.member.MemberDTO">
+select count(email) as cnt
+from member
+where email=#{email}
+</select>
+
+<select id="findId" parameterType="kr.co.godtrip.member.MemberDTO" resultType="string">
+select 
+from member
+where email=#{email} and mname=#{mname}
+</select>
+
+
+<select id="loginProc" resultType="kr.co.godtrip.member.MemberDTO" parameterType="kr.co.godtrip.member.MemberDTO">
+    SELECT *
+    FROM member
+    WHERE id=#{id} AND passwd=#{passwd}
+</select>
+
+
 </mapper>
