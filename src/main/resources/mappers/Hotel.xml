@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="hotel">
+	
+		<select id="list" resultType="java.util.Map">
+		SELECT DISTINCT hotel_code,arrival_code,hotel_Name,hotel_Content,hotel_Prices, hotel_filename, hotel_filesize,hotel_address,hotel_tel
+        FROM hotel
+        where arrival_code=#{arrival_code};
+	    </select>
+	    
+	    
+	    <select id="search" parameterType="String" resultType="java.util.Map">
+		SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
+		FROM hotel
+		WHERE hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
+		ORDER BY hotel_Name
+		</select>
+	
+		<select id="search2" parameterType="String" resultType="java.util.Map">
+		SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
+		FROM hotel
+		WHERE hotel_Type = #{hotel_Type}
+		ORDER BY hotel_Name
+		</select>
+</mapper>
