@@ -1,7 +1,12 @@
 package kr.co.godtrip.hotel;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -39,23 +44,33 @@ public class HotelCont {
 		 	//String area_code=req.getParameter("area_code"); //나중에 이부분으로 고쳐야 함
 		    String area_code="G0001"; //지금은 임시로 제주지역코드로 테스트
 		    String area_name="";
+		    String latitude="";
+		    String longitude="";
 		    if(area_code.equals("G0001")) {
 		    	area_name="제주도";
+		    	latitude="33.4994760876976";
+		    	longitude="126.531170862545";
 		    }else if(area_code.equals("G0002")) {
 		    	area_name="부산광역시";
+		    	latitude="35.1795460235899";
+		    	longitude="129.075065707252";
 		    }else if(area_code.equals("G0003")) {
 		    	area_name="대구광역시";
+		    	latitude="35.8712907516546";
+		    	longitude="128.601996888524";
 		    }else if(area_code.equals("G0007")) {
 		    	area_name="서울";
+		    	latitude="37.5665719706213";
+		    	longitude="126.97891266823";
 		    }//if end 
-		    
-		    
 		    
 	        ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hotelList");
 	        mav.addObject("list",hotelDao.list(area_code));//DB에서 where 칼럼명 like 
 	        mav.addObject("area_code",area_code);
 	        mav.addObject("area_name",area_name);
+	        mav.addObject("latitude",latitude);
+	        mav.addObject("longitude",longitude);
 	        return mav;
 	 }//list() end
 	 
@@ -87,8 +102,14 @@ public class HotelCont {
     public String insert(@RequestParam Map<String, Object> map
     		          ,@RequestParam MultipartFile img
     		          ,HttpServletRequest req) {
-    	
-    	 System.out.println(map);
+		
+			//숙박코드 생성
+            int d = (int)(Math.random() * 10000 + 1);
+            String hotel_code="H" + d;
+		
+		
+		
+    	 //System.out.println(map);
     	//System.out.println(map.get("product_name"));
     	//System.out.println(map.get("price"));
     	//System.out.println(map.get("description"));
@@ -112,9 +133,11 @@ public class HotelCont {
 			}//try end    		
     	}//if end
     	
-    	map.put("filename", filename);
-    	map.put("filesize", filesize);
-    	
+    	map.put("hotel_filename", filename);
+    	map.put("hotel_filesize", filesize);
+    	map.put("hotel_code", hotel_code);
+    	//System.out.println(filename);
+    	//System.out.println(filesize);
     	hotelDao.insert(map);
 
     	return "redirect:/hotel/hotelList";
