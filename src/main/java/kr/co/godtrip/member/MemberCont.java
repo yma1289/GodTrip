@@ -55,16 +55,15 @@ public class MemberCont {
 				session.setAttribute("s_passwd", dto.getPasswd());
 				session.setAttribute("mname", dto.getMname());
 				session.setAttribute("s_mlevel", dto.getMlevel());
-				mav.addObject("message", "로그인 성공"); // 추후 메시지 수정
 				return mav;
 			} else {
 				ModelAndView mav = new ModelAndView("/member/memberlogin");
-				mav.addObject("message", "<a href='javascript:history.back()'>다시시도</a>");
+				mav.addObject("Loginmessage", "회원이 아닙니다. 로그인을 해주세요");
 				return mav;
 			}
 		} else {
 			ModelAndView mav = new ModelAndView("/member/memberloginfail");
-			mav.addObject("message", "<a href='javascript:history.back()'>다시시도</a>");
+			mav.addObject("Loginmessage", "회원이 아닙니다. 로그인을 해주세요");
 			return mav;
 		}
 	}
@@ -140,9 +139,92 @@ public class MemberCont {
 	}
 
 	// 회원 정보 수정
+	// 회원정보 수정처리
+	// 보통 2가지 방식 	   - 1.로그인 할 당시에 사용자에 대한 모든 정보를 세션에 불러와서 ${} 방식으로 넣기.
+	//						->아이디와 세션값이 자주바뀌는 환경이면, 오류 발생할 가능성 다수
+	//				   - 2.아이디로 조회해서 db에서 조회한 뒤 모든 내용을 넣어버리기
+		
 	@RequestMapping("/memberModify")
-	public String memberModify() {
-		return "member/memberModify";
+	public ModelAndView memberModify(HttpServletRequest request) {
+		ModelAndView mav=new ModelAndView();
+		
+	String s_id= (String) request.getSession().getAttribute("s_id");
+	mav.setViewName("member/memberModify");
+	mav.addObject("member",memberDao.select(s_id));
+	return mav;
 	}
 
+// --MESSAGE를 보내지 않아서 , CMD로 직접 확인 필수!!	
+//	@RequestMapping("update")
+//	public String update(@RequestParam Map<String, Object> map, HttpServletRequest req) {
+//	    String s_id = (String) req.getSession().getAttribute("s_id");
+//
+//	    if(s_id!=null){
+//	        MemberDTO dto = memberDao.select(s_id);
+//	        if (s_id.equals(dto.getId())) {
+//	            map.put("id", s_id); // 회원 ID를 Map에 추가
+//	            memberDao.update(map);
+//	        }
+//	    }
+//	    req.setAttribute("updateMessage", "회원정보가 성공적으로 수정되었습니다.");
+//	    return "redirect:/member/memberlogin";
+//	}
+
+
+	@RequestMapping("update")
+	public ModelAndView update(@RequestParam Map<String, Object> map, HttpServletRequest req) {
+	    ModelAndView mav = new ModelAndView();
+	    String s_id = (String) req.getSession().getAttribute("s_id");
+
+	    if(s_id!=null){
+	        MemberDTO dto = memberDao.select(s_id);
+	        if (s_id.equals(dto.getId())) {
+	            map.put("id", s_id); // 회원 ID를 Map에 추가
+	            memberDao.update(map);
+	            mav.addObject("updateMessage", "회원정보가 성공적으로 수정되었습니다.");
+	            mav.setViewName("/member/memberModify");
+	        } else {
+	            mav.setViewName("redirect:/member/memberlogin");
+	        }
+	    }
+	    return mav;
+	}
+	
+	//회원탈퇴
+	//delete가 아닌 update로 회원 등급만 바꿔서 저장하도록 한다.
+	@RequestMapping("/memberWithdraw")
+	public String memberWithdraw() {
+		return "/member/memberWithdraw";
+	}
+	
+	//회원 탈퇴 처리
+	@RequestMapping("/delete.do")
+	public ModelAndView delete(HttpServletRequest request,@RequestParam("passwd") String passwd) {
+		ModelAndView mav=new ModelAndView();
+		String s_id = (String) request.getSession().getAttribute("s_id");
+		
+		//비밀번호 아이디가 일치한다면삭제하도록한다
+		int memDelete = memberDao.delete(s_id, passwd);
+		
+		//int로 값을 받아오도록 하고 성공하면 1의 값을 return 시킨다.
+		if (memDelete > 0) {
+			 
+		//삭제시 메시지 전달	 
+		mav.addObject("deleteMessage","정상적으로 탈퇴되었습니다");
+		mav.setViewName("/member/memberWithdraw");
+		
+		//회원탈퇴시 로그인하지 않은상태가 되어야 한다 -> session.invalidate로
+		//세션에 저장된 모든 정보를 지워버림
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		
+		}else {
+			mav.addObject("errorMessage","비밀번호가 일치하지 않습니다");
+			mav.setViewName("/member/memberWithdraw");
+		}
+				
+		return mav;
+	}
+	
+	
 }// controller
