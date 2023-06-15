@@ -24,4 +24,9 @@
 		WHERE hotel_Type = #{hotel_Type}
 		ORDER BY hotel_Name
 		</select>
+		
+		<insert id="insert" parameterType="java.util.Map">
+		INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address)
+		VALUES(#{hotel_code}, #{arrival_code}, #{hotel_Type}, #{hotel_Name}, #{hotel_Prices}, #{hotel_filename},#{hotel_filesize},#{hotel_Content},#{hotel_tel},#{hotel_address})
+	</insert>
 </mapper>
