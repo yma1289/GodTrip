@@ -37,5 +37,30 @@ where email=#{email} and mname=#{mname}
     WHERE id=#{id} AND passwd=#{passwd}
 </select>
 
+<select id="select" resultType="kr.co.godtrip.member.MemberDTO" parameterType="kr.co.godtrip.member.MemberDTO">
+select *
+from member
+where id=#{s_id}
+</select>
+
+<update id="update" parameterType="java.util.Map">
+	update member set
+	passwd=#{passwd},
+	mname=#{mname},
+	tel=#{tel},
+	email=#{email},
+	zipcode=#{zipcode},
+	address1=#{address1},
+	address2=#{address2}
+	where id=#{id}
+</update>
+
+
+<update id="memberdelete" parameterType="java.util.Map">
+ update member
+    set mlevel='F1'
+    where id=#{id} and passwd=#{passwd}
+</update>
+
 
 </mapper>
