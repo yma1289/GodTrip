@@ -5,7 +5,7 @@
 <%@ include file="../header.jsp" %> 
 
 <h3>관광지소개수정</h3>
-<form name="attraction" id="attraction" method="post" action="attractionupdate" enctype="multipart/form-data" >
+<form name="attraction" id="attraction" method="post" action="attractionUpdate" enctype="multipart/form-data" >
  <table class="table table-hover">
 <tr>
 	<td>지역</td>
@@ -15,29 +15,21 @@
 			<option value="G0002">서울</option>
 			<option value="G0003">인천</option>
 			<option value="G0004">수원</option>
-			<option value="G0005">용인</option>
-			<option value="G0006">가평</option>
-			<option value="G0007">강릉</option>
-			<option value="G0008">속초</option>
-			<option value="G0009">추천</option>
-			<option value="G0010">홍천</option>
-			<option value="G0011">인제</option>
-			<option value="G0012">태안</option>
-			<option value="G0013">부여</option>
-			<option value="G0014">서천</option>
-			<option value="G0015">단양</option>
-			<option value="G0016">부산</option>
-			<option value="G0017">대구</option>
-			<option value="G0018">경주</option>
-			<option value="G0019">포항</option>
-			<option value="G0020">통영거제</option>
-			<option value="G0021">광주</option>
-			<option value="G0022">해남</option>
-			<option value="G0023">목포</option>
-			<option value="G0024">여수</option>
-			<option value="G0025">순천</option>
-			<option value="G0026">담양</option>
-			<option value="G00207">전주</option>
+			<option value="G0005">가평</option>
+			<option value="G0006">강릉</option>
+			<option value="G0007">춘천</option>
+			<option value="G0008">제천</option>
+			<option value="G0009">대전</option>
+			<option value="G0010">남원</option>
+			<option value="G0011">군산</option>
+			<option value="G0012">영월</option>
+			<option value="G0013">부산</option>
+			<option value="G0014">경주</option>
+			<option value="G0015">포항</option>
+			<option value="G0016">통영거제</option>
+			<option value="G0017">목포</option>
+			<option value="G0018">여수</option>
+			<option value="G0019">전주</option>
 		</select>
 </tr>
 <tr>
@@ -69,7 +61,7 @@
 <tr>
 	<td colsapn="2" align="center">
 		<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">
-		<input type="submit" value="수정">
+		<input type="submit" value="수정" >
 	</td>
 </tr>
 

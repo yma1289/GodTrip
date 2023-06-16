@@ -1,146 +1,145 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="EUC-KR">
-<title>°ü±¤Áö¼Ò°³ »ó¼¼º¸±â</title>
-<script>
-	
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
+<!-- ë³¸ë¬¸ì‹œì‘ -->
+<div class="col-sm-12">
+
+	<script>
 		function attraction_update() {
-			document.productfrm.action="/attraction/update";
-			document.productfrm.submit();
-		}//product_update() end
+			document.attractionDetail.action="/attraction/attractionUpdate";
+			document.attractionDetail.submit();
+			//location.href='/attraction/attractionUpdate';
+		}//attraction_update() end
 
-		
-		function attraction_delete() {
-			if(confirm("¿µ±¸È÷ »èÁ¦µË´Ï´Ù\nÁøÇàÇÒ±î¿ä?")){
-				document.productfrm.action="/attraction/delete";
-				document.productfrm.submit();
+		function attraction_delete(){
+			if(confirm("ì˜êµ¬íˆ ì‚­ì œë©ë‹ˆë‹¤\nì§„í–‰í• ê¹Œìš”?")){
+				document.attractionDetail.action="/attraction/attractionDelete";
+				document.attractionDetail.submit();
 			}//if end
-		}//product_delete() end
+		}//attraction_delete() end
 	</script>
+	
+	
+<div class="container">
+	
+	<h3 class="display-5">ê´€ê´‘ì§€ì†Œê°œìƒì„¸</h3> 
 
-
-</head>
-<body>
-<form name="attractionfrm" id="attractionfrm" method="post" enctype="multipart/form-data">
-	    <table border="1">
-	     <tr>
-	        <td>°ü±¤Áö¸í</td>
-	        <td> <input type="text" name="tour_name" value="${attraction.tour_name}"> </td>
-	    </tr>
-	    <tr>
-	    	<td>ÀÛ¼ºÀÏ</td>
-	    	<td><input type="text" name="rgdate" value=""></td>
-	    </tr>
-	     <tr>
-	    	<td>Á¶È¸¼ö</td>
-	    	<td><input type="text" name="view_count" value=""></td>
-	    </tr>
-	     <tr>
-	        <td>°ü±¤Áö»çÁø»çÁø</td>
+	<table class="table">
+	    <thead class="thead-light">
+	    
+	  <tr>
+	  	<td>ì§€ì—­</td>
+	  	<td>${attraction.area_code}</td>
+	  </tr>
+	  <tr>
+        <td>ê´€ê´‘ì§€ëª…</td>
+        <td>${attraction.tour_name}</td>
+    </tr>
+      <tr>
+        <td>í‚¤ì›Œë“œ</td>
+        <td>${attraction.keyword}</td>
+    </tr>
+     <tr>
+        <td>ë‚´ìš©</td>
+        <td>${attraction.content}</td>
+    </tr>
+        <tr>
+	        <td>ê´€ê´‘ì§€ì‚¬ì§„</td>
 	        <td>
-	            <c:if test="${attraction.FILENAME != '-'}">
-                	<img src="/storage/${attraction.FILENAME}" width="100px">
-            	</c:if>
-            	<br>
-	         	<input type="file" name="img"> 
+	            <c:if test="${attraction.filename != '-'}">
+                	<img src="/storage/${attraction.filename}" width="100px">
+            	</c:if> 
 	        </td>
 	    </tr>
-	   
-	    <tr>
-	        <td>³»¿ë</td>
-	        <td> <input type="text" name="content" value="${attraction.content}"> </td>
-	    </tr>
-	   
-	   
-	    <tr>
+
+	  </table>  
+	
+	
+	 <div class="text-center mt-4">
+    <%-- ê´€ë¦¬ìë§Œ ìˆ˜ì •,ì‚­ì œë²„íŠ¼ë³´ì„/ì „ì²´ì½”ë”©í›„ìˆ˜ì •ì˜ˆì • <c:if test="${sessionScope.member.mlevel == 'A1'}"></c:if> --%>
+    
+	 <tr>
 	        <td colspan="2" align="center">
-	            <!-- <input type="hidden" name="tour_code" value="${attraction.tour_code}">-->
-	            <input type="button" value="¼öÁ¤"    onclick="attraction_update()"> 
-	            <input type="button" value="»èÁ¦"    onclick="attraction_delete()"> 
+	             <input type="hidden" name="tour_code" value="${attraction.tour_code}">
+	            <input type="button" value="ìˆ˜ì •"    onclick="attraction_update()"> 
+	            <input type="button" value="ì‚­ì œ"    onclick="attraction_delete()"> 
 	        </td>
-	    </tr>    
-	    </table>  
-	</form>
-	
-	
-	
-	
-	
-	
-	
-	
+	    </tr>  
+    
+    
+    
+    </div>
+</div>
+	  
 	
 	
 	
 	<hr>
 
 	
-	<!-- ´ñ±Û -->
+	<!-- ëŒ“ê¸€ -->
 	<div>
-		<label for="content">´ñ±Û</label>
+		<label for="content">ëŒ“ê¸€</label>
 		<form name="commentInsertForm" id="commentInsertForm">
 			<div>
-				<!-- ºÎ¸ğ±Û¹øÈ£ -->
-				<input type="hidden" name="tour_code" id="tour_cide" value="${attraction.tour_code}">
-				<input type="text" name="content" id="content" placeholder="³»¿ëÀ» ÀÔ·ÂÇØ ÁÖ¼¼¿ä">
-				<button type="button"  name="commentInsertBtn" id="commentInsertBtn">µî·Ï</button>
+				<!-- ë¶€ëª¨ê¸€ë²ˆí˜¸ -->
+				<input type="hidden" name="tour_code" id="tour_code" value="${attraction.tour_code}">
+				<input type="text" name="content" id="content" placeholder="ë‚´ìš©ì„ ì…ë ¥í•´ ì£¼ì„¸ìš”">
+				<button type="button"  name="commentInsertBtn" id="commentInsertBtn">ë“±ë¡</button>
 			</div>
 		</form>
 	</div>	
 	
 	<div>
-		<!-- ´ñ±Û¸ñ·Ï -->
+		<!-- ëŒ“ê¸€ëª©ë¡ -->
 		<div class="commentList"></div>
 	</div>
 	
 	
-	<!-- ´ñ±Û °ü·Ã ÀÚ¹Ù½ºÅ©¸³Æ® -->
+	<!-- ëŒ“ê¸€ ê´€ë ¨ ìë°”ìŠ¤í¬ë¦½íŠ¸ -->
 	<script>
 	
-		let product_code = '${product.PRODUCT_CODE}'; //ºÎ¸ğ±Û ¹øÈ£
+		let tour_code = '${attraction.tour_code}'; //ë¶€ëª¨ê¸€ ë²ˆí˜¸
 	
-		//´ñ±Û µî·Ï¹öÆ° Å¬¸¯ÇßÀ»¶§
+		//ëŒ“ê¸€ ë“±ë¡ë²„íŠ¼ í´ë¦­í–ˆì„ë•Œ
 		$("#commentInsertBtn").click(function(){
 			//alert($);
-			//<form id="commentInsertForm"></form>ÀÇ ³»¿ëÀ» ÀüºÎ °¡Á®¿È
+			//<form id="commentInsertForm"></form>ì˜ ë‚´ìš©ì„ ì „ë¶€ ê°€ì ¸ì˜´
 			let insertData=$("#commentInsertForm").serialize();
 			//alert(insertData);//product_code=2&content=apple
-			commentInsert(insertData);//´ñ±Ûµî·Ï ÇÔ¼ö È£Ãâ
+			commentInsert(insertData);//ëŒ“ê¸€ë“±ë¡ í•¨ìˆ˜ í˜¸ì¶œ
 		});//click() end
 		
-		function commentInsert(insertData) { //´ñ±Û µî·Ï ÇÔ¼ö
-			//alert("´ñ±Ûµî·ÏÇÔ¼öÈ£Ãâ" + insertData);
+		function commentInsert(insertData) { //ëŒ“ê¸€ ë“±ë¡ í•¨ìˆ˜
+			//alert("ëŒ“ê¸€ë“±ë¡í•¨ìˆ˜í˜¸ì¶œ" + insertData);
 			$.ajax({
-				  url:'/comment/insert'  //¿äÃ»¸í·É¾î
+				  url:'/comment/insert'  //ìš”ì²­ëª…ë ¹ì–´
 				, type:'post'
-				, data:insertData        //¿äÃ»Á¤º¸
+				, data:insertData        //ìš”ì²­ì •ë³´
 				, error:function(error){
 					alert(error);
 				}//error end
 			    , success:function(data){
 			    	//alert(data);
-			    	if(data==1){ //´ñ±Û µî·Ï ¼º°ø
-			    		commentList(); //´ñ±Û ÀÛ¼ºÈÄ ´ñ±Û ¸ñ·Ï ÇÔ¼ö È£Ãâ
-			    		//±âÁ¸ ´ñ±Û ³»¿ëÀ» ºó ¹®ÀÚ¿­·Î ´ëÀÔ
+			    	if(data==1){ //ëŒ“ê¸€ ë“±ë¡ ì„±ê³µ
+			    		commentList(); //ëŒ“ê¸€ ì‘ì„±í›„ ëŒ“ê¸€ ëª©ë¡ í•¨ìˆ˜ í˜¸ì¶œ
+			    		//ê¸°ì¡´ ëŒ“ê¸€ ë‚´ìš©ì„ ë¹ˆ ë¬¸ìì—´ë¡œ ëŒ€ì…
 			    		$("#content").val('');
 			    	}//if end
 			    }//success end
 			});//ajax() end
 		}//commentInsert() end
 function commentList() {
-			//alert("´ñ±Û ¸ñ·Ï ÇÔ¼ö È£Ãâ");
+			//alert("ëŒ“ê¸€ ëª©ë¡ í•¨ìˆ˜ í˜¸ì¶œ");
 			$.ajax({
 				  url:'/comment/list'
 				, type:'get'
-				, data:{'product_code' : product_code } // data:{ÆÄ¶ó¹ÌÅÍÀÌ¸§:´ã±â´Â°ª} => ´ã±â´Â °ªÀº 
+				, data:{'tour_code' : tour_code } // data:{íŒŒë¼ë¯¸í„°ì´ë¦„:ë‹´ê¸°ëŠ”ê°’} => ë‹´ê¸°ëŠ” ê°’ì€ 
 			    , success:function(data){
 			    	//alert(data);
-			    	let a=''; //Ãâ·ÂÇÒ °á°ú°ª
+			    	let a=''; //ì¶œë ¥í•  ê²°ê³¼ê°’
 			    	$.each(data, function(key, value){
-			    		//alert(key);   //¼ø¼­ 0 1 2
+			    		//alert(key);   //ìˆœì„œ 0 1 2
 			    		//alert(value); //[object Object]
 			    		//alert(value.cno);
 			    		//alert(value.content);
@@ -149,13 +148,13 @@ function commentList() {
 			    		//alert(value.product_code);
 			    		
 			    		a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom:15px;">'
-			    		a += '     <div class="commentInfo' + value.cno + '">';
-			    		a += '          ´ñ±Û¹øÈ£:' + value.cno + ' / ÀÛ¼ºÀÚ:' + value.wname + " " + value.regdate;			    		
-			    		a += '          <a href="javascript:commentUpdate(' + value.cno + ',\'' + value.content + '\')">[¼öÁ¤]</a>';
-			    		a += '          <a href="javascript:commentDelete(' + value.cno + ')">[»èÁ¦]</a>';
+			    		a += '     <div class="commentInfo' + value.commentno + '">';
+			    		a += '          ëŒ“ê¸€ë²ˆí˜¸:' + value.commentno + ' / ì‘ì„±ì:' + value.id + " " + value.regdate;			    		
+			    		a += '          <a href="javascript:commentUpdate(' + value.commentno + ',\'' + value.content + '\')">[ìˆ˜ì •]</a>';
+			    		a += '          <a href="javascript:commentDelete(' + value.commentno + ')">[ì‚­ì œ]</a>';
 			    		a += '     </div>';
-			    		a += '     <div class="commentContent' + value.cno + '">';			    		
-			    		a += '          <p>³»¿ë:' + value.content + "</p>";
+			    		a += '     <div class="commentContent' + value.commentno + '">';			    		
+			    		a += '          <p>ë‚´ìš©:' + value.content + "</p>";
 			    		a += '     </div>';			    		
 			    		a += '</div>';
 
@@ -171,31 +170,31 @@ function commentList() {
 		}//commentList() end
 		
 		
-		//´ñ±Û¼öÁ¤ - ´ñ±Û ³»¿ë Ãâ·ÂÀ» input ÆûÀ¸·Î º¯°æ
-		function commentUpdate(cno, content) {
-			//alert(cno + content);
+		//ëŒ“ê¸€ìˆ˜ì • - ëŒ“ê¸€ ë‚´ìš© ì¶œë ¥ì„ input í¼ìœ¼ë¡œ ë³€ê²½
+		function commentUpdate(commentno, content) {
+			//alert(commentno + content);
 			let a='';
 			a += '<div class="input-group">';
-			a += '    <input type="text" value="' + content + '" id="content_' + cno + '">';
-			a += '    <button type="button" onclick="commentUpdateProc(' + cno + ')">¼öÁ¤</button>';
+			a += '    <input type="text" value="' + content + '" id="content_' + commentno + '">';
+			a += '    <button type="button" onclick="commentUpdateProc(' + commentno + ')">ìˆ˜ì •</button>';
 			a += '</div>';
 			//alert(a);
-			$(".commentContent" + cno).html(a);
+			$(".commentContent" + commentno).html(a);
 		}//commentUpdate() end
 		
-		//´ñ±Û¼öÁ¤
-		function commentUpdateProc(cno) {
-			//alert("´ñ±Û¼öÁ¤"+cno);
-			let updateContent=$('#content_' + cno).val();
+		//ëŒ“ê¸€ìˆ˜ì •
+		function commentUpdateProc(commentno) {
+			//alert("ëŒ“ê¸€ìˆ˜ì •"+cno);
+			let updateContent=$('#content_' + commentno).val();
 			//alert(updateContent);
 			
 			$.ajax({
 				  url:'/comment/update'
 				, type:'post'
-				, data:{'cno':cno, 'content':updateContent}
+				, data:{'commentno':commentno, 'content':updateContent}
 			    , success:function(data){
 			    	if(data==1){
-			    		commentList(); //´ñ±Û ¼öÁ¤ÈÄ ¸ñ·Ï Ãâ·Â
+			    		commentList(); //ëŒ“ê¸€ ìˆ˜ì •í›„ ëª©ë¡ ì¶œë ¥
 			    	}//if end
 			    }//if end
 			 });//ajax() end
@@ -204,17 +203,17 @@ function commentList() {
 		
 		
 		
-		//´ñ±Û»èÁ¦
-		function commentDelete(cno) {
-			//alert("´ñ±Û»èÁ¦" + cno);
+		//ëŒ“ê¸€ì‚­ì œ
+		function commentDelete(commentno) {
+			//alert("ëŒ“ê¸€ì‚­ì œ" + commentno);
 			$.ajax({
-				  url:'/comment/delete/' + cno
+				  url:'/comment/delete/' + commentno
 				, type:'post'
-				, success:function(data){ //Äİ¹éÇÔ¼ö
+				, success:function(data){ //ì½œë°±í•¨ìˆ˜
 					//alert(data);
 					if(data==1){
-						alert("´ñ±ÛÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù");
-						commentList(); //´ñ±Û »èÁ¦ÈÄ ¸ñ·Ï Ãâ·Â
+						alert("ëŒ“ê¸€ì´ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤");
+						commentList(); //ëŒ“ê¸€ ì‚­ì œí›„ ëª©ë¡ ì¶œë ¥
 					}//if end
 				}//success end
 			});//ajax() end
@@ -223,7 +222,7 @@ function commentList() {
 		
 		
 		
-        $(document).ready(function(){ //ÆäÀÌÁö ·Îµù½Ã ´ñ±Û ¸ñ·Ï Ãâ·Â
+        $(document).ready(function(){ //í˜ì´ì§€ ë¡œë”©ì‹œ ëŒ“ê¸€ ëª©ë¡ ì¶œë ¥
             commentList(); 
         });//ready() end
 		
@@ -231,6 +230,6 @@ function commentList() {
 	</script>
 
 
-
-</body>
-</html>
+</div><!-- col-sm-12 ë -->
+<!-- ë³¸ë¬¸ë -->
+<%@ include file="../footer.jsp" %>

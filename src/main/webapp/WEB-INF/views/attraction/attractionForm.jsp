@@ -1,8 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"%>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="../header.jsp" %> 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
+<!-- 본문시작 -->
+<div class="col-sm-12">
+	<div class="container">
 
 <h3>관광지소개</h3>
 <form name="attraction" id="attraction" method="post" action="attractioninsert" enctype="multipart/form-data" >
@@ -15,29 +16,21 @@
 			<option value="G0002">서울</option>
 			<option value="G0003">인천</option>
 			<option value="G0004">수원</option>
-			<option value="G0005">용인</option>
-			<option value="G0006">가평</option>
-			<option value="G0007">강릉</option>
-			<option value="G0008">속초</option>
-			<option value="G0009">추천</option>
-			<option value="G0010">홍천</option>
-			<option value="G0011">인제</option>
-			<option value="G0012">태안</option>
-			<option value="G0013">부여</option>
-			<option value="G0014">서천</option>
-			<option value="G0015">단양</option>
-			<option value="G0016">부산</option>
-			<option value="G0017">대구</option>
-			<option value="G0018">경주</option>
-			<option value="G0019">포항</option>
-			<option value="G0020">통영거제</option>
-			<option value="G0021">광주</option>
-			<option value="G0022">해남</option>
-			<option value="G0023">목포</option>
-			<option value="G0024">여수</option>
-			<option value="G0025">순천</option>
-			<option value="G0026">담양</option>
-			<option value="G00207">전주</option>
+			<option value="G0005">가평</option>
+			<option value="G0006">강릉</option>
+			<option value="G0007">춘천</option>
+			<option value="G0008">제천</option>
+			<option value="G0009">대전</option>
+			<option value="G0010">남원</option>
+			<option value="G0011">군산</option>
+			<option value="G0012">영월</option>
+			<option value="G0013">부산</option>
+			<option value="G0014">경주</option>
+			<option value="G0015">포항</option>
+			<option value="G0016">통영거제</option>
+			<option value="G0017">목포</option>
+			<option value="G0018">여수</option>
+			<option value="G0019">전주</option>
 		</select>
 </tr>
 <tr>
@@ -66,16 +59,15 @@
 	<td><input type="file" name="img"></td>
 </tr>
 <tr>
-	<td colsapn="2" align="center">
+	<td style="text-align: center;">
 		<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">
 		<input type="submit" value="등록">
 	</td>
 </tr>
 
-
 </table>
 </form>
-<!-- action취해짐-> insert라는 명령어 들어오면 insert함수 호출 -->
-
-
+<!-- action취해짐->"attractioninsert"라는 명령어 들어오면 "attractioninsert"함수 호출 -->
+</div><!-- col-sm-12 끝 -->
+<!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
