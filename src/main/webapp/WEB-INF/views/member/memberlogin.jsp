@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ include file="authi.jsp" %>  
-<%@ include file="../header.jsp" %>
-<%@ include file="ssi.jsp" %>    
+    pageEncoding="UTF-8"%> 
+<%@ include file="../header.jsp" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,8 +136,19 @@ h2 {
 
 
 <c:choose>
-<c:when test="${ empty s_id  || empty s_passwd || s_mlevel == 'E1'}"> 	
-
+<c:when test="${ empty s_id  || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1' }"> 	
+<c:if test="${not empty Loginmessage}">
+        <script>
+            alert('${Loginmessage}');
+        </script>
+    </c:if>
+    
+<c:if test="${not empty FindIdmessage}">
+        <script>
+            alert('${FindIdmessage}');
+        </script>
+    </c:if>    
+    
 
 <div class="wrap">
         <div class="login">
@@ -162,7 +171,7 @@ h2 {
                 </div>
               <br>
                 <div class="forgot_pw">
-                <a href="findId">비밀번호 찾기</a>
+                <a href="findId.do">비밀번호/아이디 찾기</a>
             </div>
             
             </div>

@@ -1,6 +1,8 @@
 package kr.co.godtrip.member;
 
+import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.taglibs.standard.tag.common.core.ParamParent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
@@ -64,5 +66,22 @@ public class MemberDAO {
 			return cnt;
 		    }
 		
+		public MemberDTO findID(String email,String mname) {
+			 
+			Map<String,Object> paramMap = new HashMap<>();
+			paramMap.put("mname", mname);
+			paramMap.put("email", email);
+			return sqlSession.selectOne("member.findID",paramMap);
+		}
+		
+		public int renewPW(String passwd,String email,String mname) {
+			Map<String, Object> paraMap = new HashMap<>();
+			paraMap.put("mname", mname);
+			paraMap.put("email", email);
+			paraMap.put("passwd", passwd);
+			int cnt=sqlSession.update("member.renewPW",paraMap);
+			
+			return cnt;
+		}
 		
 }
