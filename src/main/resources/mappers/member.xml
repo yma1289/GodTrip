@@ -24,12 +24,6 @@ from member
 where email=#{email}
 </select>
 
-<select id="findId" parameterType="kr.co.godtrip.member.MemberDTO" resultType="string">
-select 
-from member
-where email=#{email} and mname=#{mname}
-</select>
-
 
 <select id="loginProc" resultType="kr.co.godtrip.member.MemberDTO" parameterType="kr.co.godtrip.member.MemberDTO">
     SELECT *
@@ -62,5 +56,15 @@ where id=#{s_id}
     where id=#{id} and passwd=#{passwd}
 </update>
 
+<select id="findID" parameterType="kr.co.godtrip.member.MemberDTO" resultType="kr.co.godtrip.member.MemberDTO">
+    SELECT id
+    FROM member
+    WHERE email = #{email} AND mname = #{mname}
+</select>
 
+<update id="renewPW" parameterType="kr.co.godtrip.member.MemberDTO">
+    UPDATE member
+    SET passwd = #{passwd}
+    WHERE email = #{email} AND mname = #{mname}
+</update>
 </mapper>

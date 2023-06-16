@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <%@ include file="../header.jsp" %>
+<!-- 본문시작 -->
+<div class="col-sm-12">
 <h3> 회원가입 </h3>
 
-<span style="color:red; font-weight: bold"> * 필수입력</span>
-<form name="memfrm" id="memfrm" method="post" action="Register" onsubmit="return memberCheck()">
+<span style="color:red; font-weight: bold"> *필수입력</span>
+<form name="memfrm" id="memfrm" method="post" action="memberProc.jsp" onsubmit="return memberCheck()">
 <table class="table">
 <tr>
 <th>*아이디</th>
@@ -72,7 +73,7 @@
 <input type="text" name="address2" id="address2" size="45">
 </td>
 </tr>
-<!-- 회원 등급 넣어 줘야함!! -->
+
 <tr>
 <td colspan="2">
 <input type="submit" value="회원가입" class="btn btn-primary">
@@ -169,10 +170,6 @@
 <!--우편번호  -->
 
 
-
-
-
-
-
-
+</div>
+<!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

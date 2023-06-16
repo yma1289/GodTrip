@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="authi.jsp" %>  
 <%@ include file="../header.jsp" %>
+<!-- 본문시작 -->
+<div class="col-sm-12">
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,22 +47,9 @@
 </td>
 </tr>
 
-
 </table>
-
-
-
-
 </form>
 
-
-
-
-
-
-
-<!-- 본문 끝 -->
-
+</div>
+<!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
-</body>
-</html>
