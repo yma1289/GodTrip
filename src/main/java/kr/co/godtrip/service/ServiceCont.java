@@ -46,7 +46,6 @@ public class ServiceCont {
 		return mav;
 	}//detail() end
 
-	
 	@PostMapping("/serviceDelete/{cno}")
 	public ModelAndView serviceDelete(@PathVariable int cno) {
 		serviceDao.serviceDelete(cno);
