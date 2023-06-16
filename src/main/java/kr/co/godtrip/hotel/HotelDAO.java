@@ -20,11 +20,15 @@ public class HotelDAO {
     SqlSession sqlSession;
 	
     //호텔db값 가져오기
-	 public List<Map<String, Object>> list(String area_code){
-     	    return sqlSession.selectList("hotel.list",area_code);
+	 public List<Map<String, Object>> list(Map<String, Object> map){
+     	    return sqlSession.selectList("hotel.list", map);
      }//list() end
 	
-	
+	//객실db값 가져오기
+	 public List<Map<String, Object>> list2(String hotel_code){
+  	    return sqlSession.selectList("hotel.list2",hotel_code);
+	 }//list() end
+	 
 	//호텔입력
 	 public void insert(Map<String, Object> map) {
 	    	sqlSession.insert("hotel.insert", map); 
@@ -40,4 +44,15 @@ public class HotelDAO {
 	    	return sqlSession.selectList("hotel.search2", hotel_Type);
 	 }//search() end
 	 
+	 //객실입력
+	 public void detailinsert(Map<String, Object>map) {
+		 sqlSession.insert("hotel.detailinsert",map);
+	 }
+	 
+	 public int totalRowCount() {
+	        return sqlSession.selectOne("hotel.totalRowCount");
+	    }
+	 
+	 
+	
 }//class end
