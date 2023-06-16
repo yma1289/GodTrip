@@ -4,11 +4,23 @@
      
 <mapper namespace="hotel">
 	
-		<select id="list" resultType="java.util.Map">
-		SELECT DISTINCT hotel_code,arrival_code,hotel_Name,hotel_Content,hotel_Prices, hotel_filename, hotel_filesize,hotel_address,hotel_tel
+		<select id="list" resultType="java.util.Map">        
+            SELECT *
+   		 FROM (
+        SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
         FROM hotel
-        where arrival_code=#{arrival_code};
+        WHERE arrival_code = #{area_code}
+        LIMIT #{numPerPage} OFFSET #{startRow}
+    	) AS subquery
 	    </select>
+	    
+	    <select id="list2" resultType="java.util.Map">
+		SELECT DISTINCT room.room_code, room.hotel_code, room.p_ID, room.room_Name, room.room_price, room.room_filename, room.room_filesize, room.room_info, room.room_maxperson, hotel.hotel_Name, hotel.hotel_filename, hotel.hotel_Content, hotel.hotel_address
+		FROM room
+		JOIN hotel ON room.hotel_code = hotel.hotel_code
+		WHERE room.hotel_code = #{hotel_code}
+	    </select>
+	    
 	    
 	    
 	    <select id="search" parameterType="String" resultType="java.util.Map">
@@ -28,5 +40,19 @@
 		<insert id="insert" parameterType="java.util.Map">
 		INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address)
 		VALUES(#{hotel_code}, #{arrival_code}, #{hotel_Type}, #{hotel_Name}, #{hotel_Prices}, #{hotel_filename},#{hotel_filesize},#{hotel_Content},#{hotel_tel},#{hotel_address})
-	</insert>
+		</insert>
+	
+		<insert id="detailinsert" parameterType="java.util.Map">
+		INSERT INTO room (room_code,hotel_code,p_ID,room_Name,room_price,room_filename, room_filesize, room_info,room_maxperson)
+		VALUES(#{room_code}, #{hotel_code}, #{p_ID}, #{room_Name}, #{room_price}, #{room_filename},#{room_filesize},#{room_info},#{room_maxperson})
+		</insert>
+	
+	
+		<!-- 전체 레코드 수 조회 -->
+	    <select id="totalRowCount" resultType="java.lang.Integer">
+	        SELECT COUNT(*) FROM hotel
+	    </select>
+	    
+	    
+	    
 </mapper>

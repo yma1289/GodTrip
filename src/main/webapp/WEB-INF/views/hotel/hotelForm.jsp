@@ -5,6 +5,7 @@ pageEncoding="UTF-8"%>
 
 	<form name="hotelfrm" id="hotelfrm" method="post" action="insert" enctype="multipart/form-data">
 	    <table border="1">
+	    <h4>숙박정보</h4>
 	    <tr>
 	        <td>숙박명</td>
 	        <td> <input type="text" name="hotel_Name"> </td>
@@ -60,5 +61,9 @@ pageEncoding="UTF-8"%>
 	    </tr>    
 	    </table>  
 	</form>
+	
+	
+	
+	
 
 <%@ include file="../footer.jsp" %>
