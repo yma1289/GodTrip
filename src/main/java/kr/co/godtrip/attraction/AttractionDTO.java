@@ -2,8 +2,9 @@ package kr.co.godtrip.attraction;
 
 public class AttractionDTO {
 
-	private int tour_code;
+	private String tour_code;
 	private String area_code;
+	private String area_name;
 	private String tour_name;
 	private String content;
 	private String filename;
@@ -18,14 +19,14 @@ public class AttractionDTO {
 	
 
 
-	public int getTour_code() {
+	public String getTour_code() {
 		return tour_code;
 	}
 
 
 
 
-	public void setTour_code(int tour_code) {
+	public void setTour_code(String tour_code) {
 		this.tour_code = tour_code;
 	}
 
@@ -40,6 +41,21 @@ public class AttractionDTO {
 	public void setArea_code(String area_code) {
 		this.area_code = area_code;
 	}
+
+	
+
+	public String getArea_name() {
+		return area_name;
+	}
+
+
+
+
+	public void setArea_name(String area_name) {
+		this.area_name = area_name;
+	}
+
+
 
 
 	public String getTour_name() {
@@ -112,14 +128,16 @@ public class AttractionDTO {
 	}
 
 
+
+
 	@Override
 	public String toString() {
-		return "AttractionDTO [tour_code=" + tour_code + ", area_code=" + area_code + ", tour_name=" + tour_name
-				+ ", content=" + content + ", filename=" + filename + ", filesize=" + filesize + ", regdate=" + regdate
-				+ ", view_count=" + view_count + ", keyword=" + keyword + "]";
+		return "AttractionDTO [tour_code=" + tour_code + ", area_code=" + area_code + ", area_name=" + area_name
+				+ ", tour_name=" + tour_name + ", content=" + content + ", filename=" + filename + ", filesize="
+				+ filesize + ", regdate=" + regdate + ", view_count=" + view_count + ", keyword=" + keyword + "]";
 	}
-	
-	
+
+
 	
 	
 	

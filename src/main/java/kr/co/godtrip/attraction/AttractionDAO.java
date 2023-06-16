@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import kr.co.godtrip.member.MemberDTO;
+import kr.co.godtrip.service.ServiceDTO;
 //@Repository : CRUD로직 구현하겠다/클래스를 자동으로 객체화 시켜준다. 
 @Repository
 public class AttractionDAO {
@@ -28,37 +29,47 @@ public class AttractionDAO {
 	
 
 	//목록list
-	public List<Map<String, Object>> list(){
-		return sqlSession.selectList("attraction.attractionlist");
+	public List<AttractionDTO> list(){
+		return sqlSession.selectList("attraction.attractionList");
 	}//list() end 
 	
 	
 	
 	//상세보기Detail
-	public Map<String, Object> detail(int tour_code){
-		return sqlSession.selectOne("attraction.detail", tour_code);
+	public AttractionDTO attractionDetail(String tour_code){
+		return sqlSession.selectOne("attraction.attractionDetail", tour_code);
 	}//detail() end 
 	
+
 	
-	
-	//수정update
-    public void update(Map<String, Object> map) {
-        sqlSession.update("attraction.update", map);
-    }//update() end
-	
-	
-	
-	
-	public String filename(int tour_code) {
+	//삭제
+    public void attractionDelete(String tour_code) {
+        sqlSession.delete("attraction.attractionDelete", tour_code);
+    }//delete() end
+    
+    
+    
+    public String filename(String tour_code) {
         return sqlSession.selectOne("attraction.filename", tour_code);
     }//filename() end
     
+/////////////////////////////////////////////////////	
+
+  
+	//수정update
+    public void attractionUpdate(AttractionDTO attractionDTO) {
+        sqlSession.update("attraction.attractionUpdate", attractionDTO);
+    }//update() end
+
+    /*
 	
-    //삭제
-    public void delete(int tour_code) {
-        sqlSession.delete("attraction.delete", tour_code);
-    }//delete() end
+	//수정
+    public void attractionUpdate(Map<String, Object> map) {
+        sqlSession.update("attraction.attractionUpdate", map);
+	
+    }//update() end 
     
+    	*/
 
 	
 	
