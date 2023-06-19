@@ -9,11 +9,13 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -100,7 +102,7 @@ public class AttractionCont {
 
 		
 	
-///////////////////////////////
+
 	//상세보기
 	@RequestMapping("/attraction/attractionDetail/{tour_code}")
 	public ModelAndView attractionDetail(@PathVariable String tour_code) {
@@ -110,41 +112,73 @@ public class AttractionCont {
 		return mav;
 	}//attractionDetail() end 
 	
-	
 	//삭제
-		@RequestMapping("/attraction/attractionDelete")
-		public String attractionDelete(String tour_code, HttpServletRequest req) {
-			//삭제하고자 하는 파일명 가져오기
-			String filename=attractionDao.filename(tour_code);
-			
-			//첨부된 파일 삭제하기
-			if(filename != null && !filename.equals("-")){  //파일이 존재한다면~
-				ServletContext application=req.getSession().getServletContext();
-				String path=application.getRealPath("/storage");   //실제 물리적인 경로
-				File file=new File(path + "\\" + filename);
-				if(file.exists()) {        //파일에 다 모아놓고 -> 파일이존재한다면
-					file.delete();			//그 파일 다 삭제해라~
-				}//if end 
-			}//if end 
-			
-			attractionDao.attractionDelete(tour_code);  //테이블 행 삭제
-			
-			return "redirect:/attraction/attractionList";
-			
-		}//delete() end 
-		
-	///////////////////////////
-		
+	@RequestMapping("/attraction/attractionDelete")
+	public String attractionDelete(@RequestParam String tour_code, HttpServletRequest req) {
 
 		
+		//삭제하고자 하는 파일명 가져오기
+		String filename=attractionDao.filename(tour_code);
+		
+		//첨부된 파일 삭제하기
+		if(filename != null && !filename.equals("-")){  //파일이 존재한다면~
+			ServletContext application=req.getSession().getServletContext();
+			String path=application.getRealPath("/storage");   //실제 물리적인 경로
+			File file=new File(path + "\\" + filename);
+			if(file.exists()) {        //파일에 다 모아놓고 -> 파일이존재한다면
+				file.delete();			//그 파일 다 삭제해라~
+			}//if end 
+		}//if end 
+		
+		attractionDao.attractionDelete(tour_code);  //테이블 행 삭제
+		
+		return "redirect:/attraction/attractionList";
+		
+	}//delete() end 
 	
 	
-	//수정 dto
+	//검색 search
+	@RequestMapping("/attraction/search")
+	public ModelAndView search(@RequestParam(defaultValue = "")String tour_name) {//name="tour_name"의 값이 없으면 defaultValue 를 공백으로 줌
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("attraction/attractionList");
+		mav.addObject("attractionList", attractionDao.search(tour_name));
+		//1.DAO에가서 controller에 있는 search부른다
+		//2.DAO search()는 attraction.search반환(mapper에 있는)
+		//3.mapper에 파라미터타입 String
+		mav.addObject("tour_name", tour_name);
+		//mav에 받아온 검색어를 저장해놨다가(검색전) 다시 list페이지를 불러올 때 넘겨받은 값을 준다(검색후) 
+		return mav;
+	}
 	
-	@RequestMapping("/attraction/attractionUpdate")
-	public String attractionUpdate(@ModelAttribute AttractionDTO attractionDTO
-	                     , @RequestParam MultipartFile img
-	                     , HttpServletRequest req) {
+	
+
+		
+	///////////////////////////
+	
+	//뷰단보여주기	
+	@GetMapping("/attraction/attractionUpdate")
+	public String attractionUpdate(@RequestParam String tour_code
+								, HttpServletRequest req
+								,Model model
+								) throws Exception{
+		//상세내용조회
+		Map<String, Object> attraction=attractionDao.attractionDetail(tour_code);
+		//상세내용을 수정페이지에 전달
+		model.addAttribute("attraction", attraction);
+		//String test = tour_code;
+		//System.out.println("test ===============" + test);
+		
+		return "attraction/attractionUpdate";
+	}
+	
+	
+	
+	//수정된폼넘긴거(질문할것-> 수정 한 뒤 수정버튼누르면 수정안되고 그냥 list페이지로 넘어감)
+	@PostMapping("/attraction/attractionUpdate")
+	public String update(@RequestParam Map<String, Object> map,
+	                     @RequestParam MultipartFile img,
+	                     HttpServletRequest req) {
 
 	    String filename = "-";
 	    long filesize = 0;
@@ -159,26 +193,26 @@ public class AttractionCont {
 	            e.printStackTrace();
 	        }
 	    } else {
-	        String tour_code = attractionDTO.getTour_code();
-	        AttractionDTO attraction = attractionDao.attractionDetail(tour_code);
-	        filename = attraction.getFilename();
-	        filesize = attraction.getFilesize();
+	        if (map.containsKey("tour_code")) {
+	            String tour_code = map.get("tour_code").toString();
+	            Map<String, Object> attraction = attractionDao.attractionDetail(tour_code);
+	            filename = attraction.get("FILENAME").toString();
+	            filesize = Long.parseLong(attraction.get("FILESIZE").toString());
+	        }
 	    }
-
-	    attractionDTO.setFilename(filename);
-	    attractionDTO.setFilesize((int) filesize);
-	    attractionDao.attractionUpdate(attractionDTO);
+	    
+	    map.put("filename", filename);
+	    map.put("filesize", filesize);
+	    attractionDao.attractionUpdate(map);
 	    return "redirect:/attraction/attractionList";
 	}
 	
+	
 
-	
-	
 	/*
-	//Map사용
 	
-	//수정
-	@RequestMapping("/attraction/attractionUpdate")
+	//수정 Map사용 (gtp수정코드)
+	@PostMapping("/attraction/attractionUpdate")
 
 	public String update(@RequestParam Map<String, Object> map
 						, @RequestParam MultipartFile img
@@ -213,9 +247,46 @@ public class AttractionCont {
 		return "redirect:/attraction/attractionList";
 	}//update()end
 	
-	
-	
 	*/
+	
+	
+	
+/*
+		
+	//수정 dto
+	
+	@RequestMapping("/attraction/attractionUpdate")
+	public String attractionUpdate(@ModelAttribute AttractionDTO attractionDTO
+	                     , @RequestParam MultipartFile img
+	                     , HttpServletRequest req) {
+
+	    String filename = "-";
+	    long filesize = 0;
+	    if (img != null && !img.isEmpty()) {
+	        filename = img.getOriginalFilename();
+	        filesize = img.getSize();
+	        try {
+	            ServletContext application = req.getSession().getServletContext();
+	            String path = application.getRealPath("/storage");
+	            img.transferTo(new File(path + "\\" + filename));
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    } else {
+	        String tour_code = attractionDTO.getTour_code();
+	        AttractionDTO attraction = attractionDao.attractionDetail(tour_code);
+	        filename = attraction.getFilename();
+	        filesize = attraction.getFilesize();
+	    }
+
+	    attractionDTO.setFilename(filename);
+	    attractionDTO.setFilesize((int) filesize);
+	    attractionDao.attractionUpdate(attractionDTO);
+	    return "redirect:/attraction/attractionList";
+	}
+	
+
+	*/	
 	
 	
 	

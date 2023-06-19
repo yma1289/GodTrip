@@ -11,7 +11,7 @@
 <tr>
 	<td>지역</td>
 	<td>
-		<select name="area_code">
+		<select name="area_code" class="form-control">
 			<option value="G0001">제주</option>
 			<option value="G0002">서울</option>
 			<option value="G0003">인천</option>
@@ -35,12 +35,12 @@
 </tr>
 <tr>
 	<td>관광지명</td>
-	<td><input type="text" name="tour_name"></td>
+	<td><input type="text" name="tour_name" class="form-control"></td>
 </tr>
 <tr>
 	<td>키워드</td>
 	<td>
-		<select name="keyword">
+		<select name="keyword" class="form-control">
 			<option value="1">역사</option>
 			<option value="2">액티비티</option>
 			<option value="3">트래킹</option>
@@ -52,11 +52,11 @@
 </tr>
 <tr>
 	<td>내용</td>
-	<td><textarea name="content" rows="10" cols="20"></textarea></td>
+	<td><textarea name="content" rows="10" cols="20" class="form-control"></textarea></td>
 </tr>
 <tr>
 	<td>관광지사진</td>
-	<td><input type="file" name="img"></td>
+	<td><input type="file" name="img" ></td>
 </tr>
 <tr>
 	<td style="text-align: center;">
