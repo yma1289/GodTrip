@@ -9,43 +9,35 @@ import java.util.List;
 
 @Repository
 public class ServiceDAO {
+    @Autowired
+    SqlSession sqlSession;
 
-	public ServiceDAO() {
-		System.out.println("-----ServiceDAO() 객체생성됨");
-	}
+    public void serviceInsert(ServiceDTO dto) {
+        sqlSession.insert("service.serviceInsert", dto);
+    }
 
-	@Autowired
-	SqlSession sqlSession;
+    public void serviceDelete(int cno) {
+        sqlSession.delete("service.serviceDelete", cno);
+    }
 
-	public void serviceInsert(ServiceDTO dto) {
-		sqlSession.insert("service.serviceInsert", dto);
-	}
+    public void serviceUpdate(ServiceDTO dto) {
+        sqlSession.update("service.serviceUpdate", dto);
+    }
 
-	public void serviceDelete(int cno) {
-		sqlSession.delete("service.serviceDelete", cno);
-	}
+    public List<ServiceDTO> serviceList() {
+        return sqlSession.selectList("service.serviceList");
+    }
 
-	public void serviceUpdate(ServiceDTO dto) {
-		sqlSession.update("service.serviceUpdate", dto);
-	}
+    public ServiceDTO serviceDetail(int c_code) {
+        return sqlSession.selectOne("service.serviceDetail", c_code);
+    }
 
-	public List<ServiceDTO> serviceList() {
-		return sqlSession.selectList("service.serviceList");
-	}
+    public List<ServiceDTO> serviceList(int page, int limit) {
+        int offset = (page - 1) * limit;
+        return sqlSession.selectList("service.serviceList", null, new RowBounds(offset, limit));
+    }
 
-	public ServiceDTO serviceDetail(int c_code) {
-		return sqlSession.selectOne("service.serviceDetail", c_code);
-	}
-	
-	public List<ServiceDTO> serviceList(int page, int limit) {
-	        int offset = (page - 1) * limit;
-	        return sqlSession.selectList("service.serviceList", null, new RowBounds(offset, limit));
-	}
-
-	public int getTotalCount() {
-	        return sqlSession.selectOne("service.getTotalCount");
-	}
-	
-	
-	
+    public int getTotalCount() {
+        return sqlSession.selectOne("service.getTotalCount");
+    }
 }
