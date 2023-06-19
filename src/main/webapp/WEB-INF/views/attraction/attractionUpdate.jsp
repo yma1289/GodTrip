@@ -1,58 +1,106 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions"%>    
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ include file="../header.jsp" %> 
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../header.jsp" %>
+<!-- 본문시작 -->
+<div class="col-sm-12">
 <h3>관광지소개수정</h3>
 <form name="attraction" id="attraction" method="post" action="attractionUpdate" enctype="multipart/form-data" >
  <table class="table table-hover">
 <tr>
 	<td>지역</td>
 	<td>
-		<select name="area_code">
-			<option value="G0001">제주</option>
-			<option value="G0002">서울</option>
-			<option value="G0003">인천</option>
-			<option value="G0004">수원</option>
-			<option value="G0005">가평</option>
-			<option value="G0006">강릉</option>
-			<option value="G0007">춘천</option>
-			<option value="G0008">제천</option>
-			<option value="G0009">대전</option>
-			<option value="G0010">남원</option>
-			<option value="G0011">군산</option>
-			<option value="G0012">영월</option>
-			<option value="G0013">부산</option>
-			<option value="G0014">경주</option>
-			<option value="G0015">포항</option>
-			<option value="G0016">통영거제</option>
-			<option value="G0017">목포</option>
-			<option value="G0018">여수</option>
-			<option value="G0019">전주</option>
+		<select name="area_code" class="form-control">
+		            <option value="G0001" ${attraction.area_code == 'G0001' ? 'selected' : ''}>제주</option>
+                    <option value="G0002" ${attraction.area_code == 'G0002' ? 'selected' : ''}>서울</option>
+                    <option value="G0003" ${attraction.area_code == 'G0003' ? 'selected' : ''}>인천</option>
+                    <option value="G0004" ${attraction.area_code == 'G0004' ? 'selected' : ''}>수원</option>
+                    <option value="G0005" ${attraction.area_code == 'G0005' ? 'selected' : ''}>가평</option>
+                    <option value="G0006" ${attraction.area_code == 'G0006' ? 'selected' : ''}>강릉</option>
+                    <option value="G0007" ${attraction.area_code == 'G0007' ? 'selected' : ''}>춘천</option>
+                    <option value="G0008" ${attraction.area_code == 'G0008' ? 'selected' : ''}>제천</option>
+                    <option value="G0009" ${attraction.area_code == 'G0009' ? 'selected' : ''}>대전</option>
+                    <option value="G0010" ${attraction.area_code == 'G0010' ? 'selected' : ''}>남원</option>
+                    <option value="G0011" ${attraction.area_code == 'G0011' ? 'selected' : ''}>군산</option>
+                    <option value="G0012" ${attraction.area_code == 'G0012' ? 'selected' : ''}>영월</option>
+                    <option value="G0013" ${attraction.area_code == 'G0013' ? 'selected' : ''}>부산</option>
+                    <option value="G0014" ${attraction.area_code == 'G0014' ? 'selected' : ''}>경주</option>
+                    <option value="G0015" ${attraction.area_code == 'G0015' ? 'selected' : ''}>포항</option>
+                    <option value="G0016" ${attraction.area_code == 'G0016' ? 'selected' : ''}>통영거제</option>
+                    <option value="G0017" ${attraction.area_code == 'G0017' ? 'selected' : ''}>목포</option>
+                    <option value="G0018" ${attraction.area_code == 'G0018' ? 'selected' : ''}>여수</option>
+                    <option value="G0019" ${attraction.area_code == 'G0019' ? 'selected' : ''}>전주</option>
 		</select>
 </tr>
 <tr>
 	<td>관광지명</td>
-	<td><input type="text" name="tour_name"></td>
+	<td><input type="text" name="tour_name" class="form-control"  value="${attraction.tour_name}"></td>
 </tr>
 <tr>
-	<td>키워드</td>
-	<td>
-		<select name="keyword">
-			<option value="1">역사</option>
-			<option value="2">액티비티</option>
-			<option value="3">트래킹</option>
-			<option value="4">관광</option>
-			<option value="5">휴식</option>
-			<option value="6">바다</option>
-			<option value="7">자연</option>
-		</select>
-	</td>
+    <td>키워드</td>
+    <td>
+        <select name="keyword" class="form-control">
+            <c:choose>
+                <c:when test="${attraction.keyword == '1'}">
+                    <option value="1" selected>역사</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="1">역사</option>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attraction.keyword == '2'}">
+                    <option value="2" selected>액티비티</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="2">액티비티</option>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attraction.keyword == '3'}">
+                    <option value="3" selected>트래킹</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="3">트래킹</option>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attraction.keyword == '4'}">
+                    <option value="4" selected>관광</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="4">관광</option>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attraction.keyword == '5'}">
+                    <option value="5" selected>휴식</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="5">휴식</option>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attraction.keyword == '6'}">
+                    <option value="6" selected>바다</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="6">바다</option>
+                </c:otherwise>
+            </c:choose>
+            <c:choose>
+                <c:when test="${attraction.keyword == '7'}">
+                    <option value="7" selected>자연</option>
+                </c:when>
+                <c:otherwise>
+                    <option value="7">자연</option>
+                </c:otherwise>
+            </c:choose>
+        </select>
+    </td>
 </tr>
 <tr>
 	<td>내용</td>
-	<td><textarea name="content" rows="10" cols="20"></textarea></td>
+	<td><textarea name="content" rows="10" cols="20" class="form-control">${attraction.content}</textarea></td>	
 </tr>
 <tr>
 	<td>관광지사진</td>
@@ -68,7 +116,8 @@
 
 </table>
 </form>
-<!-- action취해짐-> insert라는 명령어 들어오면 insert함수 호출 -->
+<!-- action취해짐-> attractionUpdate라는 명령어 들어오면 update함수 호출 -->
 
-
+</div><!-- col-sm-12 끝 -->
+<!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

@@ -3,94 +3,154 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 <div class="col-sm-12">
-
-	<script>
-		function attraction_update() {
-			document.attractionDetail.action="/attraction/attractionUpdate";
-			document.attractionDetail.submit();
-			//location.href='/attraction/attractionUpdate';
-		}//attraction_update() end
-
-		function attraction_delete(){
-			if(confirm("영구히 삭제됩니다\n진행할까요?")){
-				document.attractionDetail.action="/attraction/attractionDelete";
-				document.attractionDetail.submit();
-			}//if end
-		}//attraction_delete() end
-	</script>
+	<div class="container">
 	
-	
-<div class="container">
-	
-	<h3 class="display-5">관광지소개상세</h3> 
+	<h3>관광지소개상세보기</h3>
 
-	<table class="table">
-	    <thead class="thead-light">
-	    
-	  <tr>
-	  	<td>지역</td>
-	  	<td>${attraction.area_code}</td>
-	  </tr>
-	  <tr>
+<table class="table table-condensed">
+<tr>
+<td>지역</td>
+    <td>
+		<c:choose>
+			<c:when test="${attraction.area_code=='G0001'}">
+				제주
+			</c:when>
+			<c:when test="${attraction.area_code=='G0002'}">
+				서울
+			</c:when>
+			<c:when test="${attraction.area_code=='G0003'}">
+				인천
+			</c:when>
+			<c:when test="${attraction.area_code=='G0004'}">
+				수원
+			</c:when>
+			<c:when test="${attraction.area_code=='G0005'}">
+				가평
+			</c:when>
+			<c:when test="${attraction.area_code=='G0006'}">
+				강릉
+			</c:when>
+			<c:when test="${attraction.area_code=='G0007'}">
+				춘천
+			</c:when>
+			<c:when test="${attraction.area_code=='G0008'}">
+				제천
+			</c:when>
+			<c:when test="${attraction.area_code=='G0009'}">
+				대전
+			</c:when>
+			<c:when test="${attraction.area_code=='G0010'}">
+				남원
+			</c:when>
+			<c:when test="${attraction.area_code=='G0011'}">
+				군산
+			</c:when>
+			<c:when test="${attraction.area_code=='G0012'}">
+				영월
+			</c:when>
+			<c:when test="${attraction.area_code=='G0013'}">
+				부산
+			</c:when>
+			<c:when test="${attraction.area_code=='G0014'}">
+				경주
+			</c:when>
+			<c:when test="${attraction.area_code=='G0015'}">
+				포항
+			</c:when>
+			<c:when test="${attraction.area_code=='G0016'}">
+				통영거제
+			</c:when>
+			<c:when test="${attraction.area_code=='G0017'}">
+				목포
+			</c:when>
+			<c:when test="${attraction.area_code=='G0018'}">
+				여수
+			</c:when>
+			<c:when test="${attraction.area_code=='G0019'}">
+				전주
+			</c:when>
+			<c:otherwise>
+				${attraction.area_code}
+			</c:otherwise>						
+		</c:choose>
+	</td>
+	</tr>			
+    <tr>
         <td>관광지명</td>
         <td>${attraction.tour_name}</td>
     </tr>
-      <tr>
+    <tr>
         <td>키워드</td>
-        <td>${attraction.keyword}</td>
-    </tr>
-     <tr>
+			<td>
+			<c:choose>
+				<c:when test="${attraction.keyword==1}">
+					역사
+				</c:when>
+				<c:when test="${attraction.keyword==2}">
+					액티비티
+				</c:when>
+				<c:when test="${attraction.keyword==3}">
+					트래킹
+				</c:when>
+				<c:when test="${attraction.keyword==4}">
+					관광
+				</c:when>
+				<c:when test="${attraction.keyword==5}">
+					휴식
+				</c:when>
+				<c:when test="${attraction.keyword==6}">
+					바다
+				</c:when>
+				<c:when test="${attraction.keyword==7}">
+					자연
+				</c:when>
+			
+			</c:choose>
+		</td>
+	</tr>
+    <tr>
         <td>내용</td>
         <td>${attraction.content}</td>
     </tr>
-        <tr>
-	        <td>관광지사진</td>
-	        <td>
-	            <c:if test="${attraction.filename != '-'}">
-                	<img src="/storage/${attraction.filename}" width="100px">
-            	</c:if> 
-	        </td>
-	    </tr>
+   
+    <tr>
+        <td>관광지사진</td>
+        <td>
+            <c:if test="${attraction.filename != '-'}">
+                <img src="/storage/${attraction.filename}" width="100px">
+            </c:if>
+        </td>
+    </tr>
+    </table>
+    
+    
+    
+<a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">수정</a>
+<a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">삭제</a>
 
-	  </table>  
-	
-	
-	 <div class="text-center mt-4">
-    <%-- 관리자만 수정,삭제버튼보임/전체코딩후수정예정 <c:if test="${sessionScope.member.mlevel == 'A1'}"></c:if> --%>
-    
-	 <tr>
-	        <td colspan="2" align="center">
-	             <input type="hidden" name="tour_code" value="${attraction.tour_code}">
-	            <input type="button" value="수정"    onclick="attraction_update()"> 
-	            <input type="button" value="삭제"    onclick="attraction_delete()"> 
-	        </td>
-	    </tr>  
-    
-    
-    
-    </div>
-</div>
-	  
-	
-	
-	
-	<hr>
 
 	
-	<!-- 댓글 -->
-	<div>
+
+
+
+
+
+<!-- 댓글 -->
+<!-- 내용을 div로 감싸줘야 해당부분을 찾아가 수정과 삭제가 가능함 -->
+	<div class="container">
 		<label for="content">댓글</label>
 		<form name="commentInsertForm" id="commentInsertForm">
 			<div>
 				<!-- 부모글번호 -->
 				<input type="hidden" name="tour_code" id="tour_code" value="${attraction.tour_code}">
 				<input type="text" name="content" id="content" placeholder="내용을 입력해 주세요">
-				<button type="button"  name="commentInsertBtn" id="commentInsertBtn">등록</button>
+				<button type="button"  name="commentInsertBtn" id="commentInsertBtn" >등록</button>
 			</div>
 		</form>
-	</div>	
+	</div>
+
 	
-	<div>
+	<div class="container">
 		<!-- 댓글목록 -->
 		<div class="commentList"></div>
 	</div>
@@ -110,7 +170,9 @@
 			commentInsert(insertData);//댓글등록 함수 호출
 		});//click() end
 		
-		function commentInsert(insertData) { //댓글 등록 함수
+		
+		//댓글 등록 함수
+		function commentInsert(insertData) { 
 			//alert("댓글등록함수호출" + insertData);
 			$.ajax({
 				  url:'/comment/insert'  //요청명령어
@@ -129,6 +191,10 @@
 			    }//success end
 			});//ajax() end
 		}//commentInsert() end
+		
+		//-> commentCont 실행됨
+		/////////
+		
 function commentList() {
 			//alert("댓글 목록 함수 호출");
 			$.ajax({
