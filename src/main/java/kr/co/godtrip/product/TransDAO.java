@@ -18,8 +18,27 @@ public class TransDAO {
 	
 	public List<Map<String, Object>> transproList() {
 		return sqlSession.selectList("product.transproList");
-	}//list() end
+	}//transproList() end
 	
+	
+	public List<Map<String, Object>> transinfoList() {
+		return sqlSession.selectList("product.transinfoList");
+	}//transinfoList() end
+	
+	
+	public void transinfoInsert(Map<String, Object> map) {
+		sqlSession.insert("product.transinfoInsert", map);
+	}//transinfoInsert() end
+	
+	
+	public void transproInsert(Map<String, Object> map) {
+		sqlSession.insert("product.transproInsert", map);
+	}//transproInsert() end
+	
+	
+	public void transproDelete(String transpro_code) {
+		sqlSession.delete("product.transproDelete", transpro_code);
+	}//transproDelete() end
 	
 	
 }//class end
