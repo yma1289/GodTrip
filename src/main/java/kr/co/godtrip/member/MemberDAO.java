@@ -1,8 +1,6 @@
 package kr.co.godtrip.member;
 
-import org.apache.ibatis.binding.MapperMethod.ParamMap;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.taglibs.standard.tag.common.core.ParamParent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
@@ -58,7 +56,6 @@ public class MemberDAO {
 		        // 아이디와 비밀번호가 일치하는 회원을 삭제하는 로직 작성
 		       //값을 2개 받아와야 하기때문에 map을 사용. 
 			  // 일치하는 경우 1 아니면 0
-			  
 			  Map<String, String> paramMap = new HashMap<>();
 			    paramMap.put("id", s_id);
 			    paramMap.put("passwd", passwd);
@@ -66,6 +63,7 @@ public class MemberDAO {
 			return cnt;
 		    }
 		
+		//아이디 찾기-이메일 보내기  
 		public MemberDTO findID(String email,String mname) {
 			 
 			Map<String,Object> paramMap = new HashMap<>();
@@ -74,14 +72,24 @@ public class MemberDAO {
 			return sqlSession.selectOne("member.findID",paramMap);
 		}
 		
-		public int renewPW(String passwd,String email,String mname) {
-			Map<String, Object> paraMap = new HashMap<>();
-			paraMap.put("mname", mname);
-			paraMap.put("email", email);
-			paraMap.put("passwd", passwd);
-			int cnt=sqlSession.update("member.renewPW",paraMap);
+		//public int renewPW(String email, String mname, String passwd) {
+		public int renewPW(String mname, String email, String passwd) {			
+			/*
+		    Map<String, Object> paraMap = new HashMap<>();
+		    paraMap.put("mname", mname);
+		    paraMap.put("email", email);
+		    paraMap.put("passwd", passwd);		    
+		    int cnt= sqlSession.update("member.renewPW", paraMap);
+		    */
 			
-			return cnt;
+			MemberDTO mDto=new MemberDTO();
+			mDto.setMname(mname);
+			mDto.setEmail(email);
+			mDto.setPasswd(passwd);
+			System.out.println(mDto.toString());
+			int cnt= sqlSession.update("member.renewPW", mDto);
+			
+		    return cnt;
 		}
 		
 }
