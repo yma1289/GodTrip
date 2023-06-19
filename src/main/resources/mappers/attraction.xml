@@ -17,28 +17,45 @@
 		from attraction
 	</select>
 	
-	
+	<!-- dto로 했을 때  
 	 <select id="attractionDetail" resultType="kr.co.godtrip.attraction.AttractionDTO">
         SELECT *
         FROM attraction
         WHERE tour_code = #{tour_code}
     </select>
 	
+-->
 
+ <select id="attractionDetail" resultType="java.util.Map">
+        SELECT *
+        FROM attraction
+        WHERE tour_code = #{tour_code}
+    </select>
+    
+    
 	
-	<delete id="attractionDelete">
+	<delete id="attractionDelete" parameterType="String">
 		DELETE FROM attraction
         WHERE tour_code = #{tour_code}
 	</delete>
 	
 	
-	<select id="filename" resultType="String">
+	<select id="filename" resultType="String" parameterType="String">
 		select filename
 		from attraction
 		where tour_code = #{tour_code}
 	</select>
 	
+	<select id="search" resultType="java.util.Map" parameterType="String">
+		select *
+		from attraction
+		where tour_name LIKE #{tour_name}
+		order by tour_name
+	</select>
 	
+	
+	 
+	<!--  
     <update id="attractionUpdate" parameterType="kr.co.godtrip.attraction.AttractionDTO">
         UPDATE attraction
         SET area_code=#{area_code}
@@ -49,8 +66,8 @@
            ,filesize=#{filesize}           
         WHERE tour_code=#{tour_code}
     </update>
-
-	 <!--  
+ -->  
+	 
 	
 	<update id="attractionUpdate" parameterType="java.util.Map">
 	    UPDATE attraction
@@ -59,10 +76,22 @@
            ,keyword=#{keyword}
            ,content=#{content}
            ,filename=#{filename}
-           ,filesize=#{filesize}           
+           ,filesize=#{filesize} 
+                 
         WHERE tour_code=#{tour_code}
 	</update>
-		-->  
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+		
 
 	
 </mapper>
