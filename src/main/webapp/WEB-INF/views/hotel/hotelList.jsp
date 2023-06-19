@@ -7,16 +7,16 @@ pageEncoding="UTF-8"%>
 		<div class='col-sm-3'  style="background-color: rgb(200, 200, 200);">
 			<div class="w3-container w3-display-container w3-padding-16">
 				<hr>
-  			    <form action="search">  
+  			    <form action="hotelList">  
 				    <h3>숙소검색</h3>
-				  	 숙소명<input type="text" name="hotel_Name" id="hotel_Name" placeholder="검색어를 입력해주세요" class="Autosuggest__TextEditor form-control">
+				  	 숙소명<input type="text" name="hotel_Name" id="hotel_Name" value="${hotel_Name}" placeholder="검색어를 입력해주세요" class="Autosuggest__TextEditor form-control">
 				   	<br>
 				   	<p><button class="w3-button w3-block w3-green w3-left-align" type="submit" ><i class="fa fa-search w3-margin-right"></i>&nbsp;&nbsp;&nbsp; 검색하기</button></p>
 				</form>
 				  
 				 <hr>
 				 <h3>숙소종류</h3>
-				<form action="search2">
+				<form action="hotelList">
 					<label><input type="radio" name="hotel_Type" value="호텔">호텔</label>
 					<br>
 					<label><input type="radio" name="hotel_Type" value="팬션">팬션</label>
@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
 		<!-- !PAGE CONTENT! -->
 		<div class='col-sm-5' style="overflow:scroll;  height:1000px;">
 			<div class="d-flex justify-content-evenly"><p><a href="hotelForm">[호텔 입력]</a></p></div>			
-			    상품갯수 : ${fn:length(list)}
+			    상품갯수 : ${count}
 			    <br>
 			    지역명 : ${area_name}
 			    
@@ -82,18 +82,18 @@ pageEncoding="UTF-8"%>
 						  <c:set var="endPage" value="${pageCount+1}"/>
 					   </c:if>
 					
-					   <c:if test="${startPage>0}">
-					   </c:if>
-					
+					  <c:if test="${startPage>0}">
+					   	  <a href="hotelList?pageNum=${startPage}">[이전]</a>	
+					  </c:if>
 					   <c:forEach var="i" begin="${startPage+1}" end="${endPage-1}">
 					   	  <c:choose>
 					   	      <c:when test="${pageNum==i}"><span style="font-weight: bold">${i}</span></c:when>
-					   	      <c:when test="${pageNum!=i}"><a href="/pageing?pageNum=${i}">[${i}]</a></c:when>
+					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}">[${i}]</a></c:when>
 					   	  </c:choose>	      
 					   </c:forEach>
-					
-					   <c:if test="${endPage<pageCount}">
-					   </c:if>
+						<c:if test="${endPage<pageCount}">
+					   	   <a href="hotelList?pageNum=${startPage+6}">[다음]</a>
+					   	</c:if>
 					</div> 
 				</c:if>	
 		</div><!-- col-sm-5 -->

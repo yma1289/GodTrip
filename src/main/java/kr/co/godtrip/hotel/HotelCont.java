@@ -45,7 +45,6 @@ public class HotelCont {
 			ModelAndView mav=new ModelAndView();
 			mav.setViewName("hotel/hoteldetailForm");
 			mav.addObject("hotel_code" , hotel_code);
-			System.out.println(hotel_code);
 			return mav;
 	}
 	
@@ -56,6 +55,11 @@ public class HotelCont {
 	 //호텔정보 가져오기 + 지역정보
 	 @GetMapping("/hotelList")
 	 	public ModelAndView list(HttpServletRequest req) {
+		 //사용자가 검색한 검색어
+		 String hotel_Name = req.getParameter("hotel_Name");
+		 //사용자가 선택한 타입
+		 String hotel_Type = req.getParameter("hotel_Type");
+		 
 		 	//지역코드
 		 	//String area_code=req.getParameter("area_code"); //나중에 이부분으로 고쳐야 함
 		    String area_code="G0001"; //지금은 임시로 제주지역코드로 테스트
@@ -83,11 +87,17 @@ public class HotelCont {
 	        ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hotelList");
 
-	        int totalRowCount=hotelDao.totalRowCount(); //총 글갯수
+	        Map<String, Object> map=new HashMap<>();
+	        map.put("area_code", area_code);
+	        map.put("hotel_Name", hotel_Name);
+	        map.put("hotel_Type", hotel_Type);
+
+	        int totalRowCount=hotelDao.totalRowCount(map); //총 글갯수
+	        
 	        
 	        //페이징
 	        int numPerPage   = 5;    // 한 페이지당 레코드 갯수
-	        int pagePerBlock = 10;   // 페이지 리스트
+	        int pagePerBlock = 5;   // 페이지 리스트
 	        
 	        String pageNum=req.getParameter("pageNum");
 	        if(pageNum==null){
@@ -95,52 +105,51 @@ public class HotelCont {
 	        }
 	        
 	        int currentPage=Integer.parseInt(pageNum);
-	        int startRow   =(currentPage-1)*numPerPage+1;
-	        int endRow     =currentPage*numPerPage;
+	        //페이지에 출력할 수
+	        int startRow   =(currentPage-1)*numPerPage;  //가져올 데이터의 초기 위치값		
+	        int endRow     =numPerPage;					 //가져올 데이터 양
 	        
 	        //페이지 수
 	        double totcnt = (double)totalRowCount/numPerPage;
 	        int totalPage = (int)Math.ceil(totcnt);
-	          
+	        
 	        double d_page = (double)currentPage/pagePerBlock;
 	        int Pages     = (int)Math.ceil(d_page)-1;
 	        int startPage = Pages*pagePerBlock;
 	        int endPage   = startPage+pagePerBlock+1;
+	      
 	        
-	        
-	        Map<String, Object> map=new HashMap<>();
+	       
 	        map.put("startRow", startRow);
 	        map.put("endRow", endRow);
 	        map.put("area_code", area_code);
-	        
+	        map.put("hotel_Name", hotel_Name);
+	        map.put("hotel_Type", hotel_Type);
 	       
 	        List list=null;      
 	        if(totalRowCount>0){            
-	              //list=hotelDao.list(startRow, endRow, area_code);           
 	        	list=hotelDao.list(map);
+	        	System.out.println(list);
 	        } else {            
 	            list=Collections.EMPTY_LIST;            
 	        }//if end
 	          
-	        //int number=0;
-	        //number=totalRowCount-(currentPage-1)*numPerPage;
-	          
-	        //mav.addObject("number",    number);
-	        mav.addObject("pageNum",   currentPage);
-	        //mav.addObject("startRow",  startRow);
-	        //mav.addObject("endRow",    endRow);
-	        mav.addObject("count",     totalRowCount);
-	        //mav.addObject("pageSize",  pagePerBlock);
+	        //페이징 정보 넘기기
+	        mav.addObject("pageNum", currentPage);
+	        mav.addObject("count", totalRowCount);
 	        mav.addObject("totalPage", totalPage);
 	        mav.addObject("startPage", startPage);
-	        mav.addObject("endPage",   endPage);
-	        mav.addObject("list", list);
-	         
-	        mav.addObject("area_code",area_code);
-	        mav.addObject("area_name",area_name);
-	        mav.addObject("latitude",latitude);
-	        mav.addObject("longitude",longitude);
+	        mav.addObject("endPage", endPage);
 	        
+	        
+	        //숙박 정보 넘기기
+	        mav.addObject("list", list);
+            mav.addObject("hotel_Name", hotel_Name);
+            mav.addObject("hotel_Type", hotel_Type);
+	        mav.addObject("area_code", area_code);
+	        mav.addObject("area_name", area_name);
+	        mav.addObject("latitude", latitude);
+	        mav.addObject("longitude", longitude);	    
 	        return mav;
 	 }//list() end
 	 
@@ -157,26 +166,7 @@ public class HotelCont {
 
 	
 	 
-	 //호텔 검색
-	 @GetMapping("/search")
-	    public ModelAndView search(@RequestParam(defaultValue = "") String hotel_Name) {
-	    	ModelAndView mav=new ModelAndView();
-	        mav.setViewName("hotel/hotelList");
-	        mav.addObject("hotel_Name",hotel_Name);//검색어
-	        mav.addObject("list", hotelDao.search(hotel_Name));
-	        return mav;
-	 }//search() end
-	 
-	 //호텔 타입 분류
-	 @GetMapping("/search2")
-	    public ModelAndView search2(String hotel_Type) {
-	    	ModelAndView mav=new ModelAndView();
-	        mav.setViewName("hotel/hotelList");
-	        mav.addObject("hotel_Type",hotel_Type);		//호텔타입
-	        mav.addObject("list", hotelDao.search2(hotel_Type)); //검색 결과 리스트도 함께 전달
-	        return mav;
-	    }//search() end
-	 
+
 	 //호텔입력
 	@PostMapping("/insert")
     public String insert(@RequestParam Map<String, Object> map
