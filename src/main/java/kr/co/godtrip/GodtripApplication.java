@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
 public class GodtripApplication {
@@ -36,5 +37,14 @@ public class GodtripApplication {
 	public SqlSessionTemplate sqlSession(SqlSessionFactory factory) {
 		return new SqlSessionTemplate(factory);
 	}//end      
+	
+	@Bean
+	public InternalResourceViewResolver viewResolver() {
+	    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+	    resolver.setPrefix("/WEB-INF/views/");
+	    resolver.setSuffix(".jsp");
+	    return resolver;
+	}
+
 	
 }//class end

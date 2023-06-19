@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- comment.xml -->
+
+<mapper namespace="comment">
+	
+	<insert id="insert"	parameterType="kr.co.godtrip.comment.CommentDTO">
+		INSERT INTO comment( commentno,tour_Code,content, id)
+		VALUES ( #{commentno},#{tour_code},#{content}, #{id})
+	</insert>
+	
+	
+	<select id="list" resultType="kr.co.godtrip.comment.CommentDTO" parameterType="int">
+        SELECT *
+        FROM comment
+        WHERE tour_code=#{tour_code}
+        ORDER BY regdate
+    </select>
+    
+    
+    <delete id="delete" parameterType="int">
+        DELETE FROM comment
+        WHERE commentno=#{commentno}
+    </delete>
+        
+
+    <update id="update" parameterType="kr.co.godtrip.comment.CommentDTO">
+        UPDATE comment
+        SET content=#{content}
+        WHERE commentno=#{commentno}
+    </update>
+        
+</mapper>     
+
+
+
+

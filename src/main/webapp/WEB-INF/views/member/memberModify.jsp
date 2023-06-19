@@ -3,44 +3,56 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 <div class="col-sm-12">
-<h3> 회원가입 </h3>
 
-<span style="color:red; font-weight: bold"> *필수입력</span>
-<form name="memfrm" id="memfrm" method="post" action="memberProc.jsp" onsubmit="return memberCheck()">
+<script type="text/javascript">
+        <c:if test="${not empty updateMessage}">
+            window.onload = function() {
+                alert('${updateMessage}');
+                location.href = '/member/memberlogin';
+            }
+        </c:if>
+    </script>
+
+<h3> 회원정보 수정 </h3>
+
+<!-- 아이디의 경우 한번 지정하면 수정이 불가 read only 속성으로 가져오기만 한다 -->
+<span style="color:red; font-weight: bold"> * 필수입력</span>
+<form name="memfrm" id="memfrm" method="post" action="update" onsubmit="return memberCheck()">
 <table class="table">
 <tr>
 <th>*아이디</th>
 <td style="text-align: left">
-<input type="text" name="id" id="id" size="10" maxlength="10" readonly>
-<input type="button" value="ID중복확인" onclick="idCheck()">
+<input type="text" name="id" id="id" size="10" maxlength="10" readonly value="${member.id}">
 </td>
 </tr>
 
 <tr>
 <th>*비밀번호</th>
 <td style="text-align: left">
-<input type="password" name="passwd" id="passwd" size="10" maxlength="10" required>
+<input type="password" name="passwd" id="passwd" size="10" maxlength="10" required value="${member.passwd}">
 </td>
 </tr>
 
 <tr>
 <th>*비밀번호 확인</th>
 <td style="text-align: left">
-<input type="password" name="passwd1" id="passwd1" size="10" maxlength="10" required>
+<input type="password" name="passwd1" id="passwd1" size="10" maxlength="10" required value="${member.passwd}">
 </td>
 </tr>
 
 <tr>
 <th>*이름</th>
 <td style="text-align: left">
-<input type="text" name="mname" id="mname" size="20" maxlength="20" required>
+<input type="text" name="mname" id="mname" size="20" maxlength="20" required value="${member.mname}">
+
+
 </td>
 </tr>
 
 <tr>
 <th>*이메일</th>
 <td style="text-align: left">
-<input type="email" name="email" id="email" size="10" maxlength="50" readonly>
+<input type="email" name="email" id="email" size="10" maxlength="50" readonly value="${member.email}">
 <input type="button" value="Email중복확인" onclick="emailCheck()">
 </td>
 </tr>
@@ -48,14 +60,14 @@
 <tr>
 <th>전화번호</th>
 <td style="text-align: left">
-<input type="text" name="tel" id="tel" size="14" maxlength="15">
+<input type="text" name="tel" id="tel" size="14" maxlength="15" value="${member.tel}">
 </td>
 </tr>
 
 <tr>
 <th>우편번호</th>
 <td style="text-align: left">
-<input type="text" name="zipcode" id="zipcode" size="7" readonly>
+<input type="text" name="zipcode" id="zipcode" size="7" readonly value="${member.zipcode}">
 <input type="button" value="주소찾기" onclick="DaumPostcode()">
 </td>
 </tr>
@@ -63,21 +75,21 @@
 <tr>
 <th>주소</th>
 <td style="text-align: left">
-<input type="text" name="address1" id="address1" size="45" readonly>
+<input type="text" name="address1" id="address1" size="45" readonly value="${member.address1}">
 </td>
 </tr>
 
 <tr>
 <th>나머지 주소</th>
 <td style="text-align: left">
-<input type="text" name="address2" id="address2" size="45">
+<input type="text" name="address2" id="address2" size="45" value="${member.address2}">
 </td>
 </tr>
-
+<!-- 회원 등급 넣어 줘야함!! -->
 <tr>
 <td colspan="2">
-<input type="submit" value="회원가입" class="btn btn-primary">
-<input type="reset" value="취소" class="btn btn-light">
+<input type="submit" value="회원정보 수정완료" class="btn btn-primary">
+<input type="button" value="취소" class="btn btn-light" onclick="location.href='/member/memberlogin'">
 </td>
 </tr>
 </table>

@@ -24,12 +24,6 @@ from member
 where email=#{email}
 </select>
 
-<select id="findId" parameterType="kr.co.godtrip.member.MemberDTO" resultType="string">
-select 
-from member
-where email=#{email} and mname=#{mname}
-</select>
-
 
 <select id="loginProc" resultType="kr.co.godtrip.member.MemberDTO" parameterType="kr.co.godtrip.member.MemberDTO">
     SELECT *
@@ -37,5 +31,40 @@ where email=#{email} and mname=#{mname}
     WHERE id=#{id} AND passwd=#{passwd}
 </select>
 
+<select id="select" resultType="kr.co.godtrip.member.MemberDTO" parameterType="kr.co.godtrip.member.MemberDTO">
+select *
+from member
+where id=#{s_id}
+</select>
 
+<update id="update" parameterType="java.util.Map">
+	update member set
+	passwd=#{passwd},
+	mname=#{mname},
+	tel=#{tel},
+	email=#{email},
+	zipcode=#{zipcode},
+	address1=#{address1},
+	address2=#{address2}
+	where id=#{id}
+</update>
+
+
+<update id="memberdelete" parameterType="java.util.Map">
+ update member
+    set mlevel='F1'
+    where id=#{id} and passwd=#{passwd}
+</update>
+
+<select id="findID" parameterType="kr.co.godtrip.member.MemberDTO" resultType="kr.co.godtrip.member.MemberDTO">
+    SELECT id
+    FROM member
+    WHERE email = #{email} AND mname = #{mname}
+</select>
+
+<update id="renewPW" parameterType="kr.co.godtrip.member.MemberDTO">
+    UPDATE member
+    SET passwd = #{passwd}
+    WHERE email = #{email} AND mname = #{mname}
+</update>
 </mapper>

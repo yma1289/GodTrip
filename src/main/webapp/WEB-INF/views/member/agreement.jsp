@@ -2,10 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ include file="../header.jsp"%>
-
+<!-- 본문시작 -->
+<div class="col-sm-12">
 <!-- 본문시작 agreement.jsp-->
-<div style="text-align: center">
-<h3>* 회/원/약/관 * </h3></div>
+
+<h3>* 회/원/약/관 * </h3>
 <br>	    
 <!--
     onsubmit 이벤트는 form이 submit이 될 때 발생함.
@@ -216,9 +217,9 @@ function send(){
 }
 </script>
 
-<!-- 본문 끝 -->
-<%@ include file="../footer.jsp"%>			
-
+</div>
+<!-- 본문끝 -->
+<%@ include file="../footer.jsp" %>
 
 
 

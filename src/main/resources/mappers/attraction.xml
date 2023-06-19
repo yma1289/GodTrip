@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="attraction">
+
+	
+	<insert id="attractioninsert" parameterType="java.util.Map">
+	    INSERT INTO attraction (area_code, tour_name, keyword, content, filename, filesize)
+	    VALUES (#{area_code}, #{tour_name}, #{keyword}, #{content}, #{filename}, #{filesize})
+	</insert>
+	
+
+	
+	<select id="attractionList" resultType="kr.co.godtrip.attraction.AttractionDTO">
+		select *
+		from attraction
+	</select>
+	
+	
+	 <select id="attractionDetail" resultType="kr.co.godtrip.attraction.AttractionDTO">
+        SELECT *
+        FROM attraction
+        WHERE tour_code = #{tour_code}
+    </select>
+	
+
+	
+	<delete id="attractionDelete">
+		DELETE FROM attraction
+        WHERE tour_code = #{tour_code}
+	</delete>
+	
+	
+	<select id="filename" resultType="String">
+		select filename
+		from attraction
+		where tour_code = #{tour_code}
+	</select>
+	
+	
+    <update id="attractionUpdate" parameterType="kr.co.godtrip.attraction.AttractionDTO">
+        UPDATE attraction
+        SET area_code=#{area_code}
+           ,tour_name=#{tour_name}
+           ,keyword=#{keyword}
+           ,content=#{content}
+           ,filename=#{filename}
+           ,filesize=#{filesize}           
+        WHERE tour_code=#{tour_code}
+    </update>
+
+	 <!--  
+	
+	<update id="attractionUpdate" parameterType="java.util.Map">
+	    UPDATE attraction
+        SET area_code=#{area_code}
+           ,tour_name=#{tour_name}
+           ,keyword=#{keyword}
+           ,content=#{content}
+           ,filename=#{filename}
+           ,filesize=#{filesize}           
+        WHERE tour_code=#{tour_code}
+	</update>
+		-->  
+
+	
+</mapper>
