@@ -17,22 +17,22 @@
 		from attraction
 	</select>
 	
-	<!-- dto로 했을 때  
+	<!-- dto로 했을 때 --> 
 	 <select id="attractionDetail" resultType="kr.co.godtrip.attraction.AttractionDTO">
         SELECT *
         FROM attraction
         WHERE tour_code = #{tour_code}
     </select>
 	
--->
 
+<!-- 
  <select id="attractionDetail" resultType="java.util.Map">
         SELECT *
         FROM attraction
         WHERE tour_code = #{tour_code}
     </select>
     
-    
+    -->
 	
 	<delete id="attractionDelete" parameterType="String">
 		DELETE FROM attraction
@@ -55,7 +55,7 @@
 	
 	
 	 
-	<!--  
+
     <update id="attractionUpdate" parameterType="kr.co.godtrip.attraction.AttractionDTO">
         UPDATE attraction
         SET area_code=#{area_code}
@@ -66,9 +66,9 @@
            ,filesize=#{filesize}           
         WHERE tour_code=#{tour_code}
     </update>
- -->  
+ 
 	 
-	
+		<!--  
 	<update id="attractionUpdate" parameterType="java.util.Map">
 	    UPDATE attraction
         SET area_code=#{area_code}
@@ -81,7 +81,7 @@
         WHERE tour_code=#{tour_code}
 	</update>
 	
-	
+	 --> 
 
 	
 	

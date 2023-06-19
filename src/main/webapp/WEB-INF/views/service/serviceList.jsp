@@ -5,49 +5,52 @@
 <%@ include file="../header.jsp" %>
 
 <style>
-.container h3 {
-    font-size: 2rem;
-    color: #19b3eb;
+.pagination-container {
+    display: flex;
+    justify-content: center;
     padding: 20px;
 }
 
-.table {
-    box-shadow: 0 2px 4px rgb(114, 114, 114);
+.pagination-container a {
+    color: #19b3eb;
+    margin: 0 10px;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #19b3eb;
+    border-radius: 5px;
 }
 
-.table th,
-.table td {
-    vertical-align: middle;
-}
-
-.mt-4 button,
-.mt-4 input[type="button"] {
-    margin: 0.25em;
-    border: none;
+.pagination-container a:hover {
     background-color: #19b3eb;
     color: white;
-    padding: 0.5em 1em;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    text-decoration: none;
 }
 
-.mt-4 button, .mt-4 input[type="button"] {
-    margin: 0.25em;
-    border: none;
+.pagination-container strong {
+    color: #19b3eb;
+    margin: 0 10px;
+    padding: 5px 10px;
+    background-color: #19b3eb;
+    border-radius: 5px;
+    color: white;
+}
+
+.pagination-container .page-edges {
     background-color: #19b3eb;
     color: white;
-    padding: 0.5em 1em;
+    padding: 5px 10px;
     border-radius: 5px;
-    transition: background-color 0.3s;
 }
 
-.mt-4 button:hover, .mt-4 input[type="button"]:hover {
-    background-color: #19b3eb;
+.pagination-container .page-edges:hover {
+    background-color: #026185;
+    text-decoration: none;
 }
+
 </style>
 
 <div class="container mt-5">
-    <h3 class="display-4 text-center mb-5" style="color: #19b3eb; font-weight: bold;">고객센터</h3>
+    <h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">고객센터</h3>
     <table class="table table-hover table-responsive-md">
         <thead class="thead-light">
             <tr>
@@ -58,38 +61,74 @@
             </tr>
         </thead>
         <tbody>
-        	<c:forEach items="${list}" var="service">
-            <tr>
-                <td>${service.cno}</td>
-                <td>
-                    <c:choose>
-                        <c:when test="${service.c_code == '0'}">
-                            공지사항
-                        </c:when>
-                        <c:when test="${service.c_code == '1'}">
-                            자주묻는질문
-                        </c:when>
-                        <c:otherwise>
-                            ${service.c_code}
-                        </c:otherwise>
-                    </c:choose>
-                </td>
-                <td><a href="<c:url value='/service/serviceDetail/${service.cno}' />" style="color: #028abb;">${service.title}</a></td>
-                <td><fmt:formatDate value="${service.regdate}" pattern="yyyy년 MM월 dd일" /></td>
-            </tr>
+            <c:forEach items="${list}" var="service">
+                <tr>
+                    <td>${service.cno}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${service.c_code == '0'}">
+                                공지사항
+                            </c:when>
+                            <c:when test="${service.c_code == '1'}">
+                                자주묻는질문
+                            </c:when>
+                            <c:otherwise>
+                                ${service.c_code}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td><a href="<c:url value='/service/serviceDetail/${service.cno}' />" style="color: #028abb;">${service.title}</a></td>
+                    <td><fmt:formatDate value="${service.regdate}" pattern="yyyy년 MM월 dd일" /></td>
+                </tr>
             </c:forEach>
-            
-            <tr>
-                <td colspan='4'>${service.content}</td>
-            </tr>
         </tbody>
     </table>
+
     <div class="text-center mt-4" style="padding: 30px;">
-        <%-- 관리자만 수정,삭제버튼보임/전체코딩후수정예정 <c:if test="${sessionScope.member.mlevel == 'A1'}"></c:if> --%>
-        <button onclick="location.href='/service/serviceUpdate/${service.cno}'" class="btn btn-info">수정</button>
-        <button onclick="location.href='/service/serviceDelete/${service.cno}'" class="btn btn-info">삭제</button>
-        <input type="button" value="목록" onclick="location.href='/service/serviceList'" class="btn btn-info">
+    	<button class="btn btn-info" onclick="location.href='/service/serviceForm'">글쓰기</button>
     </div>
+
+    <div class="pagination-container">
+    <c:if test="${totalPages > 1}">
+        <c:set var="currentPage" value="${currentPage}" />
+        <c:set var="prevPage" value="${currentPage - 1}" />
+        <c:set var="nextPage" value="${currentPage + 1}" />
+        <c:set var="lastPage" value="${totalPages}" />
+
+        <c:choose>
+            <c:when test="${currentPage > 1}">
+                <a class="page-edges" href="<c:url value='/service/serviceList/1' />"><<</a>
+                <a href="<c:url value='/service/serviceList/${prevPage}' />"><</a>
+            </c:when>
+            <c:otherwise>
+                <span class="page-edges"><<</span>
+                <span><</span>
+            </c:otherwise>
+        </c:choose>
+
+        <c:forEach begin="1" end="${totalPages}" step="1" varStatus="loop">
+            <c:choose>
+                <c:when test="${loop.index == currentPage}">
+                    <strong>${loop.index}</strong>
+                </c:when>
+                <c:otherwise>
+                    <a href="<c:url value='/service/serviceList/${loop.index}' />">${loop.index}</a>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+
+        <c:choose>
+            <c:when test="${currentPage < totalPages}">
+                <a href="<c:url value='/service/serviceList/${nextPage}' />">></a>
+                <a class="page-edges" href="<c:url value='/service/serviceList/${lastPage}' />">>></a>
+            </c:when>
+            <c:otherwise>
+                <span>></span>
+                <span class="page-edges">>></span>
+            </c:otherwise>
+        </c:choose>
+    </c:if>
+</div>
 </div>
 
 <%@ include file="../footer.jsp" %>

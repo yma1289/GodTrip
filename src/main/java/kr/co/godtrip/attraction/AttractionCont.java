@@ -103,14 +103,32 @@ public class AttractionCont {
 		
 	
 
-	//상세보기
-	@RequestMapping("/attraction/attractionDetail/{tour_code}")
-	public ModelAndView attractionDetail(@PathVariable String tour_code) {
+	//상세보기dto
+
+	@RequestMapping("/attraction/attractionDetail")
+	public ModelAndView attractionDetail(String tour_code) {
 		ModelAndView mav=new ModelAndView();
 		mav.setViewName("attraction/attractionDetail");
 		mav.addObject("attraction", attractionDao.attractionDetail(tour_code));
 		return mav;
 	}//attractionDetail() end 
+	
+	
+	
+
+	/*
+	 //상세보기 map사용
+	//참조 attractionList.jsp
+	//<a href="<c:url value='/attraction/attractionDetail?tour_code=${dto.tour_code}' />">
+	@RequestMapping("/attraction/attractionDetail")
+	public ModelAndView attractionDetail(String tour_code) {
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("attraction/attractionDetail");
+		mav.addObject("attraction", attractionDao.attractionDetail(tour_code));
+		return mav;
+	}//attractionDetail() end 
+		*/
+	
 	
 	//삭제
 	@RequestMapping("/attraction/attractionDelete")
@@ -163,7 +181,7 @@ public class AttractionCont {
 								,Model model
 								) throws Exception{
 		//상세내용조회
-		Map<String, Object> attraction=attractionDao.attractionDetail(tour_code);
+		AttractionDTO attraction=attractionDao.attractionDetail(tour_code);
 		//상세내용을 수정페이지에 전달
 		model.addAttribute("attraction", attraction);
 		//String test = tour_code;
@@ -173,7 +191,40 @@ public class AttractionCont {
 	}
 	
 	
+	//수정 dto	
+		@RequestMapping("/attraction/attractionUpdate")
+		public String attractionUpdate(@ModelAttribute AttractionDTO attractionDTO
+		                     , @RequestParam MultipartFile img
+		                     , HttpServletRequest req) {
+
+		    String filename = "-";
+		    long filesize = 0;
+		    if (img != null && !img.isEmpty()) {
+		        filename = img.getOriginalFilename();
+		        filesize = img.getSize();
+		        try {
+		            ServletContext application = req.getSession().getServletContext();
+		            String path = application.getRealPath("/storage");
+		            img.transferTo(new File(path + "\\" + filename));
+		        } catch (Exception e) {
+		            e.printStackTrace();
+		        }
+		    } else {
+		        String tour_code = attractionDTO.getTour_code();
+		        AttractionDTO attraction = attractionDao.attractionDetail(tour_code);
+		        filename = attraction.getFilename();
+		        filesize = attraction.getFilesize();
+		    }
+
+		    attractionDTO.setFilename(filename);
+		    attractionDTO.setFilesize((int) filesize);
+		    attractionDao.attractionUpdate(attractionDTO);
+		    return "redirect:/attraction/attractionList";
+		}
+		
 	
+	/*
+	//수정 Map사용 (gtp수정코드)
 	//수정된폼넘긴거(질문할것-> 수정 한 뒤 수정버튼누르면 수정안되고 그냥 list페이지로 넘어감)
 	@PostMapping("/attraction/attractionUpdate")
 	public String update(@RequestParam Map<String, Object> map,
@@ -182,16 +233,16 @@ public class AttractionCont {
 
 	    String filename = "-";
 	    long filesize = 0;
-	    if (img != null && !img.isEmpty()) {
+	    if (img != null && !img.isEmpty()) { //파일이 존재한다면~
 	        filename = img.getOriginalFilename();
 	        filesize = img.getSize();
 	        try {
 	            ServletContext application = req.getSession().getServletContext();
-	            String path = application.getRealPath("/storage");
-	            img.transferTo(new File(path + "\\" + filename));
+	            String path = application.getRealPath("/storage");//실제물리적인경로
+	            img.transferTo(new File(path + "\\" + filename));//파일저장
 	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
+	            e.printStackTrace();//system.out.println;과 같은것
+	        }//try end
 	    } else {
 	        if (map.containsKey("tour_code")) {
 	            String tour_code = map.get("tour_code").toString();
@@ -206,7 +257,7 @@ public class AttractionCont {
 	    attractionDao.attractionUpdate(map);
 	    return "redirect:/attraction/attractionList";
 	}
-	
+	*/
 	
 
 	/*
@@ -251,42 +302,8 @@ public class AttractionCont {
 	
 	
 	
-/*
+
 		
-	//수정 dto
-	
-	@RequestMapping("/attraction/attractionUpdate")
-	public String attractionUpdate(@ModelAttribute AttractionDTO attractionDTO
-	                     , @RequestParam MultipartFile img
-	                     , HttpServletRequest req) {
-
-	    String filename = "-";
-	    long filesize = 0;
-	    if (img != null && !img.isEmpty()) {
-	        filename = img.getOriginalFilename();
-	        filesize = img.getSize();
-	        try {
-	            ServletContext application = req.getSession().getServletContext();
-	            String path = application.getRealPath("/storage");
-	            img.transferTo(new File(path + "\\" + filename));
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    } else {
-	        String tour_code = attractionDTO.getTour_code();
-	        AttractionDTO attraction = attractionDao.attractionDetail(tour_code);
-	        filename = attraction.getFilename();
-	        filesize = attraction.getFilesize();
-	    }
-
-	    attractionDTO.setFilename(filename);
-	    attractionDTO.setFilesize((int) filesize);
-	    attractionDao.attractionUpdate(attractionDTO);
-	    return "redirect:/attraction/attractionList";
-	}
-	
-
-	*/	
 	
 	
 	

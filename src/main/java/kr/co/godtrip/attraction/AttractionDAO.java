@@ -34,19 +34,19 @@ public class AttractionDAO {
 	}//list() end 
 	
 	
-	/*
+	
 	//상세보기Detail(dto)
 	public AttractionDTO attractionDetail(String tour_code){
 		return sqlSession.selectOne("attraction.attractionDetail", tour_code);
 	}//detail() end 
 	
-	 */
+	/*
 	//상세보기Detail
 	public Map<String, Object> attractionDetail(String tour_code){
 		return sqlSession.selectOne("attraction.attractionDetail", tour_code);
 	}//detail() end 
 	
-	
+	 */
 	
 	//삭제
     public void attractionDelete(String tour_code) {
@@ -70,14 +70,14 @@ public class AttractionDAO {
 
     
 /////////////////////////////////////////////////////	
-    /*
+
   
 	//수정update dto사용
     public void attractionUpdate(AttractionDTO attractionDTO) {
         sqlSession.update("attraction.attractionUpdate", attractionDTO);
     }//update() end
-    */
-   
+ 
+    /*
 	
 	//수정
     public void attractionUpdate(Map<String, Object> map) {
@@ -85,6 +85,6 @@ public class AttractionDAO {
 	
     }//update() end 
     
- 
+    */
 
 }//class end 
