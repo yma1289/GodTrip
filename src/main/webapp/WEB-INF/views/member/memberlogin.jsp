@@ -1,16 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%> 
-<%@ include file="../header.jsp" %> 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>로그인 페이지</title>
+    pageEncoding="UTF-8"%>
+  
+<%@ include file="../header.jsp" %>    
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<style type="text/css">
+
+<style>
 {
   margin: 0;
   padding: 0;
@@ -129,10 +123,8 @@ h2 {
   letter-spacing: 2px;
 }
 </style>
-</head>
-<body>
-<!-- 본문 시작 -->
-
+<!-- 본문시작 -->
+<div class="col-sm-12">
 
 
 <c:choose>
@@ -171,7 +163,7 @@ h2 {
                 </div>
               <br>
                 <div class="forgot_pw">
-                <a href="findId.do">비밀번호/아이디 찾기</a>
+                <a href="findId.do">비밀번호 찾기</a>
             </div>
             
             </div>
@@ -196,9 +188,6 @@ h2 {
 </c:choose>
 	
 
-<!-- 본문 끝 -->
-
+</div>
+<!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
-
-</body>
-</html>
