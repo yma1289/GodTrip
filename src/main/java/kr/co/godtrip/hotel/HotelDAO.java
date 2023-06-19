@@ -49,10 +49,18 @@ public class HotelDAO {
 		 sqlSession.insert("hotel.detailinsert",map);
 	 }
 	 
-	 public int totalRowCount() {
-	        return sqlSession.selectOne("hotel.totalRowCount");
+	 //총 호텔갯수 가져오기
+	 public int totalRowCount(Map<String, Object>map) {
+	        return sqlSession.selectOne("hotel.totalRowCount",map);
 	    }
 	 
+	 public int totalRowCount2(String hotel_Name) {
+	        return sqlSession.selectOne("hotel.totalRowCount",hotel_Name);
+	    }
+	 
+	 public int totalRowCount3(String hotel_Type) {
+	        return sqlSession.selectOne("hotel.totalRowCount",hotel_Type);
+	    }
 	 
 	
 }//class end

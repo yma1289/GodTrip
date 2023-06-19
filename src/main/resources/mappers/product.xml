@@ -5,10 +5,38 @@
 <mapper namespace="product">
 
 	<select id="transproList" resultType="java.util.Map">
-		SELECT trans_code, departure_Date, departure_code, arrival_code, departure_Time, arrival_Time, Price, seat
-		FROM transpro
-		ORDER BY transpro_code 	
-	</select>	
+		SELECT TI.trans_code, TI.trans_name, TI.filename, TI.filesize,
+       		   TP.transpro_code, TP.departure_Date, TP.departure_Time, TP.arrival_Time,
+       		   TP.departure_code, TP.arrival_code, TP.Price, TP.seat
+		FROM transinfo TI
+		INNER JOIN transpro TP ON TI.trans_code = TP.trans_code
+		ORDER BY departure_Date
+	</select>
+	
+	
+	<select id="transinfoList" resultType="java.util.Map">
+		SELECT trans_code, FT_code, trans_name, filename, filesize
+		FROM transinfo
+	</select>
+	
+	
+	<insert id="transinfoInsert" parameterType="java.util.Map">
+		INSERT INTO transinfo(trans_code, FT_code, trans_name, filename, filesize)
+		VALUES(#{trans_code}, #{FT_code}, #{trans_name}, #{filename}, #{filesize})
+	</insert>
+	
+	
+	<insert id="transproInsert" parameterType="java.util.Map">
+		INSERT INTO transpro(transpro_code, trans_code, departure_Date, departure_Time,
+							 arrival_Time, departure_code, arrival_code, Price, seat)
+		VALUES(#{transpro_code}, #{trans_code}, #{departure_Date}, #{departure_Time},
+			   #{arrival_Time}, #{departure_code}, #{arrival_code}, #{Price}, #{seat})
+	</insert>
 
+
+	<delete id="transproDelete" parameterType="String">
+		DELETE FROM transpro
+		WHERE transpro_code = #{transpro_code}
+	</delete>
 	
 </mapper>

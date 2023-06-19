@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="rigion">
-    <insert id="insertArea" parameterType="kr.co.godtrip.area.AreaDTO">
-        INSERT INTO rigion(area_code, area_name, latitude, longitude) 
-        VALUES (#{area_code}, #{area_name}, #{latitude}, #{longitude})
-    </insert>
-</mapper>
