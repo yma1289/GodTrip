@@ -3,36 +3,38 @@
 <%@ include file="../header.jsp" %>
 
 <style>
-    form {
-        width: 100%;
-        max-width: 600px;
-        padding: 15px;
-        margin: auto;
-    }
-    form div {
-        margin-bottom: 15px;
-        display: flex;
-        align-items: center;
-    }
-    label {
-        width: 70px;
-        font-weight: bold;
-    }
-    input[type="text"], textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-    textarea {
-        resize: vertical;
-    }
-    select {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+form {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+}
+form div {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+label {
+    width: 70px;
+    font-weight: bold;
+}
+input[type="text"], textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+textarea {
+    resize: vertical;
+}
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 </style>
+<div class="container">
+<h3>고객센터 글쓰기</h3>
 
 <form action="/service/serviceInsert" method="post">
     <div>
