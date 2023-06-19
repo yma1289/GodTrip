@@ -3,13 +3,7 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 <div class="col-sm-12">
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>회원탈퇴</title>
-</head>
-<body>
+
 
 <script type="text/javascript">
         <c:if test="${not empty deleteMessage}">
