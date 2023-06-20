@@ -64,7 +64,7 @@ public class MemberCont {
 			String mlevel = dto.getMlevel();
 
 			if (!(mlevel.equals("F1"))) {
-				ModelAndView mav = new ModelAndView("redirect:/home.do");
+				ModelAndView mav = new ModelAndView("redirect:/member/memberpage");
 				// 로그인 성공시 이동 페이지
 				// 로그인 성공한 경우 세션 부여하기
 
@@ -109,7 +109,7 @@ public class MemberCont {
 	@RequestMapping("/idCheckForm")
 	public String idCheckForm() {
 		return "member/idCheckForm";
-	}
+	} 
 
 	// 아이디 중복 확인 처리
 	@RequestMapping("/idCheckProc")
@@ -154,7 +154,8 @@ public class MemberCont {
 	// 보통 2가지 방식 	   - 1.로그인 할 당시에 사용자에 대한 모든 정보를 세션에 불러와서 ${} 방식으로 넣기.
 	//						->아이디와 세션값이 자주바뀌는 환경이면, 오류 발생할 가능성 다수
 	//				   - 2.아이디로 조회해서 db에서 조회한 뒤 모든 내용을 넣어버리기
-		
+	
+	//db에서 id를 조회에서 모든 값을 불러오기
 	@RequestMapping("/memberModify")
 	public ModelAndView memberModify(HttpServletRequest request) {
 		ModelAndView mav=new ModelAndView();
@@ -259,7 +260,7 @@ public class MemberCont {
 						'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
 						'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q',
 						'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-
+				String id=dto.getId();
 				String passwd="";
 				int idx = 0;
 				for (int i = 0; i < 10; i++) {
@@ -290,7 +291,7 @@ public class MemberCont {
 						message.setRecipients(Message.RecipientType.TO, address);
 						message.setFrom(new InternetAddress(dto.getEmail()));
 						message.setSubject("요청하신 아이디와 임시 비밀번호입니다");
-						message.setContent("아이디: " + dto.getId() + "<br>임시 비밀번호: " + passwd,
+						message.setContent("아이디: " + id + "<br>임시 비밀번호: " + passwd,
 								"text/html; charset=UTF-8");
 						message.setSentDate(new Date());
 
@@ -317,8 +318,16 @@ public class MemberCont {
 
 			return mav;
 		}
-			
 		
+		@RequestMapping("/memberpage")
+		public String partnerpage(HttpServletRequest request) {
+			HttpSession session = request.getSession(true);
+			return "member/memberpage";
+
+		}
+		
+		
+				
 //		//네이버 smtp 서버를 통한 메일 보내기 
 //				//현재 null 오류 발생 - 보류
 //				@RequestMapping("/findidproc.do")

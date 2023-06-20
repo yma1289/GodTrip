@@ -5,14 +5,23 @@
 <mapper namespace="hotel">
 	
 		<select id="list" resultType="java.util.Map">        
-            SELECT *
-   		 FROM (
+       SELECT *
+       FROM (
         SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
         FROM hotel
         WHERE arrival_code = #{area_code}
-        LIMIT #{numPerPage} OFFSET #{startRow}
-    	) AS subquery
+        <if test="hotel_Name != null and hotel_Name != ''">
+            AND hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
+        </if>
+        <if test="hotel_Type != null and hotel_Type != ''">
+            AND hotel_Type = #{hotel_Type}
+        </if>
+        ORDER BY hotel_Name
+        LIMIT #{endRow} OFFSET #{startRow}
+    ) AS subquery
 	    </select>
+	    
+	    
 	    
 	    <select id="list2" resultType="java.util.Map">
 		SELECT DISTINCT room.room_code, room.hotel_code, room.p_ID, room.room_Name, room.room_price, room.room_filename, room.room_filesize, room.room_info, room.room_maxperson, hotel.hotel_Name, hotel.hotel_filename, hotel.hotel_Content, hotel.hotel_address
@@ -23,19 +32,7 @@
 	    
 	    
 	    
-	    <select id="search" parameterType="String" resultType="java.util.Map">
-		SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
-		FROM hotel
-		WHERE hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
-		ORDER BY hotel_Name
-		</select>
-	
-		<select id="search2" parameterType="String" resultType="java.util.Map">
-		SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
-		FROM hotel
-		WHERE hotel_Type = #{hotel_Type}
-		ORDER BY hotel_Name
-		</select>
+	  
 		
 		<insert id="insert" parameterType="java.util.Map">
 		INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address)
@@ -50,7 +47,13 @@
 	
 		<!-- 전체 레코드 수 조회 -->
 	    <select id="totalRowCount" resultType="java.lang.Integer">
-	        SELECT COUNT(*) FROM hotel
+	        SELECT COUNT(*) FROM hotel WHERE arrival_code = #{area_code}
+	        <if test="hotel_Name != null and hotel_Name != ''">
+            AND hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
+        	</if>
+        	<if test="hotel_Type != null and hotel_Type != ''">
+            AND hotel_Type = #{hotel_Type}
+       		</if>
 	    </select>
 	    
 	    
