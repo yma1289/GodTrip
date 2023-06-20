@@ -41,4 +41,9 @@ public class TransDAO {
 	}//transproDelete() end
 	
 	
+	public void transRsvInsert(TransRsvDTO dto) {
+		sqlSession.insert("product.transRsvInsert", dto);
+	}//transproChoice() end
+	
+	
 }//class end
