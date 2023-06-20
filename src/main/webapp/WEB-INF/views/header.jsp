@@ -19,12 +19,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- summernote lite버전 -->
-<script src="../js/summernote/summernote-lite.js"></script>
-<script src="../js/summernote/lang/summernote-ko-KR.js"></script>
-<link rel="stylesheet" href="../css/summernote/summernote-lite.css"/>
+<script src="../js/summernote-lite.js"></script>
+<script src="../js/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="../css/summernote-lite.css"/>
 <!-- 카카오 맵 api -->   
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=24ea111b6d59957dff485b2a4f29e454&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=517b034886148efc9d775c2d2bf52a98&libraries=services,clusterer,drawing"></script>
 <script src="../js/myscript.js"></script>
+<script>
+document.cookie = "cookieName=cookieValue; SameSite=None; Secure";
+
+</script>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
 	  font-family: 'Noto Sans KR', sans-serif;
@@ -105,7 +109,7 @@ footer {
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
         <a class="navbar-brand" href="/home.do">
-            <img src="../images/logo2.png" alt="Logo" class="navbar-logo">
+            <img src="/images/logo2.png" alt="Logo" class="navbar-logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
             <span class="navbar-toggler-icon"></span>
@@ -113,36 +117,42 @@ footer {
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="../area/areaForm">내·만·패</a>
+                    <a class="nav-link" href="/area/areaForm">내·만·패</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../attraction/attractionList">관광지소개</a>
+                    <a class="nav-link" href="/attraction/attractionList">관광지소개</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../review/reviewList">여행후기</a>
+                    <a class="nav-link" href="/review/reviewList">여행후기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../service/serviceList">고객센터</a>
+                    <a class="nav-link" href="/service/serviceList">고객센터</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../member/memberList">마이페이지</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <c:choose>
-                        <c:when test="${empty s_id || empty s_passwd || s_mlevel == 'E1'}">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">로그인</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="/partner/partnerlogin">파트너로그인</a>
-                                <a class="dropdown-item" href="/member/memberlogin">회원로그인</a>
-                            </div>
+                <c:choose>
+          <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
+            <a class="nav-link" href="/member/memberpage">마이페이지</a>
+          </c:when>
+          <c:when test="${!(empty p_id || empty p_passwd || p_level == 'E1')}">
+            <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
+          </c:when>
+          <c:otherwise>
+            <a class="nav-link" href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">마이페이지</a>
+          </c:otherwise>
+        </c:choose>
+              </li>
+                     <c:choose>
+                        <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1') && (empty p_id || empty p_passwd || p_level == 'E1')}">
+                           <a href="/member/memberlogin"
+                              class="w3-bar-item w3-button w3-mobile"><h6>로그인</h6></a>
+                           <a href="/partner/partnerlogin"
+                              class="w3-bar-item w3-button w3-mobile"><h6>파트너로그인</h6></a>
                         </c:when>
                         <c:otherwise>
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">${s_id} 님</a>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="/member/memberlogout">로그아웃</a>
-                            </div>
+                           <a href="/member/logout.do"
+                              class="w3-bar-item w3-button w3-mobile"><h6>로그아웃</h6></a>
                         </c:otherwise>
-                    </c:choose>
+                     </c:choose>
                 </li>
             </ul>
         </div>
@@ -156,9 +166,3 @@ footer {
 
 <div class="container-fluid bg-3 text-center">    
   <div class="row">
-  
-<script>
-$(document).ready(function() {
-    $('.dropdown-toggle').dropdown();
-  });
-</script>
