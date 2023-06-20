@@ -3,9 +3,11 @@ package kr.co.godtrip.attraction;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.godtrip.member.MemberDTO;
 import kr.co.godtrip.service.ServiceDTO;
@@ -27,13 +29,34 @@ public class AttractionDAO {
 	//mapper에서 namespce="attraction"의 id="attractioninsert"에 가서 쿼리문을 map에 받아오는것
 	
 	
-
+/*
 	//목록list
-	public List<AttractionDTO> list(){
+	public List<AttractionDTO> list(ModelAndView mav){
 		return sqlSession.selectList("attraction.attractionList");
+	}//list() end 
+*/
+	
+	
+	
+	
+	public List<Map<String, Object>> list(Map<String, Object>map){
+		return sqlSession.selectList("attraction.attractionList",map);
 	}//list() end 
 	
 	
+	public int totalRowCount(Map<String, Object>map) {
+		return sqlSession.selectOne("attraction.totalRowCount", map);
+	}
+
+	
+
+	 
+	
+	 
+	
+
+	
+	//////////////
 	
 	//상세보기Detail(dto)
 	public AttractionDTO attractionDetail(String tour_code){
@@ -67,9 +90,6 @@ public class AttractionDAO {
     }//search() end 
 	
 	
-
-    
-/////////////////////////////////////////////////////	
 
   
 	//수정update dto사용

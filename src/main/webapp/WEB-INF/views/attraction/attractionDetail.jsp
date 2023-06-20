@@ -4,9 +4,9 @@
 <!-- 본문시작 -->
 <div class="col-sm-12">
 	<div class="container">
-	
+	<br>
 	<h3>관광지소개상세보기</h3>
-
+<br>
 <table class="table table-condensed">
 <tr>
 <td>지역</td>
@@ -126,15 +126,21 @@
     
     
 <a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">수정</a>
-<a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">삭제</a>
+<!--  <a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">삭제</a>-->
 
+<a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
 
+<script>
+function confirmDelete() {
+    return confirm(" 영구히 삭제됩니다. 삭제하겠습니까?");
+}
+</script>
 	
 
 
 
 
-
+<br><br>
 <!-- 댓글 -->
 <!-- 내용을 div로 감싸줘야 해당부분을 찾아가 수정과 삭제가 가능함 -->
 	<div class="container">
@@ -166,7 +172,7 @@
 			//alert($);
 			//<form id="commentInsertForm"></form>의 내용을 전부 가져옴
 			let insertData=$("#commentInsertForm").serialize();
-			//alert(insertData);//product_code=2&content=apple
+			//alert(insertData);//tour_code=2&content=내용
 			commentInsert(insertData);//댓글등록 함수 호출
 		});//click() end
 		
