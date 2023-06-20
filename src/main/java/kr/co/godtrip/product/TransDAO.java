@@ -1,5 +1,6 @@
 package kr.co.godtrip.product;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +17,23 @@ public class TransDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<Map<String, Object>> transproList() {
-		return sqlSession.selectList("product.transproList");
+	public List<Map<String, Object>> transproList(String arrival_code, String departure_Date) {
+		Map<String, String> params = new HashMap<>();
+		params.put("arrival_code", arrival_code);
+		params.put("departure_Date", departure_Date);
+		
+		return sqlSession.selectList("product.transproList", params);
 	}//transproList() end
+	
+	
+	public List<Map<String, Object>> depCodeSelect(String arrival_code, String departure_Date, String departure_code) {
+		Map<String, String> params = new HashMap<>();
+		params.put("arrival_code", arrival_code);
+		params.put("departure_Date", departure_Date);
+		params.put("departure_code", departure_code);
+		
+		return sqlSession.selectList("product.depCodeSelect", params);
+	}//depCodeSelect() end
 	
 	
 	public List<Map<String, Object>> transinfoList() {
@@ -46,9 +61,19 @@ public class TransDAO {
 	}//transinfoDelete() end
 	
 	
+	public int transRsvInsert(TransRsvDTO dto) {
+		return sqlSession.insert("product.transRsvInsert", dto);
+	}//transproChoice() end
+	
+	/*
 	public void transRsvInsert(TransRsvDTO dto) {
 		sqlSession.insert("product.transRsvInsert", dto);
 	}//transproChoice() end
-	
+	*/
+		
+	public void SeatChange(String transpro_code) {
+		sqlSession.update("product.SeatChange", transpro_code);
+	}//SeatChange() end
+
 	
 }//class end
