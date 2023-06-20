@@ -144,7 +144,7 @@ h2 {
 
 <div class="wrap">
         <div class="login">
-            <h2>*로그인*</h2>
+            <h2>*회원 로그인*</h2>
             <div class="login_id">
                 <form action="login.do" method="post" id="loginfrm" name="loginfrm" onsubmit="return loginCheck()"> 
                 <h4>ID</h4>

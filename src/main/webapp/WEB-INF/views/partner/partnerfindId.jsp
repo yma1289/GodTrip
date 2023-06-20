@@ -14,7 +14,7 @@
 	<h3>*아이디/비밀번호 찾기*</h3>
 	<h6>아이디/비밀번호는 메일로 전송됩니다</h6>
 	
-<form name="findIdfrm" id="findIdfrm" method="post" action="findidproc.do" onsubmit="return findCheck()">
+<form name="findIdfrm" id="findIdfrm" method="post" action="pfindidproc.do" onsubmit="return partnerfindCheck()">
 <table class="table">
 <tr class="success">
 <td> <input type="text" name="mname" id="mname" placeholder="이름" maxlength="10" required>
