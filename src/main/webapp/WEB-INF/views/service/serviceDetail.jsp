@@ -74,12 +74,14 @@
         </tr>
         </tbody>
     </table>
+    <c:if test="${user.mlevel == 'A1'}">
     <div class="text-center mt-4" style="padding: 30px;">
     <button onclick="editService()" class="btn btn-info">수정</button>
        <button onclick="confirmDelete()" class="btn btn-info">삭제</button>
+    </c:if>   
        <input type="button" value="목록" class="btn btn-info" onclick="location.href='/service/serviceList'">
-   </div>
-
+    </div>
+   
 </div>
 
 <form id="editForm" style="display: none;">
@@ -100,8 +102,8 @@
         <textarea name="content" required>${service.content}</textarea>
     </div>
     <div>
-        <input type="button" value="저장" class="btn btn-info" onclick="saveService()" />
-        <input type="button" value="취소" class="btn btn-info" onclick="cancelEdit()" />
+	    <input type="button" value="저장" class="btn btn-info" onclick="saveService()" />
+	    <input type="button" value="취소" class="btn btn-info" onclick="cancelEdit()" />
     </div>
 </form>
 

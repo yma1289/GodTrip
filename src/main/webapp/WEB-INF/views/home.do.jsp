@@ -112,25 +112,34 @@ footer {
 	        	<li class="nav-item" style="white-space: nowrap;">
 	          		<a class="nav-link" href="../service/serviceList">고객센터</a>
 	        	</li>
-	        	<li class="nav-item" style="white-space: nowrap;">
-	          		<a class="nav-link" href="../member/memberList">마이페이지</a>
-	        	</li>
 	        	<c:choose>
-	    		<c:when test="${ empty s_id  || empty s_passwd || s_mlevel == 'E1'}"> 
-	            <li class="nav-item dropdown">
-	             <li class="nav-item dropdown"><a
-	    					class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-	    					role="button" data-toggle="dropdown">로그인</a>
-	    					<div class="dropdown-menu dropdown-menu-right">
-								<a class="dropdown-item" href="/partner/partnerlogin">파트너로그인</a>
-								<a class="dropdown-item" href="/member/memberlogin">회원로그인</a>
-							</c:when>
-							<c:otherwise>
-							<li class="nav-item" style="white-space: nowrap;">
-								<a class="nav-link" a href="/member/memberlogin">로그아웃</a>
-							</li>	
-							</c:otherwise>
-						</c:choose>
+	            <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
+	              <a class="nav-link" href="/member/memberpage">마이페이지</a>
+	            </c:when>
+	            <c:when test="${!(empty p_id || empty p_passwd || p_level == 'E1')}">
+	              <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
+	            </c:when>
+	            <c:otherwise>
+	              <a class="nav-link" href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">마이페이지</a>
+	            </c:otherwise>
+	          </c:choose>
+	                </li>
+	                <c:choose>
+	                <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1') && (empty p_id || empty p_passwd || p_level == 'E1')}">
+	                <li class="nav-item dropdown">
+	                 <li class="nav-item dropdown"><a
+	                       class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+	                       role="button" data-toggle="dropdown">로그인</a>
+	                       <div class="dropdown-menu dropdown-menu-right">
+	                          
+	                                <a class="dropdown-item" href="/partner/partnerlogin">판매자로그인</a>
+	                                <a class="dropdown-item" href="/member/memberlogin">회원로그인</a>
+	                             </c:when>
+	                             <c:otherwise>
+	           
+	                                <a href="/member/logout.do" class="w3-bar-item w3-button w3-mobile"><h6>로그아웃</h6></a>
+	                             </c:otherwise>
+	                          </c:choose>
 	          		</div>
 	        	</li>
 			</ul>

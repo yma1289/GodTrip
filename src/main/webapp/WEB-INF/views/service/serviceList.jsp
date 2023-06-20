@@ -83,11 +83,11 @@
             </c:forEach>
         </tbody>
     </table>
-
+    <c:if test="${user.mlevel == 'A1'}">
     <div class="text-center mt-4" style="padding: 30px;">
     	<button class="btn btn-info" onclick="location.href='/service/serviceForm'">글쓰기</button>
     </div>
-
+    </c:if>
     <div class="pagination-container">
     <c:if test="${totalPages > 1}">
         <c:set var="currentPage" value="${currentPage}" />
