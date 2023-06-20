@@ -23,6 +23,7 @@
 		<th class="text-center">이름</th>
 		<th class="text-center">로고</th>
 		<th class="text-center">상품등록</th>
+		<th class="text-center">삭제</th>
 	</tr>
 	</thead>
 	
@@ -51,11 +52,23 @@
 			<td>				
 				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/transproForm?trans_code=${transinfo.trans_code}&FT_code=${transinfo.FT_code}'">
 			</td>
+			<td>				
+				<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${transinfo.trans_code}')">
+			</td>
 		  </tr>
 		</c:forEach>			
 	</tbody>
 	</table>			
 	</div>
 </div>
+
+<script>
+	function confirmDelete(trans_code){
+		if(confirm("정말로 삭제하시겠습니까?")){
+			location.href='transinfoDelete?trans_code='+trans_code;
+		}//if end
+	}//confirmDelete() end
+</script>
+
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

@@ -148,6 +148,15 @@ public class TransCont {
 	}//transproDelete() end
 	
 	
+	@RequestMapping("/product/transinfoDelete")
+	public String transinfoDelete(HttpServletRequest req) {
+		String trans_code = req.getParameter("trans_code");
+		transDao.transinfoDelete(trans_code);
+		
+		return "redirect:/product/transinfoList";
+	}//transinfoDelete() end
+	
+	
 	@RequestMapping("/product/transRsvInsert")
 	public ModelAndView transRsvInsert(@ModelAttribute TransRsvDTO dto
 								 ,HttpServletRequest req
