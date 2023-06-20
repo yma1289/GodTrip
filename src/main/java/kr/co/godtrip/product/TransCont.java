@@ -2,12 +2,15 @@ package kr.co.godtrip.product;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -108,8 +111,20 @@ public class TransCont {
 		//2) 4자리의 랜덤번호 생성
 		int n = (int)(Math.random()*10000+1);
 		
-		//3) 구분코드 + 랜덤번호 하여 transpro_code 생성
+		//3) 구분코드 + 랜덤번호 하여 transpro_code 생성		
+		/*
+		1) 첫번째 방법 : 숫자가 1자리수부터 4자리수까지 랜덤으로 생성, 4자리가 아닌 경우 0이 붙지 않음 
 		String transpro_code = transproCodePrefix + n;
+		*/
+		
+		/*
+		2) 두번째 방법 : 숫자는 4자리수로 나오나 문자가 맨앞 한글자씩만 나옴
+		char transproCodePrefixChar1 = transproCodePrefix.charAt(0);
+		String transpro_code = String.format("%c%04d", transproCodePrefixChar, n);
+		*/
+		
+		//3) 세번째 방법
+		String transpro_code = transproCodePrefix + String.format("%04d", n); 
 		
 		System.out.println(transpro_code);
 		
@@ -131,6 +146,54 @@ public class TransCont {
 		
 		return "redirect:/product/transproList";		
 	}//transproDelete() end
+	
+	
+	@RequestMapping("/product/transinfoDelete")
+	public String transinfoDelete(HttpServletRequest req) {
+		String trans_code = req.getParameter("trans_code");
+		transDao.transinfoDelete(trans_code);
+		
+		return "redirect:/product/transinfoList";
+	}//transinfoDelete() end
+	
+	
+	@RequestMapping("/product/transRsvInsert")
+	public ModelAndView transRsvInsert(@ModelAttribute TransRsvDTO dto
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		String transpro_code = req.getParameter("transpro_code");		
+		String s_id = "kim0602";
+		//String s_id = (String) session.getAttribute("s_id");
+		//session.getAttribute() 메소드는 Object타입을 반환하기 때문에 (String) 추가
+		
+		//랜덤으로 좌석번호 지정하기
+		final int LETTER_RANGE = 26; //알파벳 갯수
+		final int DIGIT_RANGE = 10;  //숫자의 범위 
+		Random random = new Random();
+		char letter = (char) (random.nextInt(LETTER_RANGE)+'A');
+		int number = random.nextInt(DIGIT_RANGE * DIGIT_RANGE);
+		
+		String transrs_seatno = String.format("%c%02d", letter, number);
+		System.out.println(transrs_seatno);
+		
+			
+		dto.setTranspro_code(transpro_code);
+		dto.setId(s_id);
+		dto.setTransrs_seatno(transrs_seatno);
+		
+				
+		if(transpro_code != null) {
+			transDao.transRsvInsert(dto);
+		}//if end
+		
+		mav.setViewName("/hotel/hotelList");
+				
+		return mav;		
+		
+	}//transproChoice() end 
 
 	
 	 

@@ -14,49 +14,6 @@
 		padding-right: 20px;
 	}
 </style>
-	
-<script>
-	$(function(){
-		/*input타입 중 checkbox에서 name값을 기준으로 찾음(name 대신 id도 가능)*/
-		$('input:checkbox[name="checkboxName"]').click(function(){
-			
-			if($('input:checkbox[name="checkboxName"]').is(':checked')){
-				console.log("체크");
-				clickEvent(event);
-			}else{
-				console.log("체크 해제")
-			}//if end		
-		})	
-	});
-	
-	function clickEvent(event){
-		//이벤트를 체크박스에 달았기 때문에 여기에서 타겟은 체크박스를 가리킴
-		console.log('target :: ', $(event.target));
-		
-		//$(event.target)에서 가장 가까운 tr 태그 찾기
-		var row = $(event.target).closest('tr');
-		
-		//그중에서도 td 태그 찾기
-		var columns = row.find('td');
-		
-		//콘솔에 어떻게 찍히는지 확인하기
-		console.log('row :: ', row);
-		console.log('columns :: ', columns);
-		
-		//columns.addClass('row-highlight');
-		var values = "";
-		
-		//jQuery를 이용한 반복문. idx값과 item을 이용해서 필요한 용도에 맞게 사용하기
-		$.each(columns, function(idx, item){
-			values = values + 'td' + (idx + 1) + ':' + item.innerHTML + '<br/>';
-			alert(values);
-		});
-		
-		console.log('최종 :: ', values);
-		
-	}//clickEvent() end	
-</script>
-
 
 <div class="col-sm-12">
 	<div class="container" style="padding-top: 30px">
@@ -114,7 +71,6 @@
 	 <table class="table">
 	  <thead>
 	   <tr>
-		<th><input type="checkbox" id="checkAll" name="checkAll"></th>
 		<th class="text-center">항공/기차편명</th>
 		<th class="text-center">항공/기차이름</th>
 		<th class="text-center">출발일</th>
@@ -124,14 +80,14 @@
 		<th class="text-center">도착시간</th>		
 		<th class="text-center">가격</th>
 		<th class="text-center">잔여좌석</th>
+		<th class="text-center">상품선택</th>		
 		<th class="text-center">삭제</th>
 	   </tr>
 	  </thead>
 	  
 	  <tbody>
 	   <c:forEach var="transpro" items="${transproList}">
-	   <tr class="text-center">
-		<td><input type="checkbox" id="checkboxName" name="checkboxName"></td>
+	   <tr class="text-center">		
 		<td>${transpro.trans_code}</td>
 		<td>${transpro.trans_name}</td>
 		<td>${transpro.departure_Date}</td>
@@ -269,8 +225,11 @@
 		<td>${transpro.Price}</td>
 		<td>${transpro.seat}</td>
 		<td>
+			<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}'">
+		</td>
+		<td>
 			<!-- 삭제버튼은 판매자에게만 노출될 수 있게 해야함! -->
-			<input type="button" class="btn btn-danger" value="삭제" onclick="location.href='transproDelete?transpro_code=${transpro.transpro_code}'">
+			<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${transpro.transpro_code}')">
 		</td>		
 	   </tr>
 	   </c:forEach>
@@ -278,5 +237,13 @@
 	 </table>	
 	</div>		
 </div>
+
+<script>
+	function confirmDelete(transpro_code){
+		if(confirm("정말로 삭제하시겠습니까?")){
+			location.href='transproDelete?transpro_code='+transpro_code;
+		}//if end
+	}//confirmDelete() end
+</script>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
