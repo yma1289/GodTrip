@@ -229,7 +229,7 @@
 		</td>
 		<td>
 			<!-- 삭제버튼은 판매자에게만 노출될 수 있게 해야함! -->
-			<input type="button" class="btn btn-danger" value="삭제" onclick="location.href='transproDelete?transpro_code=${transpro.transpro_code}'">
+			<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${transpro.transpro_code}')">
 		</td>		
 	   </tr>
 	   </c:forEach>
@@ -237,5 +237,13 @@
 	 </table>	
 	</div>		
 </div>
+
+<script>
+	function confirmDelete(transpro_code){
+		if(confirm("정말로 삭제하시겠습니까?")){
+			location.href='transproDelete?transpro_code='+transpro_code;
+		}//if end
+	}//confirmDelete() end
+</script>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

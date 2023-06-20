@@ -41,6 +41,11 @@ public class TransDAO {
 	}//transproDelete() end
 	
 	
+	public void transinfoDelete(String trans_code) {
+		sqlSession.delete("product.transinfoDelete", trans_code);
+	}//transinfoDelete() end
+	
+	
 	public void transRsvInsert(TransRsvDTO dto) {
 		sqlSession.insert("product.transRsvInsert", dto);
 	}//transproChoice() end
