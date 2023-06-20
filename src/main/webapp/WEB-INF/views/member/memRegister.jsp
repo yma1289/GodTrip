@@ -6,7 +6,7 @@
 <h3> 회원가입 </h3>
 
 <span style="color:red; font-weight: bold"> *필수입력</span>
-<form name="memfrm" id="memfrm" method="post" action="memberProc.jsp" onsubmit="return memberCheck()">
+<form name="memfrm" id="memfrm" method="post" action="Register" onsubmit="return memberCheck()">
 <table class="table">
 <tr>
 <th>*아이디</th>
