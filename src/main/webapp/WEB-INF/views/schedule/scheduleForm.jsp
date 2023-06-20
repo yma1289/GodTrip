@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <style>
 footer, .title {
@@ -38,14 +39,13 @@ footer, .title {
     </div>
   </div>
   <div class="col-md-3 bg-light text-dark" style="height: 80vh;">
-    <h5 class="mt-3">내가 만드는 여행 패키지</h5>
+    <h5 class="mt-3" style="margin-top: 20px;">내가 만드는 여행 패키지</h5>
     <p>어떤 지역으로 여행하고 싶으신가요?</p>
-    <p id="selectedAreaSidebar"><i class="fa fa-arrow-right"></i> <span id="selectedAreaValue"></span></p>
+    <p id="selectedArea"><i class="fa fa-arrow-right"></i> </p>
     <p>어떤 일정으로 여행하고 싶으신가요?</p>
     <p id="selectedDate"><i class="fa fa-arrow-right"></i> <span id="dateRange"></span></p>
     <!-- Next 버튼 -->
-    <div style="margin-top: 20%; margin-left: 5%;">
-      
+    <div style="margin-top: 20%; margin-left: 5%;">  
       <input type="button" value="Next" onclick="location.href='/product/transproList'" class="btn btn-info" id="nextButton">
     </div>
   </div>
@@ -55,16 +55,27 @@ footer, .title {
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
 <script type="text/javascript">
+// area_code 값이 제대로 넘어왔는지 확인
+window.onload = function() {
+  var selectedArea = JSON.parse(localStorage.getItem('selectedArea'));
+  console.log(selectedArea);
+
+  var selectedAreaValue = document.getElementById('selectedArea');
+  if (selectedAreaValue) {
+    selectedAreaValue.innerHTML = '<i class="fa fa-arrow-right"></i> ' + selectedArea.altValue;
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function() {
   var startDatePicker = flatpickr('#datetimepickerStart', {
     dateFormat: 'Y-m-d',
     inline: true,
-    minDate: 'today', 
+    minDate: 'today',
     locale: {
-      rangeSeparator: ' ~ ' 
+      rangeSeparator: ' ~ '
     },
     onChange: function(selectedDates, dateStr, instance) {
-      endDatePicker.clear(); 
+      endDatePicker.clear();
       endDatePicker.set('minDate', dateStr);
     }
   });
@@ -89,28 +100,37 @@ document.addEventListener("DOMContentLoaded", function() {
       var startDateFormat = startDate.getFullYear() + '. ' + (startDate.getMonth() + 1) + '. ' + startDate.getDate() + '.';
       var endDateFormat = endDate.getFullYear() + '. ' + (endDate.getMonth() + 1) + '. ' + endDate.getDate() + '.';
 
-      document.getElementById('selectedDate').innerHTML = '<i class="fa fa-arrow-right"></i> ' + startDateFormat + ' ~ ' + endDateFormat + ' (' + numNights + '박 ' + (numNights + 1) + '일)';
-      document.getElementById('dateRange').textContent = startDateFormat + ' ~ ' + endDateFormat + ' (' + numNights + '박 ' + (numNights + 1) + '일)';
+      var selectedDate = document.getElementById('selectedDate');
+      if (selectedDate) {
+        selectedDate.innerHTML = '<i class="fa fa-arrow-right"></i> ' + startDateFormat + ' ~ ' + endDateFormat + ' (' + numNights + '박 ' + (numNights + 1) + '일)';
+      }
+      var dateRange = document.getElementById('dateRange');
+      if (dateRange) {
+        dateRange.textContent = startDateFormat + ' ~ ' + endDateFormat + ' (' + numNights + '박 ' + (numNights + 1) + '일)';
+      }
     }
   });
 
   var selectedArea = localStorage.getItem('selectedArea');
   if (selectedArea) {
     var { altValue, areaCode } = JSON.parse(selectedArea);
-    document.getElementById('selectedAreaSidebar').innerHTML = '<i class="fa fa-arrow-right"></i> ' + altValue;
-    document.getElementById('selectedAreaValue').textContent = areaCode;
+    var selectedAreaValue = document.getElementById('selectedArea');
+    if (selectedAreaValue) {
+      selectedAreaValue.innerHTML = '<i class="fa fa-arrow-right"></i> ' + altValue;
+    }
 
-    //area_code, alt값
+    // area_code, alt값
     console.log(areaCode);
     console.log(altValue);
   }
 });
+document.getElementById('nextButton').addEventListener('click', function() {
+    var areaCode = JSON.parse(localStorage.getItem('selectedArea')).areaCode;
+    var departureDate = document.getElementById('datetimepickerStart').value;
+    window.location.href = "../product/transproList?area_code=" + areaCode + "&departure_Date=" + departureDate;
+});
 
-//area_code값이 제대로 넘어왔는지 확인
-window.onload = function() {
-  var selectedArea = JSON.parse(localStorage.getItem('selectedArea'));
-  console.log(selectedArea);  
-}
 </script>
+
 
 <%@ include file="../footer.jsp" %>

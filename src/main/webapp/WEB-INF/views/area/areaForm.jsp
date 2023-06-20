@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 <style>
 footer {
@@ -95,7 +96,7 @@ footer {
   </div>
 
   <div class="col-md-3 bg-light text-dark" style="height: 80vh;">
-    <h5 class="mt-3" margin-top: 20px;>내가 만드는 여행 패키지</h5>
+    <h5 class="mt-3" style="margin-top: 20px;">내가 만드는 여행 패키지</h5>
     <p>어떤 지역으로 여행하고 싶으신가요?</p>
     <p id="selectedArea"><i class="fa fa-arrow-right"></i> </p>
 
@@ -116,9 +117,10 @@ function handleClickEvent(event) {
     document.getElementById('selectedArea').innerHTML = '<i class="fa fa-arrow-right"></i> ' + altValue;
 
     document.getElementById('nextButton').addEventListener('click', function() {
-        location.href = "../schedule/scheduleForm";
+        window.location.href = "../schedule/scheduleForm";
     });
 }
+
 </script>
 
 <%@ include file="../footer.jsp" %>
