@@ -111,8 +111,20 @@ public class TransCont {
 		//2) 4자리의 랜덤번호 생성
 		int n = (int)(Math.random()*10000+1);
 		
-		//3) 구분코드 + 랜덤번호 하여 transpro_code 생성
+		//3) 구분코드 + 랜덤번호 하여 transpro_code 생성		
+		/*
+		1) 첫번째 방법 : 숫자가 1자리수부터 4자리수까지 랜덤으로 생성, 4자리가 아닌 경우 0이 붙지 않음 
 		String transpro_code = transproCodePrefix + n;
+		*/
+		
+		/*
+		2) 두번째 방법 : 숫자는 4자리수로 나오나 문자가 맨앞 한글자씩만 나옴
+		char transproCodePrefixChar1 = transproCodePrefix.charAt(0);
+		String transpro_code = String.format("%c%04d", transproCodePrefixChar, n);
+		*/
+		
+		//3) 세번째 방법
+		String transpro_code = transproCodePrefix + String.format("%04d", n); 
 		
 		System.out.println(transpro_code);
 		
@@ -168,8 +180,8 @@ public class TransCont {
 			transDao.transRsvInsert(dto);
 		}//if end
 		
-		mav.setViewName("/product/hotelList");
-		
+		mav.setViewName("/hotel/hotelList");
+				
 		return mav;		
 		
 	}//transproChoice() end 
