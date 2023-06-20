@@ -6,16 +6,33 @@
 
 	
 	<insert id="attractioninsert" parameterType="java.util.Map">
-	    INSERT INTO attraction (area_code, tour_name, keyword, content, filename, filesize)
-	    VALUES (#{area_code}, #{tour_name}, #{keyword}, #{content}, #{filename}, #{filesize})
+	    INSERT INTO attraction (tour_code,area_code, tour_name, keyword, content, filename, filesize)
+	    VALUES (#{tour_code},#{area_code}, #{tour_name}, #{keyword}, #{content}, #{filename}, #{filesize})
 	</insert>
 	
 
 	
-	<select id="attractionList" resultType="kr.co.godtrip.attraction.AttractionDTO">
-		select *
+	<select id="attractionList" resultType="java.util.Map">
+		select * 
+		from (
+		 select *
 		from attraction
+		<if test="tour_name!= null and tour_name !=''">
+			where tour_name LIKE CONCAT('%',#{tour_name},'%')
+		</if>
+		 LIMIT #{endRow} OFFSET #{startRow}
+    	) AS subquery
 	</select>
+
+  
+  	<select id="totalRowCount" resultType="java.lang.Integer">
+  		select count(*) from attraction 
+  		<if test="tour_name!=null and tour_name !=''">
+  			where tour_name LIKE CONCAT('%', #{tour_name}, '%')
+  		</if>
+  		
+  	</select>
+  
 	
 	<!-- dto로 했을 때 --> 
 	 <select id="attractionDetail" resultType="kr.co.godtrip.attraction.AttractionDTO">
@@ -83,6 +100,7 @@
 	
 	 --> 
 
+	
 	
 	
 	

@@ -5,14 +5,20 @@
 <!-- comment.xml -->
 
 <mapper namespace="comment">
+	<!-- 실수한부분) 테이블설정이랑 insert칼럼이랑 달라서 에러난것, 테이블보면서 mapper작업할 것 
+	<insert id="insert"	parameterType="kr.co.godtrip.comment.CommentDTO">
+		INSERT INTO comment( tour_code,content,id,wname)
+		VALUES ( #{tour_code},#{content},#{id},#{wname})
+	</insert>
+	-->
+	
 	
 	<insert id="insert"	parameterType="kr.co.godtrip.comment.CommentDTO">
-		INSERT INTO comment( commentno,tour_Code,content, id)
-		VALUES ( #{commentno},#{tour_code},#{content}, #{id})
-	</insert>
+	insert into comment(tour_code, id, content, regdate)
+	value (#{tour_code}, #{id}, #{content}, CURRENT_TIMESTAMP)
+		</insert>
 	
-	
-	<select id="list" resultType="kr.co.godtrip.comment.CommentDTO" parameterType="int">
+	<select id="list" resultType="kr.co.godtrip.comment.CommentDTO" parameterType="String">
         SELECT *
         FROM comment
         WHERE tour_code=#{tour_code}

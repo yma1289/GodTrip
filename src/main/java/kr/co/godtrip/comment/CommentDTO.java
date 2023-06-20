@@ -3,12 +3,12 @@ package kr.co.godtrip.comment;
 public class CommentDTO {
 
 	
-		private int commentno;   //댓글번호
-		private String tour_code;  //관광지코드
-		private String id;			//아이디
-		private String content; //내용
+		private int commentno;   //댓글번호(cno)
+		private String tour_code;  //관광지코드(product_code)
+		private String content;		 //내용
+		private String id;			//아이디(wname)
 		private String regdate;	  //작성일	
-	
+		private String wname;
 	
 	    public CommentDTO() {}
 
@@ -62,6 +62,18 @@ public class CommentDTO {
 
 		public void setRegdate(String regdate) {
 			this.regdate = regdate;
+		}
+
+		
+		
+
+		public String getWname() {
+			return wname;
+		}
+
+
+		public void setWname(String wname) {
+			this.wname = wname;
 		}
 
 
