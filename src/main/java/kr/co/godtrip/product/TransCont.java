@@ -27,12 +27,34 @@ public class TransCont {
 	TransDAO transDao;
 	
 	@RequestMapping("/product/transproList")
-	public ModelAndView transproList() {
+	public ModelAndView transproList(HttpServletRequest req) {
+		String arrival_code = req.getParameter("arrival_code");
+		String departure_Date = req.getParameter("departure_Date");
+		
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("arrival_code", arrival_code);
+		mav.addObject("departure_Date", departure_Date);
 		mav.setViewName("product/transproList");
-		mav.addObject("transproList", transDao.transproList());
+		mav.addObject("transproList", transDao.transproList(arrival_code, departure_Date));
 		return mav;
 	}//transproList() end
+	
+	
+	@RequestMapping("/product/depCodeSelect")
+	public ModelAndView depCodeSelect(HttpServletRequest req) {
+		String arrival_code = req.getParameter("arrival_code");
+		String departure_Date = req.getParameter("departure_Date");
+		String departure_code = req.getParameter("departure_code");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("arrival_code", arrival_code);
+		mav.addObject("departure_Date", departure_Date);
+		mav.addObject("departure_code", departure_code);
+		mav.setViewName("product/transproList");
+		mav.addObject("transproList", transDao.depCodeSelect(arrival_code, departure_Date, departure_code));
+		
+		return mav;
+	}//depCodeSelect() end
 	
 	
 	@RequestMapping("/product/transinfoList")
@@ -183,11 +205,21 @@ public class TransCont {
 		dto.setTranspro_code(transpro_code);
 		dto.setId(s_id);
 		dto.setTransrs_seatno(transrs_seatno);
-		
 				
+		//교통 장바구니에 상품이 담기면 좌석수를 -1 하기
+		int cnt = transDao.transRsvInsert(dto);
+		System.out.println("교통 장바구니에 상품 추가 결과 : " + cnt);
+		
+		if(cnt==1) {
+			//좌석수 -1 하기
+			transDao.SeatChange(transpro_code);
+		}//if end		
+		
+		/*
 		if(transpro_code != null) {
 			transDao.transRsvInsert(dto);
 		}//if end
+		*/
 		
 		mav.setViewName("/hotel/hotelList");
 				

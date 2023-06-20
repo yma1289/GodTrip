@@ -4,14 +4,26 @@
      
 <mapper namespace="product">
 
-	<select id="transproList" resultType="java.util.Map">
+	<select id="transproList" resultType="java.util.Map" parameterType="java.util.Map">
 		SELECT TI.trans_code, TI.trans_name, TI.filename, TI.filesize,
        		   TP.transpro_code, TP.departure_Date, TP.departure_Time, TP.arrival_Time,
        		   TP.departure_code, TP.arrival_code, TP.Price, TP.seat
 		FROM transinfo TI
 		INNER JOIN transpro TP ON TI.trans_code = TP.trans_code
+		WHERE TP.arrival_code = #{arrival_code} AND TP.departure_Date = #{departure_Date}
 		ORDER BY departure_Date
 	</select>
+
+
+	<select id="depCodeSelect" resultType="java.util.Map" parameterType="java.util.Map">
+		SELECT TI.trans_code, TI.trans_name, TI.filename, TI.filesize,
+       		   TP.transpro_code, TP.departure_Date, TP.departure_Time, TP.arrival_Time,
+       		   TP.departure_code, TP.arrival_code, TP.Price, TP.seat
+		FROM transinfo TI
+		INNER JOIN transpro TP ON TI.trans_code = TP.trans_code
+		WHERE TP.arrival_code = #{arrival_code} AND TP.departure_Date = #{departure_Date} AND TP.departure_code = #{transpro_code}
+		ORDER BY departure_Date
+	</select>	
 	
 	
 	<select id="transinfoList" resultType="java.util.Map">
@@ -50,6 +62,13 @@
 		INSERT INTO transreservation(transrs_no, transpro_code, id, transrs_seatno, rsvdate)
 		VALUES(DEFAULT, #{transpro_code}, #{id}, #{transrs_seatno}, CURRENT_TIMESTAMP)
 	</insert>
+	
+	
+	<update id="SeatChange" parameterType="String">
+		UPDATE transpro
+		SET seat = seat-1
+		WHERE transpro_code = #{transpro_code}
+	</update>
 	
 	
 </mapper>

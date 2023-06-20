@@ -15,6 +15,12 @@
 	}
 </style>
 
+<script>
+	function depCodeSelect(departure_code){
+		location.href='depCodeSelect?departure_code='+departure_code;
+	}//depCodeSelect() end
+</script>
+
 <div class="col-sm-12">
 	<div class="container" style="padding-top: 30px">
 	 <br>
@@ -36,7 +42,7 @@
 	  <tr>
 		<th style="text-align: center">출발지</th>
 		<td>
-			<select name="departure_code" id="departure_code">
+			<select name="departure_code" id="departure_code" onselect="depCodeSelect(${departure_code})">
 				<option value="0">선택</option>
 				<option value="G0001">제주</option>
 				<option value="G0002">서울</option>
@@ -59,9 +65,71 @@
 				<option value="G0019">전주</option>
 			</select>
 		</td>
-		<th style="text-align: center">도착지</th>
+		<th style="text-align: center">도착지</th>		
 		<td>
-			<input type="text" name="arrival_code" id="arrival_code" size="10" maxlength="10" value="${arrival_code}">
+			<c:choose>
+				<c:when test="${arrival_code == 'G0001'}">
+					제주
+				</c:when>
+				<c:when test="${arrival_code == 'G0002'}">
+					서울
+				</c:when>
+				<c:when test="${arrival_code == 'G0003'}">
+					인천
+				</c:when>	
+				<c:when test="${arrival_code == 'G0004'}">
+					수원
+				</c:when>	
+				<c:when test="${arrival_code == 'G0005'}">
+					가평
+				</c:when>	
+				<c:when test="${arrival_code == 'G0006'}">
+					강릉
+				</c:when>	
+				<c:when test="${arrival_code == 'G0007'}">
+					춘천
+				</c:when>	
+				<c:when test="${arrival_code == 'G0008'}">
+					제천
+				</c:when>
+				<c:when test="${arrival_code == 'G0009'}">
+					대전
+				</c:when>
+				<c:when test="${arrival_code == 'G0010'}">
+					남원
+				</c:when>
+				<c:when test="${arrival_code == 'G0011'}">
+					군산
+				</c:when>
+				<c:when test="${arrival_code == 'G0012'}">
+					영월
+				</c:when>
+				<c:when test="${arrival_code == 'G0013'}">
+					부산
+				</c:when>
+				<c:when test="${arrival_code == 'G0014'}">
+					경주
+				</c:when>
+				<c:when test="${arrival_code == 'G0015'}">
+					포항
+				</c:when>
+				<c:when test="${arrival_code == 'G0016'}">
+					통영거제
+				</c:when>
+				<c:when test="${arrival_code == 'G0017'}">
+					목포
+				</c:when>
+				<c:when test="${arrival_code == 'G0018'}">
+					여수
+				</c:when>
+				<c:when test="${arrival_code == 'G0019'}">
+					전주
+				</c:when>
+				<c:otherwise>
+					${transpro.departure_code}
+				</c:otherwise>	
+			</c:choose>
+			<!--<input type="text" name="arrival_code" id="arrival_code" size="10" maxlength="10" value="${city}">-->
 		</td>
 	  </tr>	
 	 </table>
@@ -87,6 +155,7 @@
 	  
 	  <tbody>
 	   <c:forEach var="transpro" items="${transproList}">
+	   <c:if test="${transpro.seat>0}"> <!-- seat이 0인 경우 상품이 뜨지 않도록 함 -->
 	   <tr class="text-center">		
 		<td>${transpro.trans_code}</td>
 		<td>${transpro.trans_name}</td>
@@ -232,6 +301,7 @@
 			<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${transpro.transpro_code}')">
 		</td>		
 	   </tr>
+	   </c:if>
 	   </c:forEach>
 	  </tbody> 	
 	 </table>	
