@@ -59,12 +59,12 @@ where id=#{s_id}
 <select id="findID" parameterType="kr.co.godtrip.member.MemberDTO" resultType="kr.co.godtrip.member.MemberDTO">
     SELECT id
     FROM member
-    WHERE email = #{email} AND mname = #{mname}
+    WHERE email=#{email} and mname=#{mname}
 </select>
 
 <update id="renewPW" parameterType="kr.co.godtrip.member.MemberDTO">
     UPDATE member
-    SET passwd = #{passwd}
-    WHERE email = #{email} AND mname = #{mname}
+    SET passwd=#{passwd}
+    WHERE email=#{email} and mname=#{mname}
 </update>
 </mapper>

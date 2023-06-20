@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="partner">
+
+<insert id="insert" parameterType="kr.co.godtrip.partner.partnerDTO">
+INSERT INTO partner (p_id, p_passwd, p_name, p_tel, p_email, p_info, p_level)
+ VALUES (#{p_id}, #{p_passwd}, #{p_name}, #{p_tel}, #{p_email}, #{p_info}, #{p_level})
+</insert>
+
+<select id="duplicateId" parameterType="kr.co.godtrip.partner.partnerDTO" resultType="int">
+select count(p_id) as cnt
+from partner
+where p_id=#{p_id}
+</select>
+
+<select id="duplicateEmail" resultType="int" parameterType="kr.co.godtrip.partner.partnerDTO">
+select count(p_email) as cnt
+from partner
+where p_email=#{p_email}
+</select>
+
+<select id="loginProc" resultType="kr.co.godtrip.partner.partnerDTO" parameterType="kr.co.godtrip.partner.partnerDTO">
+SELECT *
+FROM partner
+WHERE p_id=#{p_id} and p_passwd=#{p_passwd}
+</select>
+
+<select id="select" resultType="kr.co.godtrip.partner.partnerDTO" parameterType="kr.co.godtrip.partner.partnerDTO">
+select *
+from partner
+where p_id=#{p_id}
+</select>
+
+<update id="update" parameterType="java.util.Map">
+	update partner set
+	p_passwd=#{p_passwd},
+	p_name=#{p_name},
+	p_tel=#{p_tel},
+	p_email=#{p_email},
+	p_info=#{p_info},
+	where id=#{id},
+	p_level=#{p_level}
+</update>
+
+<select id="findID" parameterType="kr.co.godtrip.partner.partnerDTO" resultType="kr.co.godtrip.partner.partnerDTO">
+    SELECT p_id
+    FROM partner
+    WHERE p_email=#{p_email} and p_name=#{p_name}
+</select>
+
+<update id="renewPW" parameterType="kr.co.godtrip.partner.partnerDTO">
+    UPDATE partner
+    SET p_passwd=#{p_passwd}
+    WHERE p_email=#{p_email} and p_name=#{p_name}
+</update>
+
+</mapper>
