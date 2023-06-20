@@ -189,41 +189,40 @@ public class partnerCont {
 		    return mav;
 		}
 		
-//		//회원탈퇴
-//		//delete가 아닌 update로 회원 등급만 바꿔서 저장하도록 한다.
-//		@RequestMapping("/memberWithdraw")
-//		public String memberWithdraw() {
-//			return "/member/memberWithdraw";
-//		}
-//		
-//		//회원 탈퇴 처리
-//		@RequestMapping("/delete.do")
-//		public ModelAndView delete(HttpServletRequest request,@RequestParam("passwd") String passwd) {
-//			ModelAndView mav=new ModelAndView();
-//			String p_id = (String) request.getSession().getAttribute("s_id");
-//			
-//			//비밀번호 아이디가 일치한다면삭제하도록한다
-//			int partnerDelete = partnerDAO.delete(p_id, passwd);
-//			
-//			//int로 값을 받아오도록 하고 성공하면 1의 값을 return 시킨다.
-//			if (partnerDelete > 0) {
-//				 
-//			//삭제시 메시지 전달	 
-//			mav.addObject("deleteMessage","정상적으로 탈퇴되었습니다");
-//			mav.setViewName("/partner/partnerWithdraw");
-//			
-//			//회원탈퇴시 로그인하지 않은상태가 되어야 한다 -> session.invalidate로
-//			//세션에 저장된 모든 정보를 지워버림
-//			HttpSession session = request.getSession(false);
-//			session.invalidate();
-//			
-//			}else {
-//				mav.addObject("errorMessage","비밀번호가 일치하지 않습니다");
-//				mav.setViewName("/partner/partnerWithdraw");
-//			}
-//					
-//			return mav;
-//		}
+		//회원탈퇴
+		//delete가 아닌 update로 회원 등급만 바꿔서 저장하도록 한다.
+		@RequestMapping("/partnerWithdraw")
+		public String memberWithdraw() {
+			return "/partner/partnerWithdraw";
+		}
+		
+		//회원 탈퇴 처리
+		@RequestMapping("/delete.do")
+		public ModelAndView delete(HttpServletRequest request,@RequestParam("p_passwd") String p_passwd) {
+			ModelAndView mav=new ModelAndView();
+			String p_id = (String) request.getSession().getAttribute("p_id");
+			
+			//비밀번호 아이디가 일치한다면삭제하도록한다
+			int partnerDelete = partnerDAO.delete(p_id,p_passwd);
+			
+			//int로 값을 받아오도록 하고 성공하면 1의 값을 return 시킨다.
+			if (partnerDelete > 0) {
+				 
+			//삭제시 메시지 전달	 
+			mav.addObject("deleteMessage","정상적으로 탈퇴되었습니다");
+			mav.setViewName("/partner/partnerWithdraw");
+			
+			//회원탈퇴시 로그인하지 않은상태가 되어야 한다 -> session.invalidate로
+			//세션에 저장된 모든 정보를 지워버림
+			HttpSession session = request.getSession(false);
+			session.invalidate();
+			
+			}else {
+				mav.addObject("errorMessage","비밀번호가 일치하지 않습니다");
+				mav.setViewName("/partner/partnerWithdraw");
+			}				
+			return mav;
+		}
 		
 		// 아이디 찾기 페이지 이동 
 				@RequestMapping("pfindId.do")

@@ -58,14 +58,14 @@ SqlSession sqlSession;
 		
 		
 		// 회원 삭제
-		public int delete(String s_id, String passwd) {
+		public int delete(String p_id, String p_passwd) {
 			// 아이디와 비밀번호가 일치하는 회원을 삭제하는 로직 작성
 			// 값을 2개 받아와야 하기때문에 map을 사용.
 			// 일치하는 경우 1 아니면 0
 			Map<String, String> paramMap = new HashMap<>();
-			paramMap.put("id", s_id);
-			paramMap.put("passwd", passwd);
-			int cnt = sqlSession.update("member.memberdelete", paramMap);
+			paramMap.put("p_id", p_id);
+			paramMap.put("p_passwd", p_passwd);
+			int cnt = sqlSession.delete("partner.partnerdelete", paramMap);
 			return cnt;
 		}
 				
