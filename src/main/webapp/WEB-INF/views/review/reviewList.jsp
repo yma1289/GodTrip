@@ -44,22 +44,22 @@ pageEncoding="UTF-8"%>
 	<div align="center">
 	<tr>
 			<td colspan="4" style="text-align:center height:50px;">
-				<form action="" onsubmit="return searchCheck()"><!-- myscript.js함수 작성함 -->
+				<form method="post" action="reviewList"><!-- myscript.js함수 작성함 -->
 					
-					<select name="col">
-						<option value="subject_content">지역전체</option>
-						<option value="subject">지역</option>
-						<option value="content">지역</option>
-						<option value="wname">지역</option>
+					<select name="area_code">
+						<option value="all">지역전체</option>
+						<option value="G0007">서울</option>
+						<option value="G0001">제주</option>
 					</select>
 					&nbsp;&nbsp;
 					
 					<select name="col">
-						<option value="subject_content">제목+내용</option>
-						<option value="subject">제목</option>
+						<option value="title_content">제목+내용</option>
+						<option value="title">제목</option>
 						<option value="content">내용</option>
-						<option value="wname">작성자</option>
+						<option value="id">작성자</option>
 					</select>
+					
 					<input type="text" name="word" id="word" placeholder="검색어를 입력해주세요" style="width:300px;height:40px;font-size:15px;">
 					<button type="submit" class="btn btn-primary btn-lg">검색</button>
 				</form>
@@ -81,63 +81,49 @@ pageEncoding="UTF-8"%>
     <th class="warning">등록일</th>
     <th class="warning">조회수</th>
   </tr>
+  
   </thead>  
-  <tr>
-  <th>1</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
-  </tr>
    <tr>
-  <th>1</th>
+  <c:forEach var="review" items="${list}"> 
+  <th>${review.list}</th>
   <th>서울</th>
   <th>안녕</th>
   <th>우와</th>
   <th>202302054</th>
   <th>0</th>
   </tr>
-   <tr>
-  <th>1</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
-  </tr>
-   <tr>
-  <th>1</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
-  </tr>
-   <tr>
-  <th>1</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
-  </tr>
-   <tr>
-  <th>1</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
-  </tr>
-   <tr>
-  <th>1</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
-  </tr>
-  </table>
+  <c:if test="${vs.count mod 5==0}">
+  </tr> <tr>
+  </c:if>    		  	
+	</c:forEach>
+</table>
+				
+			   
+			   
+			   
+    			   <c:if test="${requestScope.count>0 }">
+				   <c:set var="pageCount" value="${requestScope.totalPage}"/>
+				   <c:set var="startPage" value="${requestScope.startPage}"/>
+				   <c:set var="endPage"   value="${requestScope.endPage}"/>
+				
+				   <div class="content">
+					   <c:if test="${endPage>pageCount}">
+						  <c:set var="endPage" value="${pageCount+1}"/>
+					   </c:if>
+					
+					  <c:if test="${startPage>0}">
+					   	  <a href="reviewList?pageNum=${startPage}">[이전]</a>	
+					  </c:if>
+					   <c:forEach var="i" begin="${startPage+1}" end="${endPage-1}">
+					   	  <c:choose>
+					   	      <c:when test="${pageNum==i}"><span style="font-weight: bold">${i}</span></c:when>
+					   	      <c:when test="${pageNum!=i}"><a href="reviewList?pageNum=${i}">[${i}]</a></c:when>
+					   	  </c:choose>	      
+					   </c:forEach>
+						<c:if test="${endPage<pageCount}">
+					   	   <a href="reviewList?pageNum=${startPage+6}">[다음]</a>
+					   	</c:if>
+					</div> 
+				</c:if>	
     </div>
 <%@ include file="../footer.jsp" %>
