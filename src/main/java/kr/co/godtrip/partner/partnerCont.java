@@ -57,7 +57,7 @@ public class partnerCont {
 			// mlevel 값 가져오기
 			String p_level = dto.getP_level();
 
-			if (!(p_level.equals("F1"))) {
+			if (p_level != null) {
 				ModelAndView mav = new ModelAndView("redirect:/partner/partnerpage");
 				session.setAttribute("p_id", dto.getP_id());
 				session.setAttribute("p_passwd", dto.getP_passwd());
@@ -74,7 +74,7 @@ public class partnerCont {
 			}
 		} else {
 			ModelAndView mav = new ModelAndView("/partner/partnerlogin");
-			mav.addObject("Loginmessage", "회원이 아닙니다. 로그인을 해주세요");
+			mav.addObject("PLoginFmessage", "회원이 아닙니다. 로그인을 해주세요");
 			return mav;
 		}
 	}
@@ -279,7 +279,7 @@ public class partnerCont {
 								message.setSentDate(new Date());
 
 								Transport.send(message);
-								mav.addObject("FindIdmessage", "이메일로 아이디와 임시 비밀번호가 전송되었습니다.");
+								mav.addObject("PFindIdmessage", "이메일로 아이디와 임시 비밀번호가 전송되었습니다.");
 								
 							} catch (MessagingException e) {
 								e.printStackTrace();

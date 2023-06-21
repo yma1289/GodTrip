@@ -127,17 +127,16 @@ h2 {
 
 
 <c:choose>
-<c:when test="${ empty p_id  || empty p_passwd || p_level == 'E1' || p_level == 'F1' }"> 	
+<c:when test="${ empty p_id  || empty p_passwd || empty p_level }"> 	
 <c:if test="${not empty Loginmessage}">
         <script>
-            //alert('${Loginmessage}');
-            location.href = '/partner/partnerpage';
+            alert('${Loginmessage}');
         </script>
     </c:if>
     
 <c:if test="${not empty FindIdmessage}">
         <script>
-            alert('${FindIdmessage}');
+            alert('${PFindIdmessage}');
         </script>
     </c:if>    
     
