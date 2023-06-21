@@ -3,9 +3,10 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 <div class="col-sm-12">
-<h3> 회원가입 </h3>
+<h3 style="padding-top: 10px;"> 회원가입 </h3>
 
-<span style="color:red; font-weight: bold"> *필수입력</span>
+<span style="color:red; font-weight: bold"> *필수입력</span><br>
+<span style="color:red; font-weight: bold"> ※아이디는 추후 수정이 불가능합니다.</span>
 <form name="memfrm" id="memfrm" method="post" action="Register" onsubmit="return memberCheck()">
 <table class="table">
 <tr>
