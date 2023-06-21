@@ -8,7 +8,7 @@
         <c:if test="${not empty updateMessage}">
             window.onload = function() {
                 alert('${updateMessage}');
-                location.href = '/partner/partnerlogin';
+                location.href = '/member/memberlogin';
             }
         </c:if>
     </script>
