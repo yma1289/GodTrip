@@ -154,6 +154,10 @@ public class TransCont {
 		
 		map.put("transpro_code", transpro_code);
 		
+		//p_id 임의 지정
+		String p_id = "partner_id_01";
+		map.put("p_id", p_id);
+		
 		transDao.transproInsert(map);
 		
 		return "redirect:/product/transproList";
@@ -187,6 +191,7 @@ public class TransCont {
 		ModelAndView mav = new ModelAndView();
 		
 		String transpro_code = req.getParameter("transpro_code");		
+		System.out.println(transpro_code);
 		String s_id = "kim0602";
 		//String s_id = (String) session.getAttribute("s_id");
 		//session.getAttribute() 메소드는 Object타입을 반환하기 때문에 (String) 추가
@@ -221,6 +226,13 @@ public class TransCont {
 		}//if end
 		*/
 		
+		String departure_Date = req.getParameter("departure_Date");
+		String area_code = req.getParameter("arrival_code");
+		System.out.println(departure_Date);
+		System.out.println(area_code);
+		
+		mav.addObject(departure_Date, "departure_Date");
+		mav.addObject(area_code, "area_code");		
 		mav.setViewName("/hotel/hotelList");
 				
 		return mav;		

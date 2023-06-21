@@ -40,9 +40,9 @@
 	
 	<insert id="transproInsert" parameterType="java.util.Map">
 		INSERT INTO transpro(transpro_code, trans_code, departure_Date, departure_Time,
-							 arrival_Time, departure_code, arrival_code, Price, seat)
+							 arrival_Time, departure_code, arrival_code, Price, seat, p_id)
 		VALUES(#{transpro_code}, #{trans_code}, #{departure_Date}, #{departure_Time},
-			   #{arrival_Time}, #{departure_code}, #{arrival_code}, #{Price}, #{seat})
+			   #{arrival_Time}, #{departure_code}, #{arrival_code}, #{Price}, #{seat}, #{p_id})
 	</insert>
 
 
