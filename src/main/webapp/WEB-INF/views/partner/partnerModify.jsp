@@ -22,28 +22,28 @@
 <tr>
 <th>*아이디</th>
 <td style="text-align: left">
-<input type="text" name="id" id="id" size="10" maxlength="10" readonly value="${partner.p_id}">
+<input type="text" name="p_id" id="p_id" size="10" maxlength="10" readonly value="${partner.p_id}">
 </td>
 </tr>
 
 <tr>
 <th>*비밀번호</th>
 <td style="text-align: left">
-<input type="password" name="passwd" id="passwd" size="10" maxlength="10" required value="${partner.p_passwd}">
+<input type="password" name="p_passwd" id="p_passwd" size="10" maxlength="10" required value="${partner.p_passwd}">
 </td>
 </tr>
 
 <tr>
 <th>*비밀번호 확인</th>
 <td style="text-align: left">
-<input type="password" name="passwd1" id="passwd1" size="10" maxlength="10" required value="${partner.p_passwd}">
+<input type="password" name="p_passwd1" id="p_passwd1" size="10" maxlength="10" required value="${partner.p_passwd}">
 </td>
 </tr>
 
 <tr>
 <th>*이름</th>
 <td style="text-align: left">
-<input type="text" name="mname" id="mname" size="20" maxlength="20" required value="${partner.p_name}">
+<input type="text" name="p_name" id="p_name" size="20" maxlength="20" required value="${partner.p_name}">
 
 
 </td>
@@ -52,7 +52,7 @@
 <tr>
 <th>*이메일</th>
 <td style="text-align: left">
-<input type="email" name="email" id="email" size="15" maxlength="50" readonly value="${partner.p_email}">
+<input type="email" name="p_email" id="p_email" size="15" maxlength="50" readonly value="${partner.p_email}">
 <input type="button" value="Email중복확인" onclick="emailCheck()">
 </td>
 </tr>
@@ -63,19 +63,6 @@
 <input type="text" name="p_tel" id="p_tel" size="14" maxlength="15" value="${partner.p_tel}">
 </td>
 </tr>
-
-<tr>
-<th>판매 품목구분</th>
-<td style="text-align: left">
-  <select name="p_level" id="p_level">
-    <option value="none" >=== 선택 ===</option>
-    <option value="A1" <c:if test="${'A1' == partner.p_level}">selected</c:if>>숙박</option>
-    <option value="B1" <c:if test="${'B1' == partner.p_level}">selected</c:if>>기차</option>
-    <option value="C1" <c:if test="${'C1' == partner.p_level}">selected</c:if>>항공</option>
-  </select>
-</td>
-</tr>
-
 
 
 <tr>
@@ -88,7 +75,7 @@
 <tr>
 <td colspan="2">
 <input type="submit" value="회원정보 수정완료" class="btn btn-primary">
-<input type="button" value="취소" class="btn btn-light" onclick="location.href='/member/memberlogin'">
+<input type="button" value="취소" class="btn btn-light" onclick="location.href='/partner/partnerpage'">
 </td>
 </tr>
 </table>

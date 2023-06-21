@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import kr.co.godtrip.member.MemberDTO;
+
 import net.utility.MyAuthenticator;
 
 @Controller
@@ -46,7 +46,7 @@ public class partnerCont {
 	public ModelAndView login(@RequestParam("p_id") String p_id, @RequestParam("p_passwd") String p_passwd,
 			HttpServletRequest request, HttpSession session) {
 		
-		// 회원 정보 조회하기 MemberDTO dto = memberDao.loginProc(id);
+		// 회원 정보 조회하기 
 		
 		partnerDTO dto = partnerDAO.loginProc(p_id, p_passwd);
 
@@ -160,7 +160,7 @@ public class partnerCont {
 		
 	//회원정보 수정-모든 정보 불러오기
 	@RequestMapping("/partnerModify")
-	public ModelAndView memberModify(HttpServletRequest request) {
+	public ModelAndView partnerModify(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
 		String p_id = (String) request.getSession().getAttribute("p_id");
@@ -192,7 +192,7 @@ public class partnerCont {
 		//회원탈퇴
 		//delete가 아닌 update로 회원 등급만 바꿔서 저장하도록 한다.
 		@RequestMapping("/partnerWithdraw")
-		public String memberWithdraw() {
+		public String partnerWithdraw() {
 			return "/partner/partnerWithdraw";
 		}
 		

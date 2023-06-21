@@ -19,7 +19,7 @@
 <!-- 본문 시작 -->
 <h3 style="text-align:center; color:red;font-size:30pt;"> *회원탈퇴* </h3>
 <p style="text-align:center; color:blue;">※탈퇴하려면 비밀번호를 입력해 주세요</p>
-<form method="post" action="delete.do" onsubmit="return pwCheck()">
+<form method="post" action="delete.do" onsubmit="return ppwCheck()">
 <input type="hidden">
 <table class="table">
 
@@ -37,7 +37,7 @@
 
 <tr>
 <td colspan="2">
-<input type="submit" value="삭제" class="btn btn-danger" >
+<input type="submit" value="판매자탈퇴" class="btn btn-danger" >
 </td>
 </tr>
 

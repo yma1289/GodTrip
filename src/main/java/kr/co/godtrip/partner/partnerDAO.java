@@ -7,7 +7,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import kr.co.godtrip.member.MemberDTO;
 
 @Repository
 public class partnerDAO {
@@ -53,7 +52,7 @@ SqlSession sqlSession;
 		
 		//회원 정보 업데이트
 		public void update(Map<String, Object>map) {
-			 sqlSession.update("member.update",map);
+			 sqlSession.update("partner.update",map);
 		}
 		
 		
@@ -82,10 +81,10 @@ SqlSession sqlSession;
 				//메일 찾기
 				public int renewPW(String p_name, String p_email, String p_passwd) {			
 					
-					MemberDTO mDto=new MemberDTO();
-					mDto.setMname(p_name);
-					mDto.setEmail(p_email);
-					mDto.setPasswd(p_passwd);
+					partnerDTO mDto=new partnerDTO();
+					mDto.setP_name(p_name);
+					mDto.setP_email(p_email);
+					mDto.setP_passwd(p_passwd);
 					System.out.println(mDto.toString());
 					int cnt= sqlSession.update("partner.renewPW", mDto);
 					
