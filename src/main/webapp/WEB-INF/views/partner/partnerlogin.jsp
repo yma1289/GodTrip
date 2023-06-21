@@ -125,7 +125,6 @@ h2 {
 <!-- 본문시작 -->
 <div class="col-sm-12">
 
-
 <c:choose>
 <c:when test="${ empty p_id  || empty p_passwd || empty p_level }"> 	
 <c:if test="${not empty Loginmessage}">
@@ -136,7 +135,7 @@ h2 {
     
 <c:if test="${not empty FindIdmessage}">
         <script>
-            alert('${PFindIdmessage}');
+            alert('${FindIdmessage}');
         </script>
     </c:if>    
     
