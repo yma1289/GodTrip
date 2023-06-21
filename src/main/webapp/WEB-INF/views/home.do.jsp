@@ -113,9 +113,6 @@ footer {
 	          		<a class="nav-link" href="../service/serviceList">고객센터</a>
 	        	</li>
 	        	<c:choose>
-	            <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
-	              <a class="nav-link" href="/member/memberpage">마이페이지</a>
-	            </c:when>
 	            <c:when test="${!(empty p_id || empty p_passwd || p_level == 'E1')}">
 	              <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
 	            </c:when>
@@ -132,7 +129,7 @@ footer {
 	                       role="button" data-toggle="dropdown">로그인</a>
 	                       <div class="dropdown-menu dropdown-menu-right">
 	                          
-	                                <a class="dropdown-item" href="/partner/partnerlogin">판매자로그인</a>
+	                                <a class="dropdown-item" href="/partner/partnerlogin">파트너로그인</a>
 	                                <a class="dropdown-item" href="/member/memberlogin">회원로그인</a>
 	                             </c:when>
 	                             <c:otherwise>

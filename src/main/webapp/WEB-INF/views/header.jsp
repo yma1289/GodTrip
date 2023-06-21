@@ -130,9 +130,6 @@ footer {
                 </li>
                 <li class="nav-item">
                 <c:choose>
-          <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
-            <a class="nav-link" href="/member/memberpage">마이페이지</a>
-          </c:when>
           <c:when test="${!(empty p_id || empty p_passwd || p_level == 'E1')}">
             <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
           </c:when>
