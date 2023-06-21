@@ -17,11 +17,11 @@
 <form name="findIdfrm" id="findIdfrm" method="post" action="pfindidproc.do" onsubmit="return partnerfindCheck()">
 <table class="table">
 <tr class="success">
-<td> <input type="text" name="mname" id="mname" placeholder="이름" maxlength="10" required>
+<td> <input type="text" name="p_name" id="p_name" placeholder="이름" maxlength="10" required>
 </td>
 </tr>
 <tr class="success">
-<td> <input type="email" name="email" id="email" placeholder="이메일" maxlength="50" required>				
+<td> <input type="email" name="p_email" id="p_email" placeholder="이메일" maxlength="50" required>				
 </td>
 </tr>
 
