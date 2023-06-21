@@ -16,9 +16,11 @@
 </style>
 
 <script>
-	function depCodeSelect(departure_code){
-		location.href='depCodeSelect?departure_code='+departure_code;
-	}//depCodeSelect() end
+	function updateDepartureCode(){
+		const departureCodeElem = document.getElementById('departure_code'); //select 요소 가져오기
+		const departureCode = departureCodeElem.value; //선택된 값 가져오기
+		document.getElementById('departure_code_hidden').value = departureCode; //hidden input 값 업데이트
+	}//updateDepartureCode() end
 </script>
 
 <div class="col-sm-12">
@@ -42,7 +44,7 @@
 	  <tr>
 		<th style="text-align: center">출발지</th>
 		<td>
-			<select name="departure_code" id="departure_code" onselect="depCodeSelect(${departure_code})">
+			<select name="departure_code" id="departure_code" onchange="updateDepartureCode()">
 				<option value="0">선택</option>
 				<option value="G0001">제주</option>
 				<option value="G0002">서울</option>
@@ -126,11 +128,15 @@
 					전주
 				</c:when>
 				<c:otherwise>
-					${transpro.departure_code}
+					${arrival_code}
 				</c:otherwise>	
 			</c:choose>
 			<!--<input type="text" name="arrival_code" id="arrival_code" size="10" maxlength="10" value="${city}">-->
 		</td>
+		<th style="text-align: center">
+			<input type="hidden" name="departure_code_hidden" id="departure_code_hidden" value="${departure_code}"> <!-- 추가할 hidden input -->
+			<input type="button" class="btn btn-primary" value="검색" onclick="location.href='depCodeSelect?departure_Date=${departure_Date}&arrival_code=${arrival_code}&departure_code=${departure_code_hidden.value}'" >
+		</th>
 	  </tr>	
 	 </table>
 	</div>
