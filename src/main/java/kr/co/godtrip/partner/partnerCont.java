@@ -74,7 +74,7 @@ public class partnerCont {
 			}
 		} else {
 			ModelAndView mav = new ModelAndView("/partner/partnerlogin");
-			mav.addObject("PLoginFmessage", "회원이 아닙니다. 로그인을 해주세요");
+			mav.addObject("Loginmessage", "회원이 아닙니다. 로그인을 해주세요");
 			return mav;
 		}
 	}
