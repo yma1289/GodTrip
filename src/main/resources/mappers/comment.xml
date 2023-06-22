@@ -11,11 +11,10 @@
 		VALUES ( #{tour_code},#{content},#{id},#{wname})
 	</insert>
 	-->
-	
-	
+
 	<insert id="insert"	parameterType="kr.co.godtrip.comment.CommentDTO">
 	insert into comment(tour_code, id, content, regdate)
-	value (#{tour_code}, #{id}, #{content}, CURRENT_TIMESTAMP)
+	values (#{tour_code}, #{id}, #{content}, CURRENT_TIMESTAMP)
 		</insert>
 	
 	<select id="list" resultType="kr.co.godtrip.comment.CommentDTO" parameterType="String">

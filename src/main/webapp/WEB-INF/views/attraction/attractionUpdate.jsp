@@ -4,6 +4,10 @@
 <!-- 본문시작 -->
 <div class="col-sm-12">
 	<h3>관광지소개수정</h3>
+	
+	
+	
+	
 	<form name="attraction" id="attraction" method="post" action="attractionUpdate" enctype="multipart/form-data" >
 	<!-- 수정폼에서 수정완료후 수정버튼누르면 수정되지 않고, 바로 목록페이지로 이동했던이유=> hidden속성으로 pk를 넘겨주지 않았기 때문, 항상 hidden으로 그 페이지에대한 값 넘겨줘야한다.  -->
 	<input type="hidden" name="tour_code" value="${attraction.tour_code}">
@@ -124,6 +128,12 @@
 	</table>
 	</form>
 	<!-- action취해짐-> attractionUpdate라는 명령어 들어오면 update함수 호출 -->
+
+	
+	<c:if test="${sessionScope.member.mlevel != 'A1'}">
+    <p>죄송합니다. 관리자만 게시할 수 있습니다.</p>
+	</c:if>
+	
 
 </div><!-- col-sm-12 끝 -->
 <!-- 본문끝 -->

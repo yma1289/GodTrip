@@ -2,6 +2,9 @@ package kr.co.godtrip.comment;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +28,7 @@ public class CommentCont {
 	 @Autowired     
 	  CommentDAO commentDao;
 	 
-	 
+	 /*
 	   @RequestMapping("/insert")
 	    @ResponseBody    //ajax응답을 처리할때는 @ResponseBody어노테이션 써줘야한다. 
 	    public int mCommentServiceInsert(@RequestParam String tour_code
@@ -40,13 +43,44 @@ public class CommentCont {
 	        //로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력 받아온 값으로 사용하면 된다.
 	        //->session.getAttribute() 활용
 	        //여기서는 따로 폼을 구현하지 않았기 때문에 임시로 "test"
-	        comment.setWname("test"); 
 	        comment.setId("id");
 	    	
 	    	return commentDao.commentInsert(comment);
 	    }//mCommentServiceInsert() end
-	    
-	    
+	    */
+	 
+	
+	 
+	 @RequestMapping("/insert")
+	    @ResponseBody    //ajax응답을 처리할때는 @ResponseBody어노테이션 써줘야한다. 
+	    public int commentInsertForm(@RequestParam String tour_code
+	    								, @RequestParam String content
+	    								,HttpSession session
+	    								
+	    								,CommentDTO comment) throws Exception {
+		 	//HttpSession session=req.getSession();  //세션 객체 가져오기
+			String id=(String)session.getAttribute("id"); //세션에서 partner 속성 가져오기	
+		 
+			
+		 
+		   // System.out.println(tour_code);
+	    	//System.out.println(content);
+	    	System.out.println(id);
+	        //CommentDTO comment=new CommentDTO();   //dto에 담기위해 객체생성
+	        comment.setTour_code(tour_code);
+	        comment.setContent(content);
+	        comment.setId(id);
+	        
+	        
+	        //로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력 받아온 값으로 사용하면 된다.
+	        //->session.getAttribute() 활용
+	        //comment.setId("id");
+	    	
+	    	return commentDao.commentInsert(comment);
+	    }//mCommentServiceInsert() end
+	 
+	   
+	   //////////////////////////////////////
 	    
 	    @RequestMapping("/list")
 	    @ResponseBody

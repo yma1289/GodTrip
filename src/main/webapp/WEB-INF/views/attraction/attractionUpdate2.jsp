@@ -3,21 +3,16 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 <div class="col-sm-12">
-	<div class="container">
-
-<h3>관광지소개</h3>
-
-
-
-<form name="attraction" id="attraction" method="post" action="attractioninsert" enctype="multipart/form-data" >
+<h3>관광지소개수정</h3>
+<form name="attraction" id="attraction" method="post" action="attractionUpdate" enctype="multipart/form-data" >
  <table class="table table-hover">
 <tr>
 	<td>지역</td>
 	<td>
-		<select name="area_code" id="area_code"  class="form-control">
-			<option value="G0001">제주</option>
-			<option value="G0002">서울</option>
-			<option value="G0003">인천</option>
+		<select name="area_code" class="form-control">
+			<option value="G0001" >제주</option>
+			<option value="G0002" >서울</option>
+			<option value="G0003" >인천</option>
 			<option value="G0004">수원</option>
 			<option value="G0005">가평</option>
 			<option value="G0006">강릉</option>
@@ -38,12 +33,12 @@
 </tr>
 <tr>
 	<td>관광지명</td>
-	<td><input type="text" name="tour_name" id="tour_name" class="form-control"></td>
+	<td><input type="text" name="tour_name" class="form-control"  value="${attraction.tour_name}"></td>
 </tr>
 <tr>
 	<td>키워드</td>
 	<td>
-		<select name="keyword" id="keyword" class="form-control">
+		<select name="keyword" class="form-control">
 			<option value="1">역사</option>
 			<option value="2">액티비티</option>
 			<option value="3">트래킹</option>
@@ -52,47 +47,28 @@
 			<option value="6">바다</option>
 			<option value="7">자연</option>
 		</select>
+	</td>
 </tr>
 <tr>
 	<td>내용</td>
-	<td><textarea name="content"  id="content" rows="10" cols="20" class="form-control"></textarea></td>
+	<td><textarea name="content" rows="10" cols="20" class="form-control">${attraction.content}</textarea></td>	
 </tr>
 <tr>
 	<td>관광지사진</td>
-	<td><input type="file" name="img" id="img" ></td>
+	<td><input type="file" name="img"></td>
 </tr>
 <tr>
-	<td style="text-align: center;">
+	<td colsapn="2" align="center">
 		<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">
-		<input type="submit" value="등록" onclick="return validate()">
+		<input type="submit" value="수정" >
 	</td>
 </tr>
 
 
 </table>
 </form>
-<script>
-function validate() {
-	var tour_name = document.getElementById("tour_name").value;
-	if (tour_name === "") {
-		alert("관광지명을 입력해주세요.");
-		return false;
-	}
-	
-	var content = document.getElementById("content").value;
-	if (content === "") {
-		alert("내용을 입력해주세요.");
-		return false;
-	}
-	
-	// 유효성 검사 통과
-	return true;
-}
-</script>
-  
+<!-- action취해짐-> attractionUpdate라는 명령어 들어오면 update함수 호출 -->
 
-
-<!-- action취해짐->"attractioninsert"라는 명령어 들어오면 "attractioninsert"함수 호출 -->
 </div><!-- col-sm-12 끝 -->
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

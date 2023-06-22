@@ -4,10 +4,42 @@
 <!-- 본문시작 -->
 <div class="col-sm-12">
 	<div class="container">
-	<br>
-	<h3>관광지소개상세보기</h3>
-<br>
-<table class="table table-condensed">
+	
+	<h3>관광지소개</h3>
+	<script>
+
+		function attraction_update() {
+			document.attractionDetail.action="/attraction/attractionUpdate";
+			document.attractionDetail.submit();
+			//location.href="/attraction/attractionUpdate?tour_code" + tour_code;
+		}//attraction_update() end
+		
+		
+		
+		function attraction_delete() {
+			if(confirm("영구히 삭제됩니다\n진행할까요?")){
+				document.attractionDetail.action="/attraction/attractionDelete";
+				document.attractionDetail.submit();
+			//attractionDetail이라는 폼요소의 action속성을 변경해서 서버로 데이터 전송하고
+			//'submit()'메서드를 호출해서 폼을 서버로 넘긴다. 
+			
+			
+			}//if end
+		}//attraction_delete() end
+	
+		
+		
+		
+		
+	</script>
+
+<form name="attractionDetail" id="attractionDetail" method="post"  enctype="multipart/form-data">
+
+<table border="1">
+<tr>
+<td>관광지코드</td>
+<td>${attraction.tour_code}</td>
+</tr>
 <tr>
 <td>지역</td>
     <td>
@@ -121,56 +153,24 @@
             </c:if>
         </td>
     </tr>
-    </table>
-    
- <!--   
-<a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">수정</a>
-<a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
--->
+      
+    <tr>
+        <td colspan="2" align="center">
+           <input type="hidden" name="tour_code" value="${attraction.tour_code}">
+            <button onclick="attraction_update()">수정</button>
+            <button onclick="attraction_delete()">삭제</button>
+        </td>
+    </tr>
+</table>
+</form>
+
+	
+
+
+
+
 
 <div class="container">
-    <p>
-        <c:if test="${not empty p_id}">
-            <a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info">수정</a>
-            <a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
-        </c:if>
-        <c:if test="${empty p_id}">
-            <button type="button" class="btn btn-outline-info" onclick="alert('판매자만 수정 및 삭제할 수 있습니다.'); location.href='/partner/partnerlogin'">수정</button>
-            <button type="button" class="btn btn-outline-info" onclick="alert('판매자만 수정 및 삭제할 수 있습니다.'); location.href='/partner/partnerlogin'">삭제</button>
-        </c:if>
-    </p>
-</div>
-
-
-
-<script>
-function confirmDelete() {
-    return confirm(" 영구히 삭제됩니다. 삭제하겠습니까?");
-}
-</script>
-	
-
-
-
-
-<br><br>
-<!-- 댓글 -->
-<!-- 내용을 div로 감싸줘야 해당부분을 찾아가 수정과 삭제가 가능함 -->
-	<div class="container">
-		<label for="content">댓글</label>
-		<!--<form name="commentInsertForm" id="commentInsertForm">-->
-		<form name="commentInsertForm" id="commentInsertForm">
-			<div>
-				<!-- 부모글번호 -->
-				<input type="hidden" name="tour_code" id="tour_code" value="${attraction.tour_code}">
-				<input type="text" name="content" id="content" placeholder="내용을 입력해 주세요">
-				<button type="button"  name="commentInsertBtn" id="commentInsertBtn" >등록</button>
-			</div>
-		</form>
-	</div>
-
-	
-	<div class="container">
 		<!-- 댓글목록 -->
 		<div class="commentList"></div>
 	</div>
