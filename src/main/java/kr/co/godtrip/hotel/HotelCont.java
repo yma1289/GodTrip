@@ -48,42 +48,44 @@ public class HotelCont {
 			return mav;
 	}
 	
+	 
+	 @GetMapping("/hoteldetail")
+	    public ModelAndView list2(HttpServletRequest req) {
+	 		String hotel_code=req.getParameter("hotel_code");
+	        ModelAndView mav=new ModelAndView();
+	        mav.setViewName("hotel/hoteldetail");
+	        mav.addObject("list",hotelDao.list2(hotel_code));//DB에서 where 칼럼명  
+	        return mav;
+	 }//list() end
+	
+	
 	
 	// @RequestMapping()
 	 // 부모페이지 .jsp에서 <a href="/hotelList?area_code=여기에클릭한지역코드출력"></a>
 	
 	 //호텔정보 가져오기 + 지역정보
-	 @GetMapping("/hotelList")
+	 	@GetMapping("/hotelList")
 	 	public ModelAndView list(HttpServletRequest req) {
-		 //사용자가 검색한 검색어
+		 //사용자가 검색한 검색어(hotleList에서 넘어옴)
 		 String hotel_Name = req.getParameter("hotel_Name");
-		 //사용자가 선택한 타입
+		 //사용자가 선택한 타입 (hotleList에서 넘어옴)
 		 String hotel_Type = req.getParameter("hotel_Type");
-		 
-		 	//지역코드
-		 	//String area_code=req.getParameter("area_code"); //나중에 이부분으로 고쳐야 함
-		    String area_code="G0001"; //지금은 임시로 제주지역코드로 테스트
-		    String area_name="";
-		    String latitude="";
-		    String longitude="";
-		    if(area_code.equals("G0001")) {
+		 //사용자가 선택한 출발일 (transRsvInsert에서 넘어옴)
+		 String departure_Date=req.getParameter("departure_Date");
+		 //사용자가 선택한 도착일 (transRsvInsert에서 넘어옴)
+		 String arrival_Date=req.getParameter("arrival_Date");
+		 //지역코드
+		 String area_code=req.getParameter("area_code");
+		 String area_name="";
+		 	if(area_code.equals("G0001")) {
 		    	area_name="제주도";
-		    	latitude="33.4994760876976";
-		    	longitude="126.531170862545";
 		    }else if(area_code.equals("G0002")) {
-		    	area_name="부산광역시";
-		    	latitude="35.1795460235899";
-		    	longitude="129.075065707252";
-		    }else if(area_code.equals("G0003")) {
-		    	area_name="대구광역시";
-		    	latitude="35.8712907516546";
-		    	longitude="128.601996888524";
-		    }else if(area_code.equals("G0007")) {
 		    	area_name="서울";
-		    	latitude="37.5665719706213";
-		    	longitude="126.97891266823";
+		    }else if(area_code.equals("G0003")) {
+		    	area_name="인천";
+		    }else if(area_code.equals("G0004")) {
+		    	area_name="수원";
 		    }//if end 
-		    
 	        ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hotelList");
 
@@ -105,6 +107,7 @@ public class HotelCont {
 	        }
 	        
 	        int currentPage=Integer.parseInt(pageNum);
+	        System.out.println(currentPage);
 	        //페이지에 출력할 수
 	        int startRow   =(currentPage-1)*numPerPage;  //가져올 데이터의 초기 위치값		
 	        int endRow     =numPerPage;					 //가져올 데이터 양
@@ -125,15 +128,14 @@ public class HotelCont {
 	        map.put("area_code", area_code);
 	        map.put("hotel_Name", hotel_Name);
 	        map.put("hotel_Type", hotel_Type);
-	       
 	        List list=null;      
 	        if(totalRowCount>0){            
 	        	list=hotelDao.list(map);
-	        	System.out.println(list);
 	        } else {            
 	            list=Collections.EMPTY_LIST;            
 	        }//if end
-	          
+	        
+	       
 	        //페이징 정보 넘기기
 	        mav.addObject("pageNum", currentPage);
 	        mav.addObject("count", totalRowCount);
@@ -143,31 +145,24 @@ public class HotelCont {
 	        
 	        
 	        //숙박 정보 넘기기
+	        mav.addObject("departure_Date",departure_Date);
+	        mav.addObject("arrival_Date",arrival_Date);
 	        mav.addObject("list", list);
             mav.addObject("hotel_Name", hotel_Name);
             mav.addObject("hotel_Type", hotel_Type);
 	        mav.addObject("area_code", area_code);
-	        mav.addObject("area_name", area_name);
-	        mav.addObject("latitude", latitude);
-	        mav.addObject("longitude", longitude);	    
+	        mav.addObject("area_name",area_name);
+	        System.out.println(mav);
 	        return mav;
 	 }//list() end
 	 
-	 
-	 @GetMapping("/hoteldetail")
-	    public ModelAndView list2(HttpServletRequest req) {
-	 		String hotel_code=req.getParameter("hotel_code");
-	        ModelAndView mav=new ModelAndView();
-	        mav.setViewName("hotel/hoteldetail");
-	        mav.addObject("list",hotelDao.list2(hotel_code));//DB에서 where 칼럼명  
-	        return mav;
-	 }//list() end
+	
 	 
 
 	
 	 
 
-	 //호텔입력
+	 //숙박입력
 	@PostMapping("/insert")
     public String insert(@RequestParam Map<String, Object> map
     		          ,@RequestParam MultipartFile img
@@ -211,7 +206,7 @@ public class HotelCont {
 	          				  ,HttpServletRequest req) 
 	{
 			   //String p_ID=req.getParameter("p_ID"); //나중에 이부분으로 고쳐야 함
-			   String p_ID="bnb56"; //판매자아이디 임시
+			   String p_id="test1"; //판매자아이디 임시
 						
 			   int d = (int)(Math.random() * 10000 + 1);
 			   String room_code="R" + d;
@@ -233,16 +228,12 @@ public class HotelCont {
 		    
 		   }//try end    		
 		}//if end
-
+        
 		map.put("room_filename", filename);
 		map.put("room_filesize", filesize);
 		map.put("room_code", room_code);
-		map.put("p_ID", p_ID);
+		map.put("p_id", p_id);
 
-		System.out.println(filename);
-		System.out.println(filesize);
-		System.out.println(room_code);
-		System.out.println(p_ID);
 		hotelDao.detailinsert(map);
 		
 		return "redirect:/hotel/hotelList";

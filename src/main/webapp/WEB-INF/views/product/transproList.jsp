@@ -300,8 +300,8 @@
 		<td>${transpro.Price}</td>
 		<td>${transpro.seat}</td>
 		<td>
-			<!--<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}'">-->
-			<input type="button" class="btn btn-warning" value="선택" onclick="transSelect('${transpro.transpro_code}','${departure_Date}','${arrival_code}')">
+		
+			<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}&departure_Date=${departure_Date}&arrival_code=${arrival_code}&arrival_Date=${arrival_Date}'">
 		</td>
 		<td>
 			<!-- 삭제버튼은 판매자에게만 노출될 수 있게 해야함! -->
@@ -324,30 +324,7 @@
 </script>
 
 <script>
- function transSelect(transpro_code,departure_Date,arrival_code){
-	 //alert(transpro_code);
-	 //alert(departure_Date);
-	 //alert(arrival_code);
-	 
-	 let params="transpro_code=" + transpro_code +"&departure_Date=" + departure_Date + "&arrival_code=" + arrival_code;
-	 //alert(params);
-	 
-	 $.ajax({
-		 url : "/product/transRsvInsert" //요청명령어
-		 ,type : "get"
-		 ,dataType : "text"
-		 ,data: params
-	 	 ,error : function(error){
-	 		 alert("장바구니에 담을 수 없습니다" + error);
-	 	 }//error callback함수
-	 	 ,success : function(result){
-	 		 alert(result);
-	 	 }//success callback함수
-	 });//ajax() end
-	 
-	 //hotelList 페이지로 이동
-	 window.location.href = '/hotel/hotelList';
- }
+
 </script>
 
 <!-- 본문끝 -->

@@ -127,7 +127,9 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById('nextButton').addEventListener('click', function() {
     var areaCode = JSON.parse(localStorage.getItem('selectedArea')).areaCode;
     var departureDate = document.getElementById('datetimepickerStart').value;
-    window.location.href = "../product/transproList?arrival_code=" + areaCode + "&departure_Date=" + departureDate;
+    var arrivalDate = document.getElementById('datetimepickerEnd').value;
+    
+    window.location.href = "../product/transproList?arrival_code=" + areaCode + "&departure_Date=" + departureDate + "&arrival_Date=" + arrivalDate;
 });
 
 </script>
