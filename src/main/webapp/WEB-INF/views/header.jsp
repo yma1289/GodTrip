@@ -19,9 +19,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <!-- summernote lite버전 -->
-<script src="../js/summernote-lite.js"></script>
-<script src="../js/summernote-ko-KR.js"></script>
-<link rel="stylesheet" href="../css/summernote-lite.css"/>
+<script src="../js/summernote/summernote-lite.js"></script>
+<script src="../js/summernote/lang/summernote-ko-KR.js"></script>
+<link rel="stylesheet" href="../css/summernote/summernote-lite.css"/>
 <!-- 카카오 맵 api -->   
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=517b034886148efc9d775c2d2bf52a98&libraries=services,clusterer,drawing"></script>
 <script src="../js/myscript.js"></script>
@@ -108,7 +108,7 @@ footer {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-light">
     <div class="container">
-        <a class="navbar-brand" href="/home.do">
+        <a class="navbar-brand" href="/home">
             <img src="/images/logo2.png" alt="Logo" class="navbar-logo">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
@@ -138,7 +138,7 @@ footer {
           </c:otherwise>
         </c:choose>
               </li>
-                     <c:choose>
+              		<c:choose>
                         <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1') && (empty p_id || empty p_passwd || p_level == 'E1')}">
                            <a href="/member/memberlogin"
                               class="w3-bar-item w3-button w3-mobile"><h6>로그인</h6></a>

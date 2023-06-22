@@ -92,7 +92,7 @@ footer {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-light" >
 	<div class="container">
-	<a class="navbar-brand" href="/home.do" >
+	<a class="navbar-brand" href="/home" >
 		<img src="../images/logo2.png" alt="Logo" class="navbar-logo">
 	</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
@@ -112,8 +112,12 @@ footer {
 	        	<li class="nav-item" style="white-space: nowrap;">
 	          		<a class="nav-link" href="../service/serviceList">고객센터</a>
 	        	</li>
+	        	<li class="nav-item" style="white-space: nowrap;">
 	        	<c:choose>
-	            <c:when test="${!(empty p_id || empty p_passwd || p_level == 'E1')}">
+	            <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1' )}">
+	              <a class="nav-link" href="/member/memberpage">마이페이지</a>
+	            </c:when>
+	            <c:when test="${!(empty p_id || empty p_passwd ||  empty p_level )}">
 	              <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
 	            </c:when>
 	            <c:otherwise>
@@ -121,9 +125,10 @@ footer {
 	            </c:otherwise>
 	          </c:choose>
 	                </li>
+	                
 	                <c:choose>
-	                <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1') && (empty p_id || empty p_passwd || p_level == 'E1')}">
-	                <li class="nav-item dropdown">
+	                <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level)}">
+	                <li class="nav-item dropdown nav-item">
 	                 <li class="nav-item dropdown"><a
 	                       class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 	                       role="button" data-toggle="dropdown">로그인</a>
@@ -222,21 +227,21 @@ footer {
 		<div class="row">
       	<div class="col-lg-4 col-md-6 mb-4">
         	<div class="card">
-          	<a href="#">
+          	<a href="../review/reviewList">
             <img src="../images/review_gn.png" alt="House" class="card-img-top">
           	</a>
         	</div>
       	</div>
       	<div class="col-lg-4 col-md-6 mb-4">
         	<div class="card">
-          	<a href="#">
+          	<a href="../review/reviewList">
             <img src="../images/review_gj.png" alt="House" class="card-img-top">
           	</a>
         	</div>
       	</div>
       	<div class="col-lg-4 col-md-6 mb-4">
         	<div class="card">
-          	<a href="#">
+          	<a href="../review/reviewList">
             <img src="../images/review_hc.png" alt="House" class="card-img-top">
           	</a>
        		</div>
