@@ -52,9 +52,13 @@ public class HotelCont {
 	 @GetMapping("/hoteldetail")
 	    public ModelAndView list2(HttpServletRequest req) {
 	 		String hotel_code=req.getParameter("hotel_code");
+	 		String departure_Date=req.getParameter("departure_Date");
+	 		String arrival_Date=req.getParameter("arrival_Date");
 	        ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hoteldetail");
 	        mav.addObject("list",hotelDao.list2(hotel_code));//DB에서 where 칼럼명  
+	        mav.addObject("departure_Date",departure_Date);
+	        mav.addObject("arrival_Date",arrival_Date);
 	        return mav;
 	 }//list() end
 	
@@ -74,7 +78,7 @@ public class HotelCont {
 		 String departure_Date=req.getParameter("departure_Date");
 		 //사용자가 선택한 도착일 (transRsvInsert에서 넘어옴)
 		 String arrival_Date=req.getParameter("arrival_Date");
-		 //지역코드
+		 //사용자가 선택한 지역    (transRsvInsert에서 넘어옴)
 		 String area_code=req.getParameter("area_code");
 		 String area_name="";
 		 	if(area_code.equals("G0001")) {
