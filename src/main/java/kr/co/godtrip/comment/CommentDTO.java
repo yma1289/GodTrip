@@ -8,7 +8,7 @@ public class CommentDTO {
 		private String content;		 //내용
 		private String id;			//아이디(wname)
 		private String regdate;	  //작성일	
-		private String wname;
+		
 	
 	    public CommentDTO() {}
 
@@ -66,15 +66,6 @@ public class CommentDTO {
 
 		
 		
-
-		public String getWname() {
-			return wname;
-		}
-
-
-		public void setWname(String wname) {
-			this.wname = wname;
-		}
 
 
 		@Override

@@ -11,7 +11,7 @@
 	  <h3>관광지소개</h3>
 	  
 	<br>
-	<!-- 검색창 -->	
+	<!-- 검색창 : 검색부분 action이 serch로 따로 빼주는게 아니라, 검색된 결과에 따라 페이징도 달라지기 때문에 action이 acttractionList 하나로 묶여야 한다. -->	
 	<!-- 실수한부분)value="${tour_name}"-> name속성이 서버로 전송될 검색어의 데이터의 이름과 일치해야된다.-->
 	<div class="input-group">
 		<form method="post" action="attractionList" class="input-group">
@@ -23,7 +23,7 @@
         </form>
      </div>
      <br>
-	<!-- 검새창끝-->		
+	<!-- 검색창끝-->		
 
 	    <table class="table table-hover">
 		<thead>
@@ -108,6 +108,7 @@
 				</td>
 				<td>${attraction.regdate}</td>
 				<td>${attraction.view_count}</td>
+				
 				<td>
 					<c:choose>
 						<c:when test="${attraction.keyword==1}">
@@ -138,18 +139,46 @@
 		</c:forEach>
 		</table>
 	</div><!-- container -->
-	<div class="container">
-		<p>
+<!--  
+<div class="container">
+	<p>
+		<button type="button" class="btn btn-outline-info" onclick="location.href='attractionForm'">등록</button>
+	</p>
+</div>
+-->
+
+<!--  
+<div class="container">
+	<p>
+		<c:if test="${partner.p_id}">
 			<button type="button" class="btn btn-outline-info" onclick="location.href='attractionForm'">등록</button>
-		</p>
-	</div>
-	
+		</c:if>
+		<c:if test="${not partner.p_id}">
+			<button type="button" class="btn btn-outline-info" onclick="alert('판매자만 등록할 수 있습니다.'); location.href='/partner/partnerlogin'">등록</button>
+		</c:if>
+	</p>
+</div>
+-->
+<div class="container">
+    <p>
+        <c:if test="${not empty p_id}">
+            <button type="button" class="btn btn-outline-info" onclick="location.href='attractionForm'">등록</button>
+        </c:if>
+        <c:if test="${empty p_id}">
+            <button type="button" class="btn btn-outline-info" onclick="alert('판매자만 등록할 수 있습니다.'); location.href='/partner/partnerlogin'">등록</button>
+        </c:if>
+    </p>
+</div>
+
+
+
+
+
+
 
 	
 	
-	
-	
-	 <!-- 패이지 리스트 -->
+	 <!-- 패이징 리스트 -->
 			   <c:if test="${requestScope.count>0 }">
 				   <c:set var="pageCount" value="${requestScope.totalPage}"/>
 				   <c:set var="startPage" value="${requestScope.startPage}"/>

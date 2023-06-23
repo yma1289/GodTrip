@@ -33,6 +33,14 @@
   		
   	</select>
   
+  
+  <!-- 조회수 -->
+  <update id="viewcount" parameterType="String">
+    update attraction
+    set view_count= view_count +1
+    where tour_code= #{tour_code}
+	</update>
+  
 	
 	<!-- dto로 했을 때 --> 
 	 <select id="attractionDetail" resultType="kr.co.godtrip.attraction.AttractionDTO">

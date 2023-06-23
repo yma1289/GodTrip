@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -25,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.godtrip.member.MemberDAO;
 import kr.co.godtrip.member.MemberDTO;
+import kr.co.godtrip.partner.partnerDAO;
+import kr.co.godtrip.partner.partnerDTO;
 
 @Controller
 @RequestMapping
@@ -39,10 +42,39 @@ public class AttractionCont {
 	AttractionDAO attractionDao;
 	
 
+	
+
+
+	/*기존 실행되는것 
 	@RequestMapping("/attraction/attractionForm")
 	public String attractionForm(){
 		return "attraction/attractionForm";
 	}
+	*/
+	
+	/*판매자만 상품등록할 수 있음*/
+	@RequestMapping("/attraction/attractionForm")
+	public String attractionForm(HttpSession session){
+		
+		//HttpSession session=req.getSession();  //세션 객체 가져오기
+		String p_id=(String)session.getAttribute("p_id"); //세션에서 partner 속성 가져오기
+		
+		 if (p_id != null) {
+	            // 판매자 아이디가 세션에 저장되어 있을 경우, Attraction 등록 폼을 보여줌
+	            // 필요한 로직 작성
+	            return "attraction/attractionForm";
+	        } else {
+	            // 세션에 판매자 아이디가 없을 경우, 로그인 페이지로 이동
+	            // 필요한 로직 작성
+	            return "redirect:/partner/partnerlogin";  // 다른 컨트롤러로 리다이렉트
+	        }
+	    }
+		
+		
+	
+
+	
+	
 	/*
 	
 	@RequestMapping("/attraction/attractionList")
@@ -55,7 +87,7 @@ public class AttractionCont {
 	}
 	*/
 
-	 
+
 
 	//목록list 뷰단 보여주기
 	@RequestMapping("/attraction/attractionList")
@@ -63,10 +95,11 @@ public class AttractionCont {
 		String tour_name = req.getParameter("tour_name");
 		
 		ModelAndView mav=new ModelAndView();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();    //map사용하려고 객체선언
 		map.put("tour_name", tour_name);
-		System.out.println(tour_name);
-		//검색했을때 나오는 행(검색하면 나오는 행이랑 전체행이랑 다르기때문에) 
+		//System.out.println(tour_name);
+		
+		//전체행갯수//전체행갯수와 검색했을때 나오는 행갯수 나눠서 쿼리문작성해준다. (검색하면 나오는 행이랑 전체행이랑 다르기때문에) 
 		int totalRowCount=attractionDao.totalRowCount(map);
 		
 		
@@ -96,38 +129,29 @@ public class AttractionCont {
       
         map.put("startRow", startRow);
         map.put("endRow", endRow);
-        System.out.println(map);
+       // System.out.println(map);
         List list=null;      
         if(totalRowCount>0){            
         	list=attractionDao.list(map);
-        	System.out.println(list);
+        	//System.out.println(list);
         } else {            
             list=Collections.EMPTY_LIST;            
         }//if end
-          
+
+       
         //페이징 정보 넘기기
         mav.addObject("pageNum", currentPage);
         mav.addObject("count", totalRowCount);
         mav.addObject("totalPage", totalPage);
         mav.addObject("startPage", startPage);
         mav.addObject("endPage", endPage);
-        
         mav.addObject("list", list);
 		mav.setViewName("attraction/attractionList");
 		return mav;
 		
-	
 		
 	}//list() end 
 
-	
-	
-	
-
-	
-	
-	
-	
 	
 	@RequestMapping("/attraction/attractioninsert")
 	public String insert(
@@ -181,8 +205,8 @@ public class AttractionCont {
 		
 		attractionDao.attractioninsert(map);
 		
-		System.out.println(filename);
-		System.out.println(filesize);
+		//System.out.println(filename);
+		//System.out.println(filesize);
 		
 		
 		
@@ -191,9 +215,9 @@ public class AttractionCont {
 	
 
 		
-	
+	/*
 
-	//상세보기dto
+	//상세보기dto(이걸로)
 
 	@RequestMapping("/attraction/attractionDetail")
 	public ModelAndView attractionDetail(String tour_code) {
@@ -202,6 +226,38 @@ public class AttractionCont {
 		mav.addObject("attraction", attractionDao.attractionDetail(tour_code));
 		return mav;
 	}//attractionDetail() end 
+	
+*/
+	
+	
+	
+	//상세보기+조회수
+	@RequestMapping("/attraction/attractionDetail")
+	public ModelAndView attractionDetail(String tour_code) {
+		 
+		//조회수증가
+		try {
+			attractionDao.viewcount(tour_code);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		ModelAndView mav=new ModelAndView();
+		mav.setViewName("attraction/attractionDetail");
+		mav.addObject("attraction", attractionDao.attractionDetail(tour_code));
+		return mav;
+	}//attractionDetail() end 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -264,21 +320,28 @@ public class AttractionCont {
 		
 	///////////////////////////
 	
-	//뷰단보여주기	
-	@GetMapping("/attraction/attractionUpdate")
-	public String attractionUpdate(@RequestParam String tour_code
-								, HttpServletRequest req
-								,Model model
-								) throws Exception{
-		//상세내용조회
-		AttractionDTO attraction=attractionDao.attractionDetail(tour_code);
-		//상세내용을 수정페이지에 전달
-		model.addAttribute("attraction", attraction);
-		//String test = tour_code;
-		//System.out.println("test ===============" + test);
-		
-		return "attraction/attractionUpdate";
-	}
+	
+	
+	
+	//수정폼뷰단보여주기	(이걸로)
+		@GetMapping("/attraction/attractionUpdate")
+		public String attractionUpdate(@RequestParam String tour_code
+									, HttpServletRequest req
+									,Model model
+									) throws Exception{
+			//상세내용조회
+			AttractionDTO attraction=attractionDao.attractionDetail(tour_code);
+			//상세내용을 수정페이지에 전달
+			model.addAttribute("attraction", attraction);
+			//String test = tour_code;
+			//System.out.println("test ===============" + test);
+			
+			return "attraction/attractionUpdate";
+		}
+	
+	
+	
+	
 	
 	
 	//수정 dto	

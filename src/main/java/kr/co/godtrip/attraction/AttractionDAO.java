@@ -38,7 +38,6 @@ public class AttractionDAO {
 	
 	
 	
-	
 	public List<Map<String, Object>> list(Map<String, Object>map){
 		return sqlSession.selectList("attraction.attractionList",map);
 	}//list() end 
@@ -49,14 +48,6 @@ public class AttractionDAO {
 	}
 
 	
-
-	 
-	
-	 
-	
-
-	
-	//////////////
 	
 	//상세보기Detail(dto)
 	public AttractionDTO attractionDetail(String tour_code){
@@ -106,5 +97,18 @@ public class AttractionDAO {
     }//update() end 
     
     */
+    
+    
+    //조회수
+    public void viewcount(String tour_code) throws Exception {	      
+    	sqlSession.update("attraction.viewcount",tour_code);	   
+    }
+    
+    
+    
+    
+    
+    
+    
 
 }//class end 
