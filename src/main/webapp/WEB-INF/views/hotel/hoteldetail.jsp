@@ -35,40 +35,18 @@ pageEncoding="UTF-8"%>
                       
     			 ${hotel.room_info}
     			<br>
-                가격 : <fmt:formatNumber value="${hotel.room_price}" />&#8361;
+               1박기준 가격 : <fmt:formatNumber value="${hotel.room_price}" />&#8361;
                 <div style="text-align: right;">
                 <!-- AJAX는 서버로 갔다가 다시 자기 자신의 페이지(hoteldetail.jsp)로 돌아오는 방식임  -->
                 <!-- <button type="button" onclick="selectRoom('${hotel.room_code}')">선택하기</button> -->
-                <button type="button" onclick="location.href='/roomreservationinsert?room_code=${hotel.room_code}'">선택하기</button>
+                <button type="button" onclick="location.href='/roomreservationinsert?room_code=${hotel.room_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&room_price=${hotel.room_price}'">선택하기</button>
                 </div>
                 	<br>		
     		  	</div>
     	</c:forEach>
     	</div>
     	<script type="text/javascript">
-    	function selectRoom(room_code) {
-    		  // roomreservation 페이지로 데이터 전달
-    		  // AJAX 요청을 사용하여 서버로 데이터 전송 가능
-			$.ajax({
-    			 url     :"/roomreservationinsert" //요청명령어
-    			,type    :"get"        //get방식
-    			,dataType:"text"       //응답메세지 타입
-    			,data: {
-    			     room_code: room_code // room_code 값을 파라미터로 전달
-    			}
-    			,error   :function(error){
-    				alert("장바구니에 못담아요" + error);
-    			}//error callback함수
-    		    ,success :function(result){//result는 서버가 응답해준 메세지
-    		    	alert(result);
-    		    	//$("#panel").empty();
-    		    	//$("#panel").text(result); //단순 문자열로 출력
-    		    	//$("#panel").html(result); //HTML 구조로 출력
-    		    }//success callback 함수
-    		});//ajax() end
-    		  // hotellist 페이지로 이동
-    		  window.location.href = '/cartlist';
-    		}
+    	
     	</script>
    
   

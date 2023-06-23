@@ -40,20 +40,29 @@
             <th>체크인</th>
             <th>숙박정보</th>
             <th>객실상품</th>
-            <th>가격</th>
+            <th>총가격</th>
             <th>예약일자</th>
         </tr>
     </thead>
+    
+  
     <tbody>
         <tr>
-            <td>2023-06-16</td>
-            <td>제주 애월 홍스랜드 펜션</td>
-            <td>102동</td>
-            <td>149,000</td>
-            <td>2023-06-02</td>
+         <c:forEach var="roomreservation" items="${list}">
+            <td>${departure_Date}</td>
+            <td>${roomreservation.hotel_Name}</td>
+            <td>${roomreservation.room_Name}</td>
+            <td>${roomreservation.totalpay}&#8361;</td>
+            <td>${roomreservation.room_rsvdate}</td>
+            <c:if test="${vs.count mod 1==0}">
+		              	 	</tr> <tr>
+		           		</c:if>   
+      </c:forEach>
         </tr>
     </tbody>
+    
 </table>
+
 <div class="d-flex justify-content-center my-4">
 	<a href="/payment/paymentForm" class="btn btn-info">결제하기</a>
 </div>

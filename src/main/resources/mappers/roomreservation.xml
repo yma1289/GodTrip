@@ -5,14 +5,15 @@
 <mapper namespace="roomreservation">
 
 <insert id="insert"  parameterType="java.util.Map">
-	INSERT INTO roomreservation (id,room_code)
-	VALUES (#{id},#{room_code})
+	INSERT INTO roomreservation (id,room_code,arrival_Date,departure_Date,totalpay)
+	VALUES (#{id},#{room_code},#{arrival_Date},#{departure_Date},#{totalpay})
 </insert>	    
 	    
-	    <select id="list" resultType="java.util.Map">
-	    select * from 
-    	roomreservation join room 
-    	on roomreservation.room_code=#{room_code} and room.room_code=#{room_code}
-		;
+	    <select id="list" resultType="java.util.Map" parameterType="String">
+	    select  roomreservation.room_rsvdate,room.room_Name,roomreservation.totalpay,hotel.hotel_Name
+		from roomreservation join room 
+		on roomreservation.room_code = room.room_code
+		join hotel
+		on hotel.hotel_code = room.hotel_code;
 	    </select>
 </mapper>

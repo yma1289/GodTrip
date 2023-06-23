@@ -10,7 +10,10 @@ pageEncoding="UTF-8"%>
   			    <form action="hotelList">  
 				    <h3>숙소검색</h3>
 				  	 숙소명<input type="text" name="hotel_Name" id="hotel_Name" value="${hotel_Name}" placeholder="검색어를 입력해주세요" class="Autosuggest__TextEditor form-control">
-				   	<br>
+				   	 <br>
+				   	 <input type="hidden" name="area_code" value="${area_code}">
+				   	 <input type="hidden" name="departure_Date" value="${departure_Date}">
+				   	 <input type="hidden" name="arrival_Date" value="${arrival_Date}">
 				   	<p><button class="w3-button w3-block w3-green w3-left-align" type="submit" ><i class="fa fa-search w3-margin-right"></i>&nbsp;&nbsp;&nbsp; 검색하기</button></p>
 				</form>
 				  
@@ -19,9 +22,12 @@ pageEncoding="UTF-8"%>
 				<form action="hotelList">
 					<label><input type="radio" name="hotel_Type" value="호텔">호텔</label>
 					<br>
-					<label><input type="radio" name="hotel_Type" value="팬션">팬션</label>
+					<label><input type="radio" name="hotel_Type" value="펜션">펜션</label>
 					<br>
 					<label><input type="radio" name="hotel_Type" value="풀빌라">풀빌라</label>
+					<input type="hidden" name="area_code" value="${area_code}">
+				   	 <input type="hidden" name="departure_Date" value="${departure_Date}">
+				   	 <input type="hidden" name="arrival_Date" value="${arrival_Date}">
 					<p><input type="submit" value="검색"> <input type="reset" value="다시하기"></p>  
 				 </form>
 				 <hr>
@@ -31,10 +37,8 @@ pageEncoding="UTF-8"%>
 		<!-- !PAGE CONTENT! -->
 		<div class='col-sm-5' style="overflow:scroll;  height:1000px;">
 			<div class="d-flex justify-content-evenly"><p><a href="hotelForm">[호텔 입력]</a></p></div>			
-			    출발일: ${departure_Date}
-			    도착일: ${arrival_Date} 
-			    <br> 
-			    상품갯수 : ${count}
+			    <h6 style="text-align: left";>상품갯수 : ${count}</h6>
+			    ${departure_Date} ~ ${arrival_Date} 		    
 			    <br>
 			    지역명 : ${area_name}
 			    
@@ -62,7 +66,7 @@ pageEncoding="UTF-8"%>
 			   			    상품설명 : ${hotel.hotel_Content}
 			   			    <br>
 			                최저가 : <fmt:formatNumber value="${hotel.hotel_Prices}" />&#8361;
-			                <div align="right"><a href="hoteldetail?hotel_code=${hotel.hotel_code}">[예약하기]</a></div>
+			                <div align="right"><a href="hoteldetail?hotel_code=${hotel.hotel_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[예약하기]</a></div>
 			                <div align="right"><a href="hoteldetailForm?hotel_code=${hotel.hotel_code}">[숙소등록하기]</a></div>
 			                
 		                </th>
@@ -86,16 +90,16 @@ pageEncoding="UTF-8"%>
 					   </c:if>
 					
 					  <c:if test="${startPage>0}">
-					   	  <a href="hotelList?pageNum=${startPage}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[이전]</a>	
+					   	  <a href="hotelList?pageNum=${startPage}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[이전]</a>	
 					  </c:if>
 					   <c:forEach var="i" begin="${startPage+1}" end="${endPage-1}">
 					   	  <c:choose>
 					   	      <c:when test="${pageNum==i}"><span style="font-weight: bold">${i}</span></c:when>
-					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[${i}]</a></c:when>
+					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[${i}]</a></c:when>
 					   	  </c:choose>	      
 					   </c:forEach>
 						<c:if test="${endPage<pageCount}">
-					   	   <a href="hotelList?pageNum=${startPage+6}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[다음]</a>
+					   	   <a href="hotelList?pageNum=${startPage+6}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[다음]</a>
 					   	</c:if>
 					</div> 
 				</c:if>	
