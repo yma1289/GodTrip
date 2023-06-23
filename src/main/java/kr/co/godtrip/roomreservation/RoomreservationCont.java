@@ -31,9 +31,10 @@ public class RoomreservationCont {
 	
 	
 	@GetMapping("/roomreservationinsert")
-	public ModelAndView roomreservationinsert(HttpServletRequest req,@RequestParam("room_code") String room_code){
+	public ModelAndView roomreservationinsert(HttpServletRequest req){
 		//String id=req.getParameter("id"); //나중에 이부분으로 고쳐야 함
 		String id="young12"; //임시 아이디
+		String room_code=req.getParameter("room_code");
         Map<String, Object> map=new HashMap<>();
         map.put("id", id);
         map.put("room_code", room_code);
@@ -46,11 +47,13 @@ public class RoomreservationCont {
 	}
 	
 	@RequestMapping("/cartlist")
-	public ModelAndView roomreservationList(@RequestParam(value = "room_code", required = false) String room_code) {
+	public ModelAndView roomreservationList(HttpServletRequest req) {
+		String room_code = req.getParameter("room_code");		
+		System.out.println(room_code);
+
 		ModelAndView mav = new ModelAndView();
-		 List list=null;
-		 list=roomreservationDao.list(room_code);
-		 System.out.println(list);
+		mav.setViewName("payment/productDetail");
+		mav.addObject("list", roomreservationDao.list(room_code));
 		return mav;
 	}
 

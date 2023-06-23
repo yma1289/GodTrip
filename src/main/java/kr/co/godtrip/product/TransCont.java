@@ -30,10 +30,12 @@ public class TransCont {
 	public ModelAndView transproList(HttpServletRequest req) {
 		String arrival_code = req.getParameter("arrival_code");
 		String departure_Date = req.getParameter("departure_Date");
-		
+		String arrival_Date =req.getParameter("departure_Date");
+
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("arrival_code", arrival_code);
 		mav.addObject("departure_Date", departure_Date);
+		mav.addObject("arrival_Date",arrival_Date);
 		mav.setViewName("product/transproList");
 		mav.addObject("transproList", transDao.transproList(arrival_code, departure_Date));
 		return mav;
@@ -148,7 +150,6 @@ public class TransCont {
 		//3) 세번째 방법
 		String transpro_code = transproCodePrefix + String.format("%04d", n); 
 		
-		System.out.println(transpro_code);
 		
 		///////////////////////////////////////////////////////////////
 		
@@ -190,8 +191,12 @@ public class TransCont {
 		
 		ModelAndView mav = new ModelAndView();
 		
+		String departure_Date = req.getParameter("departure_Date");
+		String area_code = req.getParameter("arrival_code");
+		String arrival_Date = req.getParameter("arrival_Date");
+
+		
 		String transpro_code = req.getParameter("transpro_code");		
-		System.out.println(transpro_code);
 		String s_id = "kim0602";
 		//String s_id = (String) session.getAttribute("s_id");
 		//session.getAttribute() 메소드는 Object타입을 반환하기 때문에 (String) 추가
@@ -204,7 +209,6 @@ public class TransCont {
 		int number = random.nextInt(DIGIT_RANGE * DIGIT_RANGE);
 		
 		String transrs_seatno = String.format("%c%02d", letter, number);
-		System.out.println(transrs_seatno);
 		
 			
 		dto.setTranspro_code(transpro_code);
@@ -226,15 +230,12 @@ public class TransCont {
 		}//if end
 		*/
 		
-		String departure_Date = req.getParameter("departure_Date");
-		String area_code = req.getParameter("arrival_code");
-		System.out.println(departure_Date);
-		System.out.println(area_code);
+	
 		
-		mav.addObject(departure_Date, "departure_Date");
-		mav.addObject(area_code, "area_code");		
-		mav.setViewName("/hotel/hotelList");
-				
+		mav.addObject("departure_Date", departure_Date);
+		mav.addObject("area_code", area_code);		
+		mav.addObject("arrival_Date",arrival_Date);
+		mav.setViewName("redirect:/hotel/hotelList");
 		return mav;		
 		
 	}//transproChoice() end 

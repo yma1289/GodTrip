@@ -37,7 +37,9 @@ pageEncoding="UTF-8"%>
     			<br>
                 가격 : <fmt:formatNumber value="${hotel.room_price}" />&#8361;
                 <div style="text-align: right;">
-                <button type="button" onclick="selectRoom('${hotel.room_code}')">선택하기</button>
+                <!-- AJAX는 서버로 갔다가 다시 자기 자신의 페이지(hoteldetail.jsp)로 돌아오는 방식임  -->
+                <!-- <button type="button" onclick="selectRoom('${hotel.room_code}')">선택하기</button> -->
+                <button type="button" onclick="location.href='/roomreservationinsert?room_code=${hotel.room_code}'">선택하기</button>
                 </div>
                 	<br>		
     		  	</div>

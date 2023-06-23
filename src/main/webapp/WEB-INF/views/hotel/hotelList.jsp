@@ -31,6 +31,9 @@ pageEncoding="UTF-8"%>
 		<!-- !PAGE CONTENT! -->
 		<div class='col-sm-5' style="overflow:scroll;  height:1000px;">
 			<div class="d-flex justify-content-evenly"><p><a href="hotelForm">[호텔 입력]</a></p></div>			
+			    출발일: ${departure_Date}
+			    도착일: ${arrival_Date} 
+			    <br> 
 			    상품갯수 : ${count}
 			    <br>
 			    지역명 : ${area_name}
@@ -83,20 +86,21 @@ pageEncoding="UTF-8"%>
 					   </c:if>
 					
 					  <c:if test="${startPage>0}">
-					   	  <a href="hotelList?pageNum=${startPage}">[이전]</a>	
+					   	  <a href="hotelList?pageNum=${startPage}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[이전]</a>	
 					  </c:if>
 					   <c:forEach var="i" begin="${startPage+1}" end="${endPage-1}">
 					   	  <c:choose>
 					   	      <c:when test="${pageNum==i}"><span style="font-weight: bold">${i}</span></c:when>
-					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}">[${i}]</a></c:when>
+					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[${i}]</a></c:when>
 					   	  </c:choose>	      
 					   </c:forEach>
 						<c:if test="${endPage<pageCount}">
-					   	   <a href="hotelList?pageNum=${startPage+6}">[다음]</a>
+					   	   <a href="hotelList?pageNum=${startPage+6}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[다음]</a>
 					   	</c:if>
 					</div> 
 				</c:if>	
 		</div><!-- col-sm-5 -->
+
     	
 		<!-- 카카오 map출력 -->
 		<div class='col-sm-4'>
