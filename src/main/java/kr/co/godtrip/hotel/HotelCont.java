@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,7 +68,7 @@ public class HotelCont {
 	// @RequestMapping()
 	 // 부모페이지 .jsp에서 <a href="/hotelList?area_code=여기에클릭한지역코드출력"></a>
 	
-	 //호텔정보 가져오기 + 지역정보
+	 	//호텔정보 가져오기 + 지역정보(사용자 기준)
 	 	@GetMapping("/hotelList")
 	 	public ModelAndView list(HttpServletRequest req) {
 		 //사용자가 검색한 검색어(hotleList에서 넘어옴)
@@ -89,7 +90,13 @@ public class HotelCont {
 		    	area_name="인천";
 		    }else if(area_code.equals("G0004")) {
 		    	area_name="수원";
-		    }//if end 
+		    }else if(area_code.equals("G0005")) {
+		    	area_name="가평";
+		    }else if(area_code.equals("G0006")) {
+		    	area_name="강릉";
+		    }else if(area_code.equals("G0007")) {
+		    	area_name="춘천";
+		    }
 	        ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hotelList");
 
@@ -111,7 +118,6 @@ public class HotelCont {
 	        }
 	        
 	        int currentPage=Integer.parseInt(pageNum);
-	        System.out.println(currentPage);
 	        //페이지에 출력할 수
 	        int startRow   =(currentPage-1)*numPerPage;  //가져올 데이터의 초기 위치값		
 	        int endRow     =numPerPage;					 //가져올 데이터 양
@@ -156,7 +162,6 @@ public class HotelCont {
             mav.addObject("hotel_Type", hotel_Type);
 	        mav.addObject("area_code", area_code);
 	        mav.addObject("area_name",area_name);
-	        System.out.println(mav);
 	        return mav;
 	 }//list() end
 	 
@@ -166,12 +171,13 @@ public class HotelCont {
 	
 	 
 
-	 //숙박입력
+	//판매자 페이지에서 숙박입력
 	@PostMapping("/insert")
     public String insert(@RequestParam Map<String, Object> map
     		          ,@RequestParam MultipartFile img
-    		          ,HttpServletRequest req) {
-		
+    		          ,HttpServletRequest req
+    		          ,HttpSession session) {
+		    String p_id=(String) session.getAttribute("p_id");
 			//숙박코드 생성
             int d = (int)(Math.random() * 10000 + 1);
             String hotel_code="H" + d;
@@ -196,13 +202,24 @@ public class HotelCont {
     	map.put("hotel_filename", filename);
     	map.put("hotel_filesize", filesize);
     	map.put("hotel_code", hotel_code);
+    	map.put("p_id", p_id);
     	//System.out.println(filename);
     	//System.out.println(filesize);
     	hotelDao.insert(map);
-
-    	return "redirect:/hotel/hotelList";
+    	//판매자 페이지로 이동
+    	return "redirect:/hotel/partnerhotelList"; 
     	
     }//insert() end
+	
+	//판매자 판매현황 보여주기
+	@GetMapping("/partnerhotelList")
+	public ModelAndView partnerlist(HttpServletRequest req,HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+			
+		mav.setViewName("/partner/partnerpage");
+		return mav;
+	}
+	
 	
 	@PostMapping("/detailinsert")
 	public String detailinsert(@RequestParam Map<String, Object> map
@@ -244,6 +261,12 @@ public class HotelCont {
 
 	}//insert() end
 	
+	@RequestMapping("/hoteldelete")
+	public String hoteldelete(HttpServletRequest req) {
+		String hotel_code=req.getParameter("hotel_code");
+		hotelDao.delete(hotel_code);	
+		return "redirect:/hotel/hotelList";
+	}
 		
 	
 }//class() end

@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
 					<label><input type="radio" name="hotel_Type" value="펜션">펜션</label>
 					<br>
 					<label><input type="radio" name="hotel_Type" value="풀빌라">풀빌라</label>
-					<input type="hidden" name="area_code" value="${area_code}">
+					 <input type="hidden" name="area_code" value="${area_code}">
 				   	 <input type="hidden" name="departure_Date" value="${departure_Date}">
 				   	 <input type="hidden" name="arrival_Date" value="${arrival_Date}">
 					<p><input type="submit" value="검색"> <input type="reset" value="다시하기"></p>  
@@ -36,7 +36,6 @@ pageEncoding="UTF-8"%>
     	
 		<!-- !PAGE CONTENT! -->
 		<div class='col-sm-5' style="overflow:scroll;  height:1000px;">
-			<div class="d-flex justify-content-evenly"><p><a href="hotelForm">[호텔 입력]</a></p></div>			
 			    <h6 style="text-align: left";>상품갯수 : ${count}</h6>
 			    ${departure_Date} ~ ${arrival_Date} 		    
 			    <br>
@@ -68,6 +67,7 @@ pageEncoding="UTF-8"%>
 			                최저가 : <fmt:formatNumber value="${hotel.hotel_Prices}" />&#8361;
 			                <div align="right"><a href="hoteldetail?hotel_code=${hotel.hotel_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[예약하기]</a></div>
 			                <div align="right"><a href="hoteldetailForm?hotel_code=${hotel.hotel_code}">[숙소등록하기]</a></div>
+			                <div align="right"><a href="hoteldelete?hotel_code=${hotel.hotel_code}">[삭제하기]</a></div>
 			                
 		                </th>
 		   				<!-- 테이블 한줄에 5칸씩 -->
@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%>
 	</div><!-- row 끝 -->
 </div><!-- container끝 -->
   
-  
+
 <script>
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 var infowindow = new kakao.maps.InfoWindow({zIndex:1});

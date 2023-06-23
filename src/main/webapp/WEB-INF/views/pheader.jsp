@@ -108,7 +108,7 @@ footer p {
       <c:choose>
     	<c:when test="${ not empty p_id && not empty p_passwd && p_level == 'A1' }">
         <li class="nav-item">
-          <a class="nav-link" href="#">숙박 상품등록</a>
+          <a class="nav-link" href="../hotel/hotelForm">숙박 상품등록</a>
         </li>
         </c:when>
         <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'B1' }">

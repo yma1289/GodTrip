@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp" %>
+<%@ include file="../pheader.jsp" %>
 
 
 	<form name="hotelfrm" id="hotelfrm" method="post" action="insert" enctype="multipart/form-data">
