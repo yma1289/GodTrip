@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
 	    </tr>
 	    
 	     
-	    <input type="text" name="hotel_code" value="${hotel_code}">
+	    <input type="hidden" name="hotel_code" value="${hotel_code}">
 	    
 	    
 	    <tr>

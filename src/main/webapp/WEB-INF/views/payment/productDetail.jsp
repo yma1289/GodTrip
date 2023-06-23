@@ -54,19 +54,26 @@
             <td>${roomreservation.room_Name}</td>
             <td>${roomreservation.totalpay}&#8361;</td>
             <td>${roomreservation.room_rsvdate}</td>
-            <c:if test="${vs.count mod 1==0}">
-		              	 	</tr> <tr>
-		           		</c:if>   
-      </c:forEach>
         </tr>
     </tbody>
     
+<c:if test="${vs.count mod 1==0}">
+		              	 	</tr> <tr>
+		           		</c:if>   
+      </c:forEach>
 </table>
 
 <div class="d-flex justify-content-center my-4">
-	<a href="/payment/paymentForm" class="btn btn-info">결제하기</a>
+	<input type="button" value="결제하기" onclick="confirmPayment(${room_no}, ${transrs_no})"> 
 </div>
 
 </div>
+<script type="text/javascript">
+function confirmPayment(room_no,transrs_no) {
+    if (confirm("결제를 진행하시겠습니까? (장바구니에 담은 상품은 삭제됩니다)")) {
+    	window.location.href = "/payment/paymentForm?room_no=" + room_no + "&transrs_no=" + transrs_no;
+  }
+}
+</script>
 
 <%@ include file="../footer.jsp" %>

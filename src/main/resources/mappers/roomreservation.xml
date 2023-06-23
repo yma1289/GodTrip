@@ -10,10 +10,13 @@
 </insert>	    
 	    
 	    <select id="list" resultType="java.util.Map" parameterType="String">
-	    select  roomreservation.room_rsvdate,room.room_Name,roomreservation.totalpay,hotel.hotel_Name
+	    select  roomreservation.room_rsvdate,roomreservation.room_no,room.room_Name,roomreservation.totalpay,hotel.hotel_Name
 		from roomreservation join room 
 		on roomreservation.room_code = room.room_code
 		join hotel
 		on hotel.hotel_code = room.hotel_code;
 	    </select>
+	    
+
+	    
 </mapper>

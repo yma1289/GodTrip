@@ -34,16 +34,7 @@ public class HotelDAO {
 	    	sqlSession.insert("hotel.insert", map); 
 	 }//insert() end	 
 	
-	 //호텔 검색
-	 public List<Map<String, Object>> search(String hotel_Name){
-	    	return sqlSession.selectList("hotel.search", "%" + hotel_Name.toUpperCase() + "%");
-	 }//search() end
-	 
-	//호텔 타입 분류
-	 public List<Map<String, Object>> search2(String hotel_Type){   	
-	    	return sqlSession.selectList("hotel.search2", hotel_Type);
-	 }//search() end
-	 
+
 	 //객실입력
 	 public void detailinsert(Map<String, Object>map) {
 		 sqlSession.insert("hotel.detailinsert",map);
@@ -54,13 +45,13 @@ public class HotelDAO {
 	        return sqlSession.selectOne("hotel.totalRowCount",map);
 	    }
 	 
-	 public int totalRowCount2(String hotel_Name) {
-	        return sqlSession.selectOne("hotel.totalRowCount",hotel_Name);
-	    }
+	 //숙박 정보 삭제하기
+	 public void delete(String hotel_code) {
+		 sqlSession.delete("hotel.delete",hotel_code);
+	 }
 	 
-	 public int totalRowCount3(String hotel_Type) {
-	        return sqlSession.selectOne("hotel.totalRowCount",hotel_Type);
-	    }
+	 public List<Map<String, Object>>partnerlist(String p_id){
+		return sqlSession.selectList("hotel.partnerlist",p_id);
+	 }
 	 
-	
 }//class end

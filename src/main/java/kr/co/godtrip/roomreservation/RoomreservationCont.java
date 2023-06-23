@@ -5,8 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
+import java.util.Date;
+import java.sql.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,27 +35,37 @@ public class RoomreservationCont {
 	
 	
 	@GetMapping("/roomreservationinsert")
-	public ModelAndView roomreservationinsert(HttpServletRequest req) throws ParseException{
+	public ModelAndView roomreservationinsert(HttpServletRequest req, HttpSession session) throws ParseException{
 		//String id=req.getParameter("id"); //나중에 이부분으로 고쳐야 함
 		String id="young12"; //임시 아이디
 		String room_code=req.getParameter("room_code");
 		String departure_Date=req.getParameter("departure_Date");
-		String arrival_Date=req.getParameter("arrival_Date");
+		String arrival_Date=req.getParameter("arrival_Date");	
+		//체크인 시간 20230623
+		//체크아웃 시간 20230625 데이터베이스에 저장	
+		//위의 출발시간과 도착시간에서 - 기호 삭제하기
+		//departure_Date=departure_Date.replaceAll("-", "");
+		//arrival_Date=arrival_Date.replaceAll("-", "");
+
+		
 		int room_price=Integer.parseInt(req.getParameter("room_price")); 
 		
 		//도착일-출발일 구하기 로직
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	    java.util.Date a_parseDate = format.parse(departure_Date);
-	    java.util.Date b_parseDate = format.parse(arrival_Date);
-	    java.sql.Date a_sqlDate = new java.sql.Date(a_parseDate.getTime());
-	    java.sql.Date b_sqlDate = new java.sql.Date(b_parseDate.getTime());
+	    Date a_parseDate = format.parse(departure_Date);
+	    Date b_parseDate = format.parse(arrival_Date);
+	    Date a_sqlDate = new java.sql.Date(a_parseDate.getTime());
+	    Date b_sqlDate = new java.sql.Date(b_parseDate.getTime());
 	    int resultTime = (int)(b_parseDate.getTime() - a_parseDate.getTime()) / (24 * 60 * 60 * 1000);
-	    
+	    if(a_sqlDate.getTime()<b_sqlDate.getTime()) {
+	    	System.out.println("굿");
+	    }
 	    //총가격
 	    if(resultTime==0) {
 	    	resultTime=1;
 	    }
 		int totalpay=room_price*resultTime;
+		
 		
         Map<String, Object> map=new HashMap<>();
         map.put("id", id);
@@ -61,12 +75,17 @@ public class RoomreservationCont {
         map.put("totalpay", totalpay);
 		roomreservationDao.insert(map);
 		
+		
+		  //int cnt=dao.~~~();
 		 ModelAndView mav = new ModelAndView();
 		 	mav.setViewName("redirect:/cartlist"); // 리다이렉트로 이동
 		    mav.addObject("room_code", room_code); // room_code를 ModelAndView에 추가하여 전달
 		    mav.addObject("departure_Date",departure_Date);
 		    mav.addObject("arrival_Date",arrival_Date);
 		    mav.addObject("totalpay",totalpay);
+		    //mav.addObject("cnt",cnt);
+		    //session.setAttribute("cnt", cnt);
+		    //jsp에서 session.getAttribute(cnt);
 		    return mav;
 	}
 	
@@ -75,14 +94,18 @@ public class RoomreservationCont {
 		String room_code = req.getParameter("room_code");		
 		String departure_Date=req.getParameter("departure_Date");
 		String arrival_Date=req.getParameter("arrival_Date");
-		
-	    
-	    
+			    
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("payment/productDetail");
 			
 			//항공장바구니에 있는거 list에 담아서 불러오기
 			List<Map<String, Object>>list=roomreservationDao.list(room_code);
+			List<Integer> room_no = new ArrayList<>();
+			for (Map<String, Object> item : list) {
+			    int roomNo = (int) item.get("room_no");
+			    room_no.add(roomNo);
+			}
+			mav.addObject("room_no",room_no);
 			mav.addObject("list",list);
 			mav.addObject("departure_Date",departure_Date);
 			return mav;
