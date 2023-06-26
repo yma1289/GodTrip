@@ -157,7 +157,7 @@
             
             <td>${transList.trans_name}</td>
             <td>${transList.transrs_seatno}</td>
-            <td>${transList.Price}</td>
+            <td>${transList.Price}&#8361;</td>
             <td>${transList.rsvdate}</td>          
         </tr>
       </c:forEach>
@@ -195,15 +195,15 @@
 </table>
 
 <div class="d-flex justify-content-center my-4">
-	<input type="button" value="결제하기" onclick="confirmPayment(${room_no}, ${transrs_no})">
+	<input type="button" value="결제하기" onclick="confirmPayment()">
 </div>
 
 </div>
 
 <script type="text/javascript">
-function confirmPayment(room_no,transrs_no) {
+function confirmPayment(room_no,transpro_code, id) {
     if (confirm("결제를 진행하시겠습니까? (장바구니에 담은 상품은 삭제됩니다)")) {
-    	window.location.href = "/payment/paymentForm?room_no=" + room_no + "&transrs_no=" + transrs_no;
+    	window.location.href = "/payment/paymentForm";
   }
 }
 </script>

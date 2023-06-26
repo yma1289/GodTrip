@@ -19,6 +19,14 @@ public class PaymentDAO {
 		sqlSession.delete("payment.delete",room_no);
 	}
 	
+	 public void roomDelete(String id) {
+	      sqlSession.delete("payment.roomDelete", id);
+	   }//roomDelete() end
+	   
+	   //교통장바구니 삭제
+	   public void transDelete(String id) {
+	      sqlSession.delete("payment.transDelete", id);
+	   }//transDelete() end
 	
 	
 }
