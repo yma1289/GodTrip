@@ -1,9 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
+<script type="text/javascript">
+
+function reviewCheck(){
+let title=document.getElementById("title").value; 
+if(title.length<2){
+    alert("제목 2글자 이상 입력해 주세요");
+    document.getElementById("title").focus();
+    return false;
+ }
+ return true;
+}
+</script>
  <div class="container">
 
- <form name="reviewfrm" id="reviewfrm" method="post" action="reviewcreate">	
+ <form name="reviewfrm" id="reviewfrm" method="post" action="reviewcreate" onsubmit="return reviewCheck()">	
 	 <br>
 	<br>
 	 <tr>
@@ -14,9 +26,26 @@ pageEncoding="UTF-8"%>
 	<select name="area_name">
 	<option value="제주">제주</option>
 	<option value="서울">서울</option>
+	<option value="인천">인천</option>
+	<option value="수원">수원</option>
+	<option value="가평">가평</option>
+	<option value="강릉">강릉</option>
+	<option value="춘천">춘천</option>
+	<option value="제천">제천</option>
+	<option value="대전">대전</option>
+	<option value="남원">남원</option>
+	<option value="군산">군산</option>
+	<option value="영월">영월</option>
+	<option value="부산">부산</option>
+	<option value="경주">경주</option>
+	<option value="포항">포항</option>
+	<option value="통영거제">통영거제</option>
+	<option value="목포">목포</option>
+	<option value="여수">여수</option>
+	<option value="전주">전주</option>
 	</select>
 	<br>
-	  <textarea id="summernote" name="content"></textarea>
+	  <textarea id="summernote" name="content" required></textarea>
 	  <br>
 	  <br>
 	  <div align="right">
@@ -31,6 +60,8 @@ pageEncoding="UTF-8"%>
 </div>
 
 <script type="text/javascript">
+
+
 
 
 $('#summernote').summernote({
