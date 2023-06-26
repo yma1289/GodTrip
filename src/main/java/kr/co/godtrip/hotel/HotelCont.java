@@ -67,28 +67,52 @@ public class HotelCont {
 		 //사용자가 선택한 도착일 (transRsvInsert에서 넘어옴)
 		 String arrival_Date=req.getParameter("arrival_Date");
 		 //사용자가 선택한 지역    (transRsvInsert에서 넘어옴)
-		 String area_code=req.getParameter("area_code");
+		 String arrival_code=req.getParameter("arrival_code");
 		 String area_name="";
-		 	if(area_code.equals("G0001")) {
+		 	if(arrival_code.equals("G0001")) {
 		    	area_name="제주도";
-		    }else if(area_code.equals("G0002")) {
+		    }else if(arrival_code.equals("G0002")) {
 		    	area_name="서울";
-		    }else if(area_code.equals("G0003")) {
+		    }else if(arrival_code.equals("G0003")) {
 		    	area_name="인천";
-		    }else if(area_code.equals("G0004")) {
+		    }else if(arrival_code.equals("G0004")) {
 		    	area_name="수원";
-		    }else if(area_code.equals("G0005")) {
+		    }else if(arrival_code.equals("G0005")) {
 		    	area_name="가평";
-		    }else if(area_code.equals("G0006")) {
+		    }else if(arrival_code.equals("G0006")) {
 		    	area_name="강릉";
-		    }else if(area_code.equals("G0007")) {
+		    }else if(arrival_code.equals("G0007")) {
 		    	area_name="춘천";
+		    }else if(arrival_code.equals("G0008")) {
+		    	area_name="제천";
+		    }else if(arrival_code.equals("G0009")) {
+		    	area_name="대전";
+		    }else if(arrival_code.equals("G0010")) {
+		    	area_name="남원";
+		    }else if(arrival_code.equals("G0011")) {
+		    	area_name="군산";
+		    }else if(arrival_code.equals("G0012")) {
+		    	area_name="영월";
+		    }else if(arrival_code.equals("G0013")) {
+		    	area_name="부산";
+		    }else if(arrival_code.equals("G0014")) {
+		    	area_name="경주";
+		    }else if(arrival_code.equals("G0015")) {
+		    	area_name="포항";
+		    }else if(arrival_code.equals("G0016")) {
+		    	area_name="통영거제";
+		    }else if(arrival_code.equals("G0017")) {
+		    	area_name="목포";
+		    }else if(arrival_code.equals("G0018")) {
+		    	area_name="여수";
+		    }else if(arrival_code.equals("G0019")) {
+		    	area_name="전주";
 		    }
 	        ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hotelList");
 
 	        Map<String, Object> map=new HashMap<>();
-	        map.put("area_code", area_code);
+	        map.put("arrival_code", arrival_code);
 	        map.put("hotel_Name", hotel_Name);
 	        map.put("hotel_Type", hotel_Type);
 
@@ -122,7 +146,7 @@ public class HotelCont {
 	       
 	        map.put("startRow", startRow);
 	        map.put("endRow", endRow);
-	        map.put("area_code", area_code);
+	        map.put("arrival_code", arrival_code);
 	        map.put("hotel_Name", hotel_Name);
 	        map.put("hotel_Type", hotel_Type);
 	        List list=null;      
@@ -147,7 +171,7 @@ public class HotelCont {
 	        mav.addObject("list", list);
             mav.addObject("hotel_Name", hotel_Name);
             mav.addObject("hotel_Type", hotel_Type);
-	        mav.addObject("area_code", area_code);
+	        mav.addObject("arrival_code", arrival_code);
 	        mav.addObject("area_name",area_name);
 	        return mav;
 	 }//list() end

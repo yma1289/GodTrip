@@ -7,7 +7,7 @@
 		<select id="list" resultType="java.util.Map">        
         SELECT hotel_code, arrival_code, hotel_Name, hotel_Content, hotel_Prices, hotel_filename, hotel_filesize, hotel_address, hotel_tel
         FROM hotel
-        WHERE arrival_code = #{area_code}
+        WHERE arrival_code = #{arrival_code}
         <if test="hotel_Name != null and hotel_Name != ''">
             AND hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
         </if>
@@ -30,7 +30,7 @@
 	    	
 		<!-- 전체 레코드 수 조회 -->
 	    <select id="totalRowCount" resultType="java.lang.Integer">
-	        SELECT COUNT(*) FROM hotel WHERE arrival_code = #{area_code}
+	        SELECT COUNT(*) FROM hotel WHERE arrival_code = #{arrival_code}
 	        <if test="hotel_Name != null and hotel_Name != ''">
             AND hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
         	</if>
