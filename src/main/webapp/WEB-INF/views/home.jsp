@@ -197,21 +197,21 @@ footer {
     <div class="row">
       <div class="col-lg-4 col-md-6 mb-4">
       	<div class="row">
-          <a href="#">
+           <a href="../attraction/attractionList">
             <img src="../images/gangneung.png" alt="gangneung" class="img-fluid img-sz">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="row">
-          <a href="#">
+           <a href="../attraction/attractionList">
             <img src="../images/jeju.png" alt="jeju" class="img-fluid img-sz">
           </a>
         </div>
       </div>
       <div class="col-lg-4 col-md-6 mb-4">
         <div class="row">
-          <a href="#">
+            <a href="../attraction/attractionList">
             <img src="../images/busan.png" alt="busan" class="img-fluid img-sz">
           </a>
         </div>
@@ -220,6 +220,15 @@ footer {
   </div>
 </section>
 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 <!-- reviews Section -->
 <section id="reviews" class="w3-container w3-padding-32">
 	<div class="container">
