@@ -17,7 +17,7 @@ public partnerDAO() {
 
 @Autowired
 SqlSession sqlSession;
-		
+
 		//호텔 등록
 		public void hotelinsert(Map<String, Object> map) {
 			sqlSession.insert("partner.hotelinsert", map); 
@@ -48,6 +48,7 @@ SqlSession sqlSession;
 		 public void roomdelete(String room_code) {
 			 sqlSession.delete("partner.roomdelete",room_code);
 		 }
+		
 
 		//회원가입
 		public void insert(partnerDTO dto) {
@@ -121,5 +122,67 @@ SqlSession sqlSession;
 					int cnt= sqlSession.update("partner.renewPW", mDto);
 					
 				    return cnt;
-				}		
+				}
+				
+///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public List<Map<String, Object>> F_infoList(String p_id) {
+		return sqlSession.selectList("partner.F_infoList", p_id);
+	}//F_infoList() end
+	
+	
+	public List<Map<String, Object>> T_infoList(String p_id) {
+		return sqlSession.selectList("partner.T_infoList", p_id);
+	}//T_infoList() end
+	
+	
+	public void F_infoInsert(Map<String, Object> map) {
+		sqlSession.insert("partner.F_infoInsert", map);
+	}//F_infoInsert() end
+	
+	
+	public void T_infoInsert(Map<String, Object> map) {
+		sqlSession.insert("partner.T_infoInsert", map);
+	}//T_infoInsert() end
+	
+	
+	public void F_proInsert(Map<String, Object> map) {
+		sqlSession.insert("partner.F_proInsert", map);
+	}//F_proInsert() end
+	
+	
+	public void T_proInsert(Map<String, Object> map) {
+		sqlSession.insert("partner.F_proInsert", map);
+	}//T_proInsert() end
+	
+	
+	public List<Map<String, Object>> F_proList(String p_id) {
+		return sqlSession.selectList("partner.F_proList", p_id);
+	}//F_proList() end
+	
+	
+	public List<Map<String, Object>> T_proList(String p_id) {
+		return sqlSession.selectList("partner.T_proList", p_id);
+	}//T_proList() end
+	
+	
+	public void F_infoDelete(String trans_code) {
+		sqlSession.delete("partner.F_infoDelete", trans_code);
+	}//F_infoDelete() end
+	
+	
+	public void T_infoDelete(String trans_code) {
+		sqlSession.delete("partner.T_infoDelete", trans_code);
+	}//T_infoDelete() end
+	
+	
+	public void F_proDelete(String transpro_code) {
+		sqlSession.delete("partner.F_proDelete", transpro_code);
+	}//F_proDelete() end
+	
+	
+	public void T_proDelete(String transpro_code) {
+		sqlSession.delete("partner.T_proDelete", transpro_code);
+	}//T_proDelete() end
+	
 }

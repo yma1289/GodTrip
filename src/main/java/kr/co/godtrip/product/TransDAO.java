@@ -30,7 +30,7 @@ public class TransDAO {
 		Map<String, String> params = new HashMap<>();
 		params.put("arrival_code", arrival_code);
 		params.put("departure_Date", departure_Date);
-		params.put("departure_code", departure_code);
+		params.put("departure_code", departure_code);		
 		
 		return sqlSession.selectList("product.depCodeSelect", params);
 	}//depCodeSelect() end

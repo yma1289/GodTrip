@@ -5,33 +5,32 @@
 
 <div class="container" style="padding-top: 30px">
 	<br>
-	<h3><strong>항공/기차정보 등록</strong></h3>
+	<h3><strong>항공정보 등록</strong></h3>
 	<br>
 	<p>
-		<button type="button" class="btn btn-danger" onclick="location.href='transinfoList'">취소</button>
+		<button type="button" class="btn btn-danger" onclick="location.href='F_infoList'">취소</button>
 	</p>
 	<br>
-	<form name="transinfoFrm" id="transinfoFrm" method="post" action="transinfoInsert" enctype="multipart/form-data">
+	<form name="F_infoFrm" id="F_infoFrm" method="post" action="/partner/F_infoInsert" enctype="multipart/form-data">
 		<table class="table">
 		  <tr>
-			<td>항공/기차선택</td>
+			<td>구분</td>
 			<td>
 				<select name="FT_code" id="FT_code">
-					<option value="F">비행기</option>
-					<option value="T">기차</option>
+					<option value="F">비행기</option>					
 				</select>
 			</td>
 		  </tr>
 		  <tr>
-			<td>항공/기차편명</td>
+			<td>항공 편명</td>
 			<td><input type="text" name="trans_code"></td>
 		  </tr>
 		  <tr>
-			<td>항공사/기차이름</td>
+			<td>항공사 이름</td>
 			<td><input type="text" name="trans_name"></td>
 		  </tr>
 		  <tr>
-			<td>항공사/기차로고</td>
+			<td>항공사 로고</td>
 			<td><input type="file" name="img"></td>
 		  </tr>
 		  <tr>

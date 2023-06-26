@@ -30,31 +30,31 @@ import org.springframework.web.servlet.ModelAndView;
 import net.utility.MyAuthenticator;
 
 @Controller
-@RequestMapping("/partner")
+@RequestMapping()
 public class partnerCont {
 
 	public partnerCont() {
-		System.out.println("partnerController 생성");
+		System.out.println("-----partnerController 생성");
 	}
 
 	@Autowired
 	partnerDAO partnerDAO;
 
 	// 로그인 페이지
-	@RequestMapping("/partnerlogin")
+	@RequestMapping("/partner/partnerlogin")
 	public String partnerlogin() {
 		return "partner/partnerlogin";
 
 	}
 	
 	//숙박 입력폼
-	@RequestMapping("/hotelForm")
+	@RequestMapping("/partner/hotelForm")
 	public String hotelForm() {
 		return "hotel/hotelForm";
 	}
 	
 	//hotelList에서 준 호텔코드
-	@RequestMapping("/hoteldetailForm")
+	@RequestMapping("/partner/hoteldetailForm")
 	public ModelAndView hoteldetailForm(HttpServletRequest req) {
 	String hotel_code=req.getParameter("hotel_code");	
 	ModelAndView mav=new ModelAndView();
@@ -64,7 +64,7 @@ public class partnerCont {
     }
 	
 	//객실 등록
-	@PostMapping("/detailinsert")
+	@PostMapping("/partner/detailinsert")
 	public String detailinsert(@RequestParam Map<String, Object> map
 	          				  ,@RequestParam MultipartFile img
 	          				  ,HttpServletRequest req
@@ -104,9 +104,9 @@ public class partnerCont {
 		return "redirect:/partner/partnerpage";
 
 	}//insert() end
-	
+		
 	//숙박 생성
-	@PostMapping("/hotelinsert")
+	@PostMapping("/partner/hotelinsert")
     public String insert(@RequestParam Map<String, Object> map
     		          ,@RequestParam MultipartFile img
     		          ,HttpServletRequest req
@@ -145,51 +145,66 @@ public class partnerCont {
     	
     }//insert() end
 	
-		//세션값 가져오기 HttpSession session = request.getSession(true);
-		//판매 현황 보여주기
-		@RequestMapping("/partnerpage")
-		public ModelAndView partnerpage(HttpServletRequest request) {
-			HttpSession session = request.getSession(true);
-			//로그인중인 판매자 아이디 가져오기
-			String p_id=(String) session.getAttribute("p_id");
-			ModelAndView mav = new ModelAndView();
-			List list=null;
-			list=partnerDAO.hotellist(p_id);
-			mav.addObject("list",list);
-			mav.setViewName("/partner/partnerpage");
-			return mav;
-		}
-	
-		//숙박 삭제
-		@RequestMapping("/hoteldelete")
-		public String hoteldelete(HttpServletRequest req) {
-			String hotel_code=req.getParameter("hotel_code");
-			System.out.println(hotel_code);
-			partnerDAO.hoteldelete(hotel_code);	
-			return "redirect:/partner/partnerpage";
-		}
+	//세션값 가져오기 HttpSession session = request.getSession(true);
+	//판매 현황 보여주기
+	@RequestMapping("/partner/partnerpage")
+	public ModelAndView partnerpage(HttpServletRequest request) {
+		HttpSession session = request.getSession(true);
+		//로그인중인 판매자 아이디 가져오기
+		String p_id=(String) session.getAttribute("p_id");
+		ModelAndView mav = new ModelAndView();
 		
-		//객실 정보 보여주기
-		@RequestMapping("/roompartner")
-		public ModelAndView roompartner(HttpServletRequest req) {
-			ModelAndView mav = new ModelAndView();
-			String hotel_code=req.getParameter("hotel_code");
-			List list=null;
-			list=partnerDAO.hoteldetailList(hotel_code);
-			mav.addObject("list",list);
-			mav.setViewName("/hotel/roompartner");
-			return mav;
-		}
-		//객실 삭제
-		@RequestMapping("/roomdelete")
-		public String roomdelete(HttpServletRequest req) {
-			String room_code=req.getParameter("room_code");
-			System.out.println(room_code);
-			partnerDAO.roomdelete(room_code);
-			return "redirect:/partner/partnerpage";
-		}
+		//숙박 판매현황
+		List list=null;
+		list=partnerDAO.hotellist(p_id);
+		
+		//기차 판매현황
+		List T_proList = null;
+		T_proList = partnerDAO.T_proList(p_id);
+		
+		//항공 판매현황
+		List F_proList = null;
+		F_proList = partnerDAO.F_proList(p_id);
+		
+		mav.addObject("list",list);
+		mav.addObject("T_proList", T_proList);
+		mav.addObject("F_proList", F_proList);
+		mav.setViewName("/partner/partnerpage");
+		return mav;
+	}
+
+	//숙박 삭제
+	@RequestMapping("/partner/hoteldelete")
+	public String hoteldelete(HttpServletRequest req) {
+		String hotel_code=req.getParameter("hotel_code");
+		System.out.println(hotel_code);
+		partnerDAO.hoteldelete(hotel_code);	
+		return "redirect:/partner/partnerpage";
+	}
 	
-	@RequestMapping(value = "/partnerlogin.do")
+	//객실 정보 보여주기
+	@RequestMapping("/partner/roompartner")
+	public ModelAndView roompartner(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		String hotel_code=req.getParameter("hotel_code");
+		List list=null;
+		list=partnerDAO.hoteldetailList(hotel_code);
+		mav.addObject("list",list);
+		mav.setViewName("/hotel/roompartner");
+		return mav;
+	}
+	//객실 삭제
+	@RequestMapping("/partner/roomdelete")
+	public String roomdelete(HttpServletRequest req) {
+		String room_code=req.getParameter("room_code");
+		System.out.println(room_code);
+		partnerDAO.roomdelete(room_code);
+		return "redirect:/partner/partnerpage";
+	}
+		
+	
+	
+	@RequestMapping(value = "/partner/partnerlogin.do")
 	public ModelAndView login(@RequestParam("p_id") String p_id, @RequestParam("p_passwd") String p_passwd,
 			HttpServletRequest request, HttpSession session) {
 		
@@ -204,7 +219,7 @@ public class partnerCont {
 			// mlevel 값 가져오기
 			String p_level = dto.getP_level();
 
-			if (!(p_level.equals("F1"))) {
+			if (p_level != null) {
 				ModelAndView mav = new ModelAndView("redirect:/partner/partnerpage");
 				session.setAttribute("p_id", dto.getP_id());
 				session.setAttribute("p_passwd", dto.getP_passwd());
@@ -226,38 +241,38 @@ public class partnerCont {
 		}
 	}
 
-
+		
 	// 약관동의
-	@RequestMapping("/agreement")
+	@RequestMapping("/partner/agreement")
 	public String partneragreement() {
 		return "partner/agreement";
 	}
 	
 	//회원가입
-	@RequestMapping("/partnerRegister")
+	@RequestMapping("/partner/partnerRegister")
 	public String partnerRegister() {
 		return "partner/partnerRegister";
 	}
 	//아이디 중복 확인
-	@RequestMapping("/idCheckForm")
+	@RequestMapping("/partner/idCheckForm")
 	public String idCheckForm() {
 		return "partner/idCheckForm";
 	}
 	
 	// 아이디 중복확인 페이지 이동
-	@RequestMapping("/partneridCheckForm")
+	@RequestMapping("/partner/partneridCheckForm")
 	public String partneridCheckForm() {
 		return "partner/partneridCheckForm";
 	}
 	
 	// 이메일 중복확인페이지 이동
-	@RequestMapping("/partneremailCheckForm")
+	@RequestMapping("/partner/partneremailCheckForm")
 	public String partneremailCheckForm() {
 		return "partner/partneremailCheckForm";
 	}
 
 	//회원가입
-	@RequestMapping(value = "/pRegister", method = RequestMethod.POST)
+	@RequestMapping(value = "/partner/pRegister", method = RequestMethod.POST)
 	public String partnerRegister(partnerDTO dto) {
 	partnerDAO.insert(dto);
 		return "redirect:/partner/partnerlogin";
@@ -265,7 +280,7 @@ public class partnerCont {
 
 	
 	// 아이디 중복 확인 처리
-	@RequestMapping("/partneridCheckProc")
+	@RequestMapping("/partner/partneridCheckProc")
 	public ModelAndView duplicateId(@RequestParam("p_id") String p_id, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("partner/partneridCheckProc");
@@ -276,7 +291,7 @@ public class partnerCont {
 	}
 
 	// 이메일 중복처리
-	@RequestMapping("/duplicateemail")
+	@RequestMapping("/partner/duplicateemail")
 	public ModelAndView emailduplicate(@RequestParam("p_email") String p_email, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("partner/duplicateemail");
@@ -288,7 +303,7 @@ public class partnerCont {
 	
 		 //로그아웃 처리
 		// session.invalidate() 모든 세션을 제거시킴 ->회원이나 판매자나 거기서 거기임
-		@RequestMapping("partnerlogout.do")
+		@RequestMapping("/partner/partnerlogout.do")
 		public String logout(HttpServletRequest request) {
 			HttpSession session = request.getSession(false);
 			if (session != null) {
@@ -299,18 +314,18 @@ public class partnerCont {
 		
 		
 	//회원정보 수정-모든 정보 불러오기
-	@RequestMapping("/partnerModify")
+	@RequestMapping("/partner/partnerModify")
 	public ModelAndView partnerModify(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 
 		String p_id = (String) request.getSession().getAttribute("p_id");
-		mav.setViewName("partner/partnerModify");
+		mav.setViewName("/partner/partnerModify");
 		mav.addObject("partner",partnerDAO.select(p_id));
 		return mav;
 	}
 	
 		//회원 정보 수정
-		@RequestMapping("update.do")
+		@RequestMapping("/partner/update.do")
 		public ModelAndView update(@RequestParam Map<String, Object> map, HttpServletRequest req) {
 		    ModelAndView mav = new ModelAndView();
 		    String p_id = (String) req.getSession().getAttribute("p_id");
@@ -331,13 +346,13 @@ public class partnerCont {
 		
 		//회원탈퇴
 		//delete가 아닌 update로 회원 등급만 바꿔서 저장하도록 한다.
-		@RequestMapping("/partnerWithdraw")
+		@RequestMapping("/partner/partnerWithdraw")
 		public String partnerWithdraw() {
 			return "/partner/partnerWithdraw";
 		}
 		
 		//회원 탈퇴 처리
-		@RequestMapping("/delete.do")
+		@RequestMapping("/partner/delete.do")
 		public ModelAndView delete(HttpServletRequest request,@RequestParam("p_passwd") String p_passwd) {
 			ModelAndView mav=new ModelAndView();
 			String p_id = (String) request.getSession().getAttribute("p_id");
@@ -365,13 +380,13 @@ public class partnerCont {
 		}
 		
 		// 아이디 찾기 페이지 이동 
-				@RequestMapping("pfindId.do")
+				@RequestMapping("/partner/pfindId.do")
 				public String findid() {
 					return "partner/partnerfindId";
 				}
 
 		 // 메일 보내기 기존 myweb 코드 참조
-				@RequestMapping("/pfindidproc.do")
+				@RequestMapping("/partner/pfindidproc.do")
 				public ModelAndView find(partnerDTO dto) throws Exception {
 					ModelAndView mav = new ModelAndView();
 					String p_name=dto.getP_name();
@@ -419,7 +434,7 @@ public class partnerCont {
 								message.setSentDate(new Date());
 
 								Transport.send(message);
-								mav.addObject("FindIdmessage", "이메일로 아이디와 임시 비밀번호가 전송되었습니다.");
+								mav.addObject("PFindIdmessage", "이메일로 아이디와 임시 비밀번호가 전송되었습니다.");
 								
 							} catch (MessagingException e) {
 								e.printStackTrace();
@@ -442,6 +457,327 @@ public class partnerCont {
 					return mav;
 				}
 				
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+				
+	//F_infoList 출력
+	@RequestMapping("/partner/F_infoList")
+	public ModelAndView F_infoList(HttpServletRequest request) {
 		
+		HttpSession session = request.getSession(true);
+		String p_id = (String) session.getAttribute("p_id");
+
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("p_id", p_id);
+		mav.setViewName("/product/F_infoList");
+		mav.addObject("F_infoList", partnerDAO.F_infoList(p_id));
+		return mav;
+	}//F_infoList() end
+	
+	
+	//T_infoList 출력
+	@RequestMapping("/partner/T_infoList")
+	public ModelAndView T_infoList(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		String p_id = (String) session.getAttribute("p_id");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("p_id", p_id);
+		mav.setViewName("/product/T_infoList");
+		mav.addObject("T_infoList", partnerDAO.T_infoList(p_id));
+		return mav;
+	}//T_infoList() end
+	
+	
+	//F_infoForm
+	@RequestMapping("/partner/F_infoForm")
+	public ModelAndView F_infoForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("product/F_infoForm");
+		return mav;
+	}//F_infoForm() end
+	
+	
+	//T_infoForm
+	@RequestMapping("/partner/T_infoForm")
+	public ModelAndView T_infoForm() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("product/T_infoForm");
+		return mav;
+	}//transinfoForm() end
+	
+	
+	//F_infoInsert
+	@RequestMapping("/partner/F_infoInsert")
+	public String F_infoInsert(@RequestParam Map<String, Object> map
+								 ,@RequestParam MultipartFile img
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
+		String filename = "-";
+		long filesize = 0;
+		if(img != null && !img.isEmpty()) {
+			filename = img.getOriginalFilename();
+			filesize = img.getSize();
+			try {
+				ServletContext application = req.getSession().getServletContext();
+				String path = application.getRealPath("/storage"); //실제 물리적인 경로
+				img.transferTo(new File(path + "\\" + filename));  //파일저장
+			} catch (Exception e) {
+				e.printStackTrace(); //System.out.println(e);
+			}//try end
+		}//if end
+		
+		map.put("filename", filename);
+		map.put("filesize", filesize);
+		
+		//파트너 id 추가
+		String p_id = (String) session.getAttribute("p_id");
+		map.put("p_id", p_id);
+		
+		partnerDAO.F_infoInsert(map);
+		
+		return "redirect:/product/F_infoList";
+		
+	}//F_infoInsert() end
+	
+	
+	//T_infoInsert
+	@RequestMapping("/partner/T_infoInsert")
+	public String T_infoInsert(@RequestParam Map<String, Object> map
+								 ,@RequestParam MultipartFile img
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
+		String filename = "-";
+		long filesize = 0;
+		if(img != null && !img.isEmpty()) {
+			filename = img.getOriginalFilename();
+			filesize = img.getSize();
+			try {
+				ServletContext application = req.getSession().getServletContext();
+				String path = application.getRealPath("/storage"); //실제 물리적인 경로
+				img.transferTo(new File(path + "\\" + filename));  //파일저장
+			} catch (Exception e) {
+				e.printStackTrace(); //System.out.println(e);
+			}//try end
+		}//if end
+		
+		map.put("filename", filename);
+		map.put("filesize", filesize);
+		
+		//파트너 id 추가
+		String p_id = (String) session.getAttribute("p_id");
+		map.put("p_id", p_id);
+		
+		partnerDAO.T_infoInsert(map);
+		
+		return "redirect:/product/T_infoList";
+		
+	}//T_infoInsert() end
+	
+	
+	//F_proForm
+		@RequestMapping("/product/F_proForm")
+		public ModelAndView F_proForm(HttpServletRequest req) {
+			String trans_code = req.getParameter("trans_code");
+			String FT_code = req.getParameter("FT_code");
+			String p_id = req.getParameter("p_id");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("trans_code", trans_code);
+			mav.addObject("FT_code", FT_code);
+			mav.addObject("p_id", p_id);
+			mav.setViewName("product/F_proForm");
+			return mav;
+		}//F_proForm() end
+		
+	
+	//T_proForm
+	@RequestMapping("/product/T_proForm")
+	public ModelAndView T_proForm(HttpServletRequest req) {
+		String trans_code = req.getParameter("trans_code");
+		String FT_code = req.getParameter("FT_code");
+		String p_id = req.getParameter("p_id");
+		
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("trans_code", trans_code);
+		mav.addObject("FT_code", FT_code);
+		mav.addObject("p_id", p_id);
+		mav.setViewName("product/T_proForm");
+		return mav;
+	}//T_proForm() end
+	
+	
+	//F_proInsert
+	@RequestMapping("/partner/F_proInsert")
+	public String F_proInsert(@RequestParam Map<String, Object> map
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
+		
+		//transpro_code 생성하기
+		//1) 비행기상품인 경우 FP, 기차상품인 경우 TP로 시작
+		String transproCodePrefix = ""; //transpro_code 접두사
+		String FT_code = req.getParameter("FT_code");
+		
+		if("F".equals(FT_code)) {
+			transproCodePrefix = "FP";
+		}else if("T".equals(FT_code)) {
+			transproCodePrefix = "TP";
+		}//if end
+		
+		//2) 4자리의 랜덤번호 생성
+		int n = (int)(Math.random()*10000+1);
+		
+		//3) 구분코드 + 랜덤번호 하여 transpro_code 생성		
+		/*
+		1) 첫번째 방법 : 숫자가 1자리수부터 4자리수까지 랜덤으로 생성, 4자리가 아닌 경우 0이 붙지 않음 
+		String transpro_code = transproCodePrefix + n;
+		*/
+		
+		/*
+		2) 두번째 방법 : 숫자는 4자리수로 나오나 문자가 맨앞 한글자씩만 나옴
+		char transproCodePrefixChar1 = transproCodePrefix.charAt(0);
+		String transpro_code = String.format("%c%04d", transproCodePrefixChar, n);
+		*/
+		
+		//3) 세번째 방법
+		String transpro_code = transproCodePrefix + String.format("%04d", n); 
+		
+		
+		///////////////////////////////////////////////////////////////
+		
+		map.put("transpro_code", transpro_code);
+		
+		//p_id 추가
+		//String p_id = "partner_id_01";
+		String p_id = (String) session.getAttribute("p_id");
+		map.put("p_id", p_id);
+		
+		
+		partnerDAO.F_proInsert(map);
+		
+		return "redirect:/product/F_proList";
+		
+	}//F_proInsert() end
+	
+	
+	//T_proInsert
+	@RequestMapping("/partner/T_proInsert")
+	public String T_proInsert(@RequestParam Map<String, Object> map
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
+		
+		//transpro_code 생성하기
+		//1) 비행기상품인 경우 FP, 기차상품인 경우 TP로 시작
+		String transproCodePrefix = ""; //transpro_code 접두사
+		String FT_code = req.getParameter("FT_code");
+		
+		if("F".equals(FT_code)) {
+			transproCodePrefix = "FP";
+		}else if("T".equals(FT_code)) {
+			transproCodePrefix = "TP";
+		}//if end
+		
+		//2) 4자리의 랜덤번호 생성
+		int n = (int)(Math.random()*10000+1);
+		
+		//3) 구분코드 + 랜덤번호 하여 transpro_code 생성		
+		/*
+		1) 첫번째 방법 : 숫자가 1자리수부터 4자리수까지 랜덤으로 생성, 4자리가 아닌 경우 0이 붙지 않음 
+		String transpro_code = transproCodePrefix + n;
+		*/
+		
+		/*
+		2) 두번째 방법 : 숫자는 4자리수로 나오나 문자가 맨앞 한글자씩만 나옴
+		char transproCodePrefixChar1 = transproCodePrefix.charAt(0);
+		String transpro_code = String.format("%c%04d", transproCodePrefixChar, n);
+		*/
+		
+		//3) 세번째 방법
+		String transpro_code = transproCodePrefix + String.format("%04d", n); 
+		
+		
+		///////////////////////////////////////////////////////////////
+		
+		map.put("transpro_code", transpro_code);
+		
+		//p_id 추가
+		//String p_id = "partner_id_01";
+		String p_id = (String) session.getAttribute("p_id");
+		System.out.println(p_id);
+		map.put("p_id", p_id);
+		
+		
+		partnerDAO.T_proInsert(map);
+		
+		return "redirect:/product/T_proList";
+		
+	}//F_proInsert() end
+	
+	
+	//F_proList
+		@RequestMapping("/product/F_proList")
+		public ModelAndView F_proList(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession(true);
+			String p_id = (String) session.getAttribute("p_id");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("p_id", p_id);
+			mav.setViewName("product/F_proList");
+			mav.addObject("F_proList", partnerDAO.F_proList(p_id));
+			return mav;
+		}//F_proList() end
+	
+	
+	//T_proList
+	@RequestMapping("/product/T_proList")
+	public ModelAndView T_proList(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(true);
+		String p_id = (String) session.getAttribute("p_id");
+		
+		ModelAndView mav = new ModelAndView();		
+		mav.addObject("p_id", p_id);
+		mav.setViewName("product/T_proList");
+		mav.addObject("T_proList", partnerDAO.T_proList(p_id));
+		return mav;
+	}//T_proList() end
+	
+	
+	@RequestMapping("/partner/F_infoDelete")
+	public String F_infoDelete(HttpServletRequest req) {
+		String trans_code = req.getParameter("trans_code");
+		partnerDAO.F_infoDelete(trans_code);
+		
+		return "redirect:/product/F_infoList";
+	}//F_infoDelete() end
+	
+	
+	@RequestMapping("/partner/T_infoDelete")
+	public String T_infoDelete(HttpServletRequest req) {
+		String trans_code = req.getParameter("trans_code");
+		partnerDAO.T_infoDelete(trans_code);
+		
+		return "redirect:/product/T_infoList";
+	}//T_infoDelete() end
+	
+	
+	@RequestMapping("/partner/F_proDelete")
+	public String F_proDelete(HttpServletRequest req) {
+		String transpro_code = req.getParameter("transpro_code");		
+		partnerDAO.F_proDelete(transpro_code);
+		
+		return "redirect:/product/F_proList";		
+	}//F_proDelete() end
+	
+	
+	@RequestMapping("/partner/T_proDelete")
+	public String T_proDelete(HttpServletRequest req) {
+		String transpro_code = req.getParameter("transpro_code");		
+		partnerDAO.T_proDelete(transpro_code);
+		
+		return "redirect:/product/T_proList";		
+	}//T_proDelete() end
+	
 		
 }//end

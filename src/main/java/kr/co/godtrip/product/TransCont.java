@@ -30,7 +30,7 @@ public class TransCont {
 	public ModelAndView transproList(HttpServletRequest req) {
 		String arrival_code = req.getParameter("arrival_code");
 		String departure_Date = req.getParameter("departure_Date");
-		String arrival_Date =req.getParameter("departure_Date");
+		String arrival_Date =req.getParameter("arrival_Date");
 
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("arrival_code", arrival_code);
@@ -47,11 +47,16 @@ public class TransCont {
 		String arrival_code = req.getParameter("arrival_code");
 		String departure_Date = req.getParameter("departure_Date");
 		String departure_code = req.getParameter("departure_code");
+		String arrival_Date = req.getParameter("arrival_Date");		
+	
+		//System.out.println(departure_code);
+		//System.out.println("출발일 : " + arrival_Date);
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("arrival_code", arrival_code);
 		mav.addObject("departure_Date", departure_Date);
 		mav.addObject("departure_code", departure_code);
+		mav.addObject("arrival_Date", arrival_Date);	
 		mav.setViewName("product/transproList");
 		mav.addObject("transproList", transDao.depCodeSelect(arrival_code, departure_Date, departure_code));
 		
@@ -80,10 +85,12 @@ public class TransCont {
 	public ModelAndView transproForm(HttpServletRequest req) {
 		String trans_code = req.getParameter("trans_code");
 		String FT_code = req.getParameter("FT_code");
+		String p_id = req.getParameter("p_id");
 		
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("trans_code", trans_code);
 		mav.addObject("FT_code", FT_code);
+		mav.addObject("p_id", p_id);
 		mav.setViewName("product/transproForm");
 		return mav;
 	}//transproForm() end
@@ -92,7 +99,8 @@ public class TransCont {
 	@RequestMapping("/product/transinfoInsert")
 	public String transinfoInsert(@RequestParam Map<String, Object> map
 								 ,@RequestParam MultipartFile img
-								 ,HttpServletRequest req) {
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
 		String filename = "-";
 		long filesize = 0;
 		if(img != null && !img.isEmpty()) {
@@ -110,6 +118,10 @@ public class TransCont {
 		map.put("filename", filename);
 		map.put("filesize", filesize);
 		
+		//파트너 id 추가
+		String p_id = (String) session.getAttribute("p_id");
+		map.put("p_id", p_id);
+		
 		transDao.transinfoInsert(map);
 		
 		return "redirect:/product/transinfoList";
@@ -119,7 +131,8 @@ public class TransCont {
 	
 	@RequestMapping("/product/transproInsert")
 	public String transproInsert(@RequestParam Map<String, Object> map
-								 ,HttpServletRequest req) {
+								 ,HttpServletRequest req
+								 ,HttpSession session) {
 		
 		//transpro_code 생성하기
 		//1) 비행기상품인 경우 FP, 기차상품인 경우 TP로 시작
@@ -155,9 +168,11 @@ public class TransCont {
 		
 		map.put("transpro_code", transpro_code);
 		
-		//p_id 임의 지정
-		String p_id = "partner_id_01";
+		//p_id 추가
+		//String p_id = "partner_id_01";
+		String p_id = (String) session.getAttribute("p_id");
 		map.put("p_id", p_id);
+		
 		
 		transDao.transproInsert(map);
 		
@@ -194,12 +209,14 @@ public class TransCont {
 		String departure_Date = req.getParameter("departure_Date");
 		String area_code = req.getParameter("arrival_code");
 		String arrival_Date = req.getParameter("arrival_Date");
+		//System.out.println("도착일 : " + arrival_Date);
 
 		
 		String transpro_code = req.getParameter("transpro_code");		
-		String s_id = "kim0602";
-		//String s_id = (String) session.getAttribute("s_id");
+		//String s_id = "kim0602";
+		String id = (String) session.getAttribute("s_id");
 		//session.getAttribute() 메소드는 Object타입을 반환하기 때문에 (String) 추가
+		System.out.println(id);
 		
 		//랜덤으로 좌석번호 지정하기
 		final int LETTER_RANGE = 26; //알파벳 갯수
@@ -212,7 +229,7 @@ public class TransCont {
 		
 			
 		dto.setTranspro_code(transpro_code);
-		dto.setId(s_id);
+		dto.setId(id);
 		dto.setTransrs_seatno(transrs_seatno);
 				
 		//교통 장바구니에 상품이 담기면 좌석수를 -1 하기
@@ -228,9 +245,10 @@ public class TransCont {
 		if(transpro_code != null) {
 			transDao.transRsvInsert(dto);
 		}//if end
-		*/
+		*/	
 		
-	
+		//세션에 transpro_code 저장하기
+		session.setAttribute("transpro_code", transpro_code);		
 		
 		mav.addObject("departure_Date", departure_Date);
 		mav.addObject("area_code", area_code);		
