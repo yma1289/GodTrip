@@ -8,7 +8,7 @@
 	<h3><strong>기차 상품등록</strong></h3>
 	<br>
 	<p>
-		<button type="button" class="btn btn-info" onclick="location.href='T_infoList'">취소</button>		
+		<button type="button" class="btn btn-info" onclick="location.href='/partner/T_infoList'">취소</button>		
 	</p>
 	<br>
 	<form name="T_proFrm" id="T_proFrm" method="post" action="/partner/T_proInsert">

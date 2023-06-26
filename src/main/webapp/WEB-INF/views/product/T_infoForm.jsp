@@ -8,7 +8,7 @@
 	<h3><strong>기차정보 등록</strong></h3>
 	<br>
 	<p>
-		<button type="button" class="btn btn-danger" onclick="location.href='T_infoList'">취소</button>
+		<button type="button" class="btn btn-danger" onclick="location.href='/partner/T_infoList'">취소</button>
 	</p>
 	<br>
 	<form name="T_infoFrm" id="T_infoFrm" method="post" action="/partner/T_infoInsert" enctype="multipart/form-data">

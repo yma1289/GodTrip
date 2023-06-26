@@ -9,7 +9,7 @@
 	<h3><strong>기차정보 목록</strong></h3>
 	<br>
 	<p>		
-		<button type="button" class="btn btn-success" onclick="location.href='T_infoForm'">기차정보 등록</button>
+		<button type="button" class="btn btn-success" onclick="location.href='/partner/T_infoForm'">기차정보 등록</button>
 	</p>	
 	</div>
 
@@ -50,7 +50,7 @@
 				</c:choose>
 			</td>
 			<td>				
-				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/T_proForm?trans_code=${T_info.trans_code}&FT_code=${T_info.FT_code}&p_id=${p_id}'">
+				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/partner/T_proForm?trans_code=${T_info.trans_code}&FT_code=${T_info.FT_code}&p_id=${p_id}'">
 			</td>
 			<td>				
 				<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${T_info.trans_code}')">
