@@ -11,7 +11,7 @@ pageEncoding="UTF-8"%>
 				    <h3>숙소검색</h3>
 				  	 숙소명<input type="text" name="hotel_Name" id="hotel_Name" value="${hotel_Name}" placeholder="검색어를 입력해주세요" class="Autosuggest__TextEditor form-control">
 				   	 <br>
-				   	 <input type="hidden" name="area_code" value="${area_code}">
+				   	 <input type="hidden" name="arrival_code" value="${arrival_code}">
 				   	 <input type="hidden" name="departure_Date" value="${departure_Date}">
 				   	 <input type="hidden" name="arrival_Date" value="${arrival_Date}">
 				   	<p><button class="w3-button w3-block w3-green w3-left-align" type="submit" ><i class="fa fa-search w3-margin-right"></i>&nbsp;&nbsp;&nbsp; 검색하기</button></p>
@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
 					<label><input type="radio" name="hotel_Type" value="펜션">펜션</label>
 					<br>
 					<label><input type="radio" name="hotel_Type" value="풀빌라">풀빌라</label>
-					 <input type="hidden" name="area_code" value="${area_code}">
+					 <input type="hidden" name="arrival_code" value="${arrival_code}">
 				   	 <input type="hidden" name="departure_Date" value="${departure_Date}">
 				   	 <input type="hidden" name="arrival_Date" value="${arrival_Date}">
 					<p><input type="submit" value="검색"> <input type="reset" value="다시하기"></p>  
@@ -87,16 +87,16 @@ pageEncoding="UTF-8"%>
 					   </c:if>
 					
 					  <c:if test="${startPage>0}">
-					   	  <a href="hotelList?pageNum=${startPage}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[이전]</a>	
+					   	  <a href="hotelList?pageNum=${startPage}&arrival_code=${arrival_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[이전]</a>	
 					  </c:if>
 					   <c:forEach var="i" begin="${startPage+1}" end="${endPage-1}">
 					   	  <c:choose>
 					   	      <c:when test="${pageNum==i}"><span style="font-weight: bold">${i}</span></c:when>
-					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[${i}]</a></c:when>
+					   	      <c:when test="${pageNum!=i}"><a href="hotelList?pageNum=${i}&arrival_code=${arrival_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[${i}]</a></c:when>
 					   	  </c:choose>	      
 					   </c:forEach>
 						<c:if test="${endPage<pageCount}">
-					   	   <a href="hotelList?pageNum=${startPage+6}&area_code=${area_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[다음]</a>
+					   	   <a href="hotelList?pageNum=${startPage+6}&arrival_code=${arrival_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&hotel_Name=${hotel_Name}">[다음]</a>
 					   	</c:if>
 					</div> 
 				</c:if>	

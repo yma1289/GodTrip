@@ -55,6 +55,18 @@ pageEncoding="UTF-8"%>
 						<option value="가평">가평</option>
 						<option value="강릉">강릉</option>
 						<option value="춘천">춘천</option>
+						<option value="제천">제천</option>
+						<option value="대전">대전</option>
+						<option value="남원">남원</option>
+						<option value="군산">군산</option>
+						<option value="영월">영월</option>
+						<option value="부산">부산</option>
+						<option value="경주">경주</option>
+						<option value="포항">포항</option>
+						<option value="통영거제">통영거제</option>
+						<option value="목포">목포</option>
+						<option value="여수">여수</option>
+						<option value="전주">전주</option>
 					</select>
 					&nbsp;&nbsp;
 					
@@ -74,15 +86,13 @@ pageEncoding="UTF-8"%>
 		<br>
 			<br>
 			<p>
-    <c:choose>
-        <c:when test="${not empty session.getAttribute('s_id')}">
+		<c:if test="${not empty s_id}">
             <button type="button" class="btn btn-outline-info"  onclick="location.href='reviewForm'">나의여행기 작성하기</button>
-        </c:when>
-        <c:otherwise>
+        </c:if>
+        <c:if test="${empty s_id}">
             <button type="button" class="btn btn-outline-info" onclick="alert('로그인 후 이용해주세요.'); location.href='/member/memberlogin'">나의여행기 작성하기</button>
-        </c:otherwise>
-    </c:choose>
-</p>		
+        </c:if>
+    </p>		
 <table border="1" class="table table-hover">
 <thead>
   <tr>
@@ -93,7 +103,6 @@ pageEncoding="UTF-8"%>
     <th class="warning">등록일</th>
     <th class="warning">조회수</th>
   </tr>
-  
   </thead>  
    <tr>
   <c:forEach var="review" items="${list}"> 
