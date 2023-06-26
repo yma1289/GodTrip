@@ -2,7 +2,6 @@ package kr.co.godtrip.comment;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,39 +47,37 @@ public class CommentCont {
 	    	return commentDao.commentInsert(comment);
 	    }//mCommentServiceInsert() end
 	    */
-	 
+	    
 	
-	 
 	 @RequestMapping("/insert")
 	    @ResponseBody    //ajax응답을 처리할때는 @ResponseBody어노테이션 써줘야한다. 
 	    public int commentInsertForm(@RequestParam String tour_code
 	    								, @RequestParam String content
 	    								,HttpSession session
-	    								
 	    								,CommentDTO comment) throws Exception {
-		 	//HttpSession session=req.getSession();  //세션 객체 가져오기
-			String id=(String)session.getAttribute("id"); //세션에서 partner 속성 가져오기	
+		//HttpSession session=req.getSession();  //세션 객체 가져오기
 		 
+		 
+	        //로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력 받아온 값으로 사용하면 된다.
+	        //->session.getAttribute() 활용
+			String id=(String)session.getAttribute("s_id"); //세션에서 id속성 가져오기	
+			//실수한부분) memberCont에서 setAttribute는 session.setAttribute("s_id", dto.getId());-> s_id로 보냈는데 받는걸 id로 가져와서 계속 null이라고에러났던것 
 			
-		 
-		   // System.out.println(tour_code);
-	    	//System.out.println(content);
+			
+			System.out.println(tour_code);
+	    	System.out.println(content);
 	    	System.out.println(id);
 	        //CommentDTO comment=new CommentDTO();   //dto에 담기위해 객체생성
 	        comment.setTour_code(tour_code);
 	        comment.setContent(content);
-	        comment.setId(id);
+	        comment.setId(id);   
 	        
-	        
-	        //로그인 기능을 구현했거나 따로 댓글 작성자를 입력받는 폼이 있다면 입력 받아온 값으로 사용하면 된다.
-	        //->session.getAttribute() 활용
-	        //comment.setId("id");
+	   
 	    	
 	    	return commentDao.commentInsert(comment);
 	    }//mCommentServiceInsert() end
-	 
 	   
-	   //////////////////////////////////////
+	
 	    
 	    @RequestMapping("/list")
 	    @ResponseBody
@@ -91,6 +88,7 @@ public class CommentCont {
 	    }//mCommentServiceList() end
 	    
 	    
+	   
 	    @RequestMapping("/delete/{commentno}")
 	    @ResponseBody
 	    public int mCommentServiceDelete(@PathVariable int commentno) throws Exception {
@@ -109,9 +107,7 @@ public class CommentCont {
 	    }//update() end
 	    
 	    
-	 
-	 
-	 
+	
 	 
 	 
 	 

@@ -21,7 +21,7 @@
        		   TP.departure_code, TP.arrival_code, TP.Price, TP.seat
 		FROM transinfo TI
 		INNER JOIN transpro TP ON TI.trans_code = TP.trans_code
-		WHERE TP.arrival_code = #{arrival_code} AND TP.departure_Date = #{departure_Date} AND TP.departure_code = #{transpro_code}
+		WHERE TP.arrival_code = #{arrival_code} AND TP.departure_Date = #{departure_Date} AND TP.departure_code = #{departure_code}
 		ORDER BY departure_Date
 	</select>	
 	
@@ -33,8 +33,8 @@
 	
 	
 	<insert id="transinfoInsert" parameterType="java.util.Map">
-		INSERT INTO transinfo(trans_code, FT_code, trans_name, filename, filesize)
-		VALUES(#{trans_code}, #{FT_code}, #{trans_name}, #{filename}, #{filesize})
+		INSERT INTO transinfo(trans_code, FT_code, trans_name, filename, filesize, p_id)
+		VALUES(#{trans_code}, #{FT_code}, #{trans_name}, #{filename}, #{filesize}, #{p_id})
 	</insert>
 	
 	
