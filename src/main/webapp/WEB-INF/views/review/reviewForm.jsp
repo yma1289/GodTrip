@@ -11,6 +11,11 @@ pageEncoding="UTF-8"%>
 	   <td><input type="text" name="title" id="title" class="form-control" maxlength="100" required></td>
 	</tr>
 	<br>
+	<select name="area_name">
+	<option value="제주">제주</option>
+	<option value="서울">서울</option>
+	</select>
+	<br>
 	  <textarea id="summernote" name="content"></textarea>
 	  <br>
 	  <br>

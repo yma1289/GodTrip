@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
 		<!-- !PAGE CONTENT! -->
 		<div class='col-sm-5' style="overflow:scroll;  height:1000px;">
 			    <h6 style="text-align: left";>상품갯수 : ${count}</h6>
-			    ${departure_Date} ~ ${arrival_Date} 		    
+			    체크인: ${departure_Date} ~ 체크아웃 :${arrival_Date} 		    
 			    <br>
 			    지역명 : ${area_name}
 			    
@@ -65,10 +65,7 @@ pageEncoding="UTF-8"%>
 			   			    상품설명 : ${hotel.hotel_Content}
 			   			    <br>
 			                최저가 : <fmt:formatNumber value="${hotel.hotel_Prices}" />&#8361;
-			                <div align="right"><a href="hoteldetail?hotel_code=${hotel.hotel_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[예약하기]</a></div>
-			                <div align="right"><a href="hoteldetailForm?hotel_code=${hotel.hotel_code}">[숙소등록하기]</a></div>
-			                <div align="right"><a href="hoteldelete?hotel_code=${hotel.hotel_code}">[삭제하기]</a></div>
-			                
+			                <div align="right"><a href="hoteldetail?hotel_code=${hotel.hotel_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}">[예약하기]</a></div>			                
 		                </th>
 		   				<!-- 테이블 한줄에 5칸씩 -->
 		   				<c:if test="${vs.count mod 5==0}">

@@ -5,6 +5,40 @@
 
 <mapper namespace="partner">
 
+<!-- 숙박 입력 -->
+<insert id="hotelinsert" parameterType="java.util.Map">
+INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address,p_id)
+VALUES(#{hotel_code}, #{arrival_code}, #{hotel_Type}, #{hotel_Name}, #{hotel_Prices}, #{hotel_filename},#{hotel_filesize},#{hotel_Content},#{hotel_tel},#{hotel_address},#{p_id})
+</insert>
+
+<!-- 객실 입력 -->
+<insert id="detailinsert" parameterType="java.util.Map">
+INSERT INTO room (room_code,hotel_code,p_id,room_Name,room_price,room_filename, room_filesize, room_info,room_maxperson)
+VALUES(#{room_code}, #{hotel_code}, #{p_id}, #{room_Name}, #{room_price}, #{room_filename},#{room_filesize},#{room_info},#{room_maxperson})
+</insert>
+
+ <!-- 판매자 호텔리스트 가져오기 -->
+<select id="hotellist" resultType="java.util.Map">
+select * from hotel 
+where p_id=#{p_id};
+</select>
+
+<!-- 판매자 객실리스트 가져오기 -->
+<select id="hoteldetailList" resultType="java.util.Map">
+select * from room
+where hotel_code=#{hotel_code};
+</select>
+<!-- 숙박삭제 -->
+<delete id="hoteldelete">
+delete from hotel 
+where hotel_code=#{hotel_code}
+</delete>
+<!-- 객실삭제 -->
+<delete id="roomdelete">
+delete from room
+where room_code=#{room_code}
+</delete>
+
 <insert id="insert" parameterType="kr.co.godtrip.partner.partnerDTO">
 INSERT INTO partner (p_id, p_passwd, p_name, p_tel, p_email, p_info, p_level)
  VALUES (#{p_id}, #{p_passwd}, #{p_name}, #{p_tel}, #{p_email}, #{p_info}, #{p_level})

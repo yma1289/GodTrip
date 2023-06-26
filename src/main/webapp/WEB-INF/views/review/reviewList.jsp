@@ -10,30 +10,30 @@ pageEncoding="UTF-8"%>
 <div class="w3-row-padding w3-margin-top">
 <div class="w3-third">
 <div class="w3-card">
-<img src="../images/k7.png" style="width:100%">
+<a href='/review/reviewdetail?reviewno=5'><img src="/summernote_image/d4ba6169-1aaf-406a-a785-3ec84fd3e8da.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5>제목</h5>
+<h5>강릉 아르떼 뮤지엄 1박 2일</h5>
 </div>
 </div>
 </div>
 
 <div class="w3-third">
 <div class="w3-card">
-<img src="../images/k7.png" style="width:100%">
+<a href='/review/reviewdetail?reviewno=6'><img src="/summernote_image/841cb39a-caf4-43e8-944d-81c0d9fd39fe.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5>제목</h5>
+<h5>경주 여행기</h5>
 </div>
 </div>
 </div>
 
 <div class="w3-third">
 <div class="w3-card">
-<img src="../images/k7.png" style="width:100%">
+<a href='/review/reviewdetail?reviewno=7'><img src="/summernote_image/a6aca6d9-c968-4e64-9aad-e35e207c0b27.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5>제목</h5>
+<h5>홍천&춘천 여행을 위한 애견 동반 리조트</h5>
 </div>
 </div>
 </div>
@@ -46,10 +46,15 @@ pageEncoding="UTF-8"%>
 			<td colspan="4" style="text-align:center height:50px;">
 				<form method="post" action="reviewList"><!-- myscript.js함수 작성함 -->
 					
-					<select name="area_code">
+					<select name="area_name">
 						<option value="all">지역전체</option>
-						<option value="G0007">서울</option>
-						<option value="G0001">제주</option>
+						<option value="제주">제주</option>
+						<option value="서울">서울</option>
+						<option value="인천">인천</option>
+						<option value="수원">수원</option>
+						<option value="가평">가평</option>
+						<option value="강릉">강릉</option>
+						<option value="춘천">춘천</option>
 					</select>
 					&nbsp;&nbsp;
 					
@@ -68,9 +73,16 @@ pageEncoding="UTF-8"%>
 		</div>
 		<br>
 			<br>
-			<div class="d-flex justify-content-evenly"><p><a href="reviewForm">[나의여행기 작성하기]</a></p></div>
-			
-		
+			<p>
+    <c:choose>
+        <c:when test="${not empty session.getAttribute('s_id')}">
+            <button type="button" class="btn btn-outline-info"  onclick="location.href='reviewForm'">나의여행기 작성하기</button>
+        </c:when>
+        <c:otherwise>
+            <button type="button" class="btn btn-outline-info" onclick="alert('로그인 후 이용해주세요.'); location.href='/member/memberlogin'">나의여행기 작성하기</button>
+        </c:otherwise>
+    </c:choose>
+</p>		
 <table border="1" class="table table-hover">
 <thead>
   <tr>
@@ -85,22 +97,18 @@ pageEncoding="UTF-8"%>
   </thead>  
    <tr>
   <c:forEach var="review" items="${list}"> 
-  <th>${review.list}</th>
-  <th>서울</th>
-  <th>안녕</th>
-  <th>우와</th>
-  <th>202302054</th>
-  <th>0</th>
+  <th>${review.reviewno}</th>
+  <th>${review.area_name}</th>
+  <th><a href="reviewdetail?reviewno=${review.reviewno}">${review.title}</a></th>
+  <th>${review.id}</th>
+  <th>${review.regdate}</th>
+  <th>${review.viewcount}</th>
   </tr>
   <c:if test="${vs.count mod 5==0}">
   </tr> <tr>
   </c:if>    		  	
 	</c:forEach>
 </table>
-				
-			   
-			   
-			   
     			   <c:if test="${requestScope.count>0 }">
 				   <c:set var="pageCount" value="${requestScope.totalPage}"/>
 				   <c:set var="startPage" value="${requestScope.startPage}"/>

@@ -34,22 +34,9 @@ public class HotelCont {
 	@Autowired
 	HotelDAO hotelDao;
 	
-	@RequestMapping("/hotelForm")
-		public String hotelForm() {
-			return "hotel/hotelForm";
-	}
+
 	
-	//hotelList에서 준 호텔코드
-	@RequestMapping("/hoteldetailForm")
-		public ModelAndView hoteldetailForm(HttpServletRequest req) {
-			String hotel_code=req.getParameter("hotel_code");	
-			ModelAndView mav=new ModelAndView();
-			mav.setViewName("hotel/hoteldetailForm");
-			mav.addObject("hotel_code" , hotel_code);
-			return mav;
-	}
-	
-	 
+ 
 	 @GetMapping("/hoteldetail")
 	    public ModelAndView list2(HttpServletRequest req) {
 	 		String hotel_code=req.getParameter("hotel_code");
@@ -145,7 +132,7 @@ public class HotelCont {
 	            list=Collections.EMPTY_LIST;            
 	        }//if end
 	        
-	       
+	       System.out.println(list);
 	        //페이징 정보 넘기기
 	        mav.addObject("pageNum", currentPage);
 	        mav.addObject("count", totalRowCount);
@@ -165,108 +152,4 @@ public class HotelCont {
 	        return mav;
 	 }//list() end
 	 
-	
-	 
-
-	
-	 
-
-	//판매자 페이지에서 숙박입력
-	@PostMapping("/insert")
-    public String insert(@RequestParam Map<String, Object> map
-    		          ,@RequestParam MultipartFile img
-    		          ,HttpServletRequest req
-    		          ,HttpSession session) {
-		    String p_id=(String) session.getAttribute("p_id");
-			//숙박코드 생성
-            int d = (int)(Math.random() * 10000 + 1);
-            String hotel_code="H" + d;
-			
-            String filename="-";
-            long filesize=0;
-            if(img != null && !img.isEmpty()) { //파일이 존재한다면
-    		
-            filename=img.getOriginalFilename();
-    		filesize=img.getSize();
-    		try {
-    			
-    			ServletContext application=req.getSession().getServletContext();
-    			String path=application.getRealPath("/storage");  //실제 물리적인 경로
-    			img.transferTo(new File(path + "\\" + filename)); //파일저장
-    			
-    		}catch (Exception e) {
-    			e.printStackTrace(); //System.out.println(e);
-			}//try end    		
-    	}//if end
-    	
-    	map.put("hotel_filename", filename);
-    	map.put("hotel_filesize", filesize);
-    	map.put("hotel_code", hotel_code);
-    	map.put("p_id", p_id);
-    	//System.out.println(filename);
-    	//System.out.println(filesize);
-    	hotelDao.insert(map);
-    	//판매자 페이지로 이동
-    	return "redirect:/hotel/partnerhotelList"; 
-    	
-    }//insert() end
-	
-	//판매자 판매현황 보여주기
-	@GetMapping("/partnerhotelList")
-	public ModelAndView partnerlist(HttpServletRequest req,HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-			
-		mav.setViewName("/partner/partnerpage");
-		return mav;
-	}
-	
-	
-	@PostMapping("/detailinsert")
-	public String detailinsert(@RequestParam Map<String, Object> map
-	          				  ,@RequestParam MultipartFile img
-	          				  ,HttpServletRequest req) 
-	{
-			   //String p_ID=req.getParameter("p_ID"); //나중에 이부분으로 고쳐야 함
-			   String p_id="test1"; //판매자아이디 임시
-						
-			   int d = (int)(Math.random() * 10000 + 1);
-			   String room_code="R" + d;
-
-			   String filename="-";
-			   long filesize=0;
-			   
-         if(img != null && !img.isEmpty()) { //파일이 존재한다면
-        	   filename=img.getOriginalFilename();
-        	   filesize=img.getSize();
-      
-         try {
-        	   ServletContext application=req.getSession().getServletContext();
-        	   String path=application.getRealPath("/storagedetail");  //실제 물리적인 경로
-        	   img.transferTo(new File(path + "\\" + filename)); //파일저장
-		
-        	}catch (Exception e) {
-        	   e.printStackTrace(); //System.out.println(e);
-		    
-		   }//try end    		
-		}//if end
-        
-		map.put("room_filename", filename);
-		map.put("room_filesize", filesize);
-		map.put("room_code", room_code);
-		map.put("p_id", p_id);
-
-		hotelDao.detailinsert(map);
-		
-		return "redirect:/hotel/hotelList";
-
-	}//insert() end
-	
-	@RequestMapping("/hoteldelete")
-	public String hoteldelete(HttpServletRequest req) {
-		String hotel_code=req.getParameter("hotel_code");
-		hotelDao.delete(hotel_code);	
-		return "redirect:/hotel/hotelList";
-	}
-		
-	
 }//class() end

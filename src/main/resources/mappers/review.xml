@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+     
+<mapper namespace="review">
+	<insert id="insert" parameterType="java.util.Map">
+	insert into review(area_name,id,title,content)
+	VALUES(#{area_name},#{id},#{title},#{content})	
+	</insert>
+		
+		<select id="list" resultType="java.util.Map"> 
+		SELECT * FROM review
+		<if test="search != null and search != ''"> 
+	        <![CDATA[
+            ${search}
+            ]]>
+		</if>
+		LIMIT #{endRow} OFFSET #{startRow}
+		</select>
+		
+		<select id="reviewdetail" resultType="java.util.Map">
+		select * from review
+		where reviewno=#{reviewno}
+		</select>
+		
+		<!-- 조회수 증가 -->
+		<update id="viewcount" parameterType="String">
+		update review
+		set viewcount=viewcount+1
+		where reviewno=#{reviewno}
+		</update>
+		
+		<!-- 리뷰 삭제 -->
+		<delete id="reviewdelete" parameterType="String">
+		delete from review 
+		where reviewno=#{reviewno}
+		</delete>
+		
+		<!-- 검색을 하는 경우 -->
+	     <select id="totalRowCount1" resultType="java.lang.Integer" parameterType="String">
+	        SELECT COUNT(*) FROM review 
+	        <![CDATA[
+            ${search}
+            ]]>
+	    </select>
+
+		<!-- 검색을 하지 않는 경우 -->
+	     <select id="totalRowCount2" resultType="java.lang.Integer">
+	        SELECT COUNT(*) FROM review 
+	    </select>
+	    
+	    
+	    
+	    
+</mapper>

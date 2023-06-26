@@ -27,25 +27,7 @@
 		WHERE room.hotel_code = #{hotel_code}
 	    </select>
 	    
-	    <delete id="delete">
-	    delete from hotel 
-	    where hotel_code=#{hotel_code}
-	    </delete>
-	    
-	    
-	  
-		
-		<insert id="insert" parameterType="java.util.Map">
-		INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address,p_id)
-		VALUES(#{hotel_code}, #{arrival_code}, #{hotel_Type}, #{hotel_Name}, #{hotel_Prices}, #{hotel_filename},#{hotel_filesize},#{hotel_Content},#{hotel_tel},#{hotel_address},#{p_id})
-		</insert>
-	
-		<insert id="detailinsert" parameterType="java.util.Map">
-		INSERT INTO room (room_code,hotel_code,p_id,room_Name,room_price,room_filename, room_filesize, room_info,room_maxperson)
-		VALUES(#{room_code}, #{hotel_code}, #{p_id}, #{room_Name}, #{room_price}, #{room_filename},#{room_filesize},#{room_info},#{room_maxperson})
-		</insert>
-	
-	
+	    	
 		<!-- 전체 레코드 수 조회 -->
 	    <select id="totalRowCount" resultType="java.lang.Integer">
 	        SELECT COUNT(*) FROM hotel WHERE arrival_code = #{area_code}
@@ -56,11 +38,7 @@
             AND hotel_Type = #{hotel_Type}
        		</if>
 	    </select>
-	    <!-- 판매자 호텔리스트 가져오기 -->
-	    <select id="partnerlist">
-	    select * from hotel 
-	    where p_id=#{p_id};
-	    </select>
+	   
 	  
 	    
 </mapper>
