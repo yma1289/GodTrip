@@ -98,7 +98,7 @@ footer p {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-light">
   <div class="container">
-    <a class="navbar-brand" href="/home.do">God 지은여행</a>
+    <a class="navbar-brand" href="/home.do">God지은여행</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -108,27 +108,33 @@ footer p {
       <c:choose>
     	<c:when test="${ not empty p_id && not empty p_passwd && p_level == 'A1' }">
         <li class="nav-item">
-          <a class="nav-link" href="../hotel/hotelForm">숙박 상품등록</a>
+          <a class="nav-link" href="../partner/hotelForm">숙박 상품등록</a>
         </li>
         </c:when>
         <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'B1' }">
         <li class="nav-item">
-          <a class="nav-link" href="#">기차 상품등록</a>
+          <a class="nav-link" href="../partner/T_infoList">기차 상품등록</a>
         </li>
         </c:when>
         <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'C1' }">
         <li class="nav-item">
-          <a class="nav-link" href="#">항공 상품등록</a>
+          <a class="nav-link" href="../partner/F_infoList">항공 상품등록</a>
         </li>
         </c:when>
-        </c:choose>
+      </c:choose>
         
+      <c:choose>
+        <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'B1' }">
         <li class="nav-item">
-          <a class="nav-link" href="#">상품판매 현황</a>
+          <a class="nav-link" href="../partner/T_proList">상품 판매현황</a>
         </li>
+        </c:when>
+        <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'C1' }">
         <li class="nav-item">
-          <a class="nav-link" href="#">판매상품 관리</a>
+          <a class="nav-link" href="../partner/F_proList">상품 판매현황</a>
         </li>
+        </c:when>
+      </c:choose>    
              
 					<c:choose>
 						<c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level )}">

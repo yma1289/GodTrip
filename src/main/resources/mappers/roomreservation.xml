@@ -4,19 +4,31 @@
      
 <mapper namespace="roomreservation">
 
-<insert id="insert"  parameterType="java.util.Map">
-	INSERT INTO roomreservation (id,room_code,arrival_Date,departure_Date,totalpay)
-	VALUES (#{id},#{room_code},#{arrival_Date},#{departure_Date},#{totalpay})
-</insert>	    
+	<insert id="insert"  parameterType="java.util.Map">
+		INSERT INTO roomreservation (id, room_code, arrival_Date, departure_Date, totalpay)
+		VALUES (#{id}, #{room_code}, #{arrival_Date}, #{departure_Date}, #{totalpay})
+	</insert>	    
 	    
-	    <select id="list" resultType="java.util.Map" parameterType="String">
-	    select  roomreservation.room_rsvdate,roomreservation.room_no,room.room_Name,roomreservation.totalpay,hotel.hotel_Name
-		from roomreservation join room 
-		on roomreservation.room_code = room.room_code
-		join hotel
-		on hotel.hotel_code = room.hotel_code;
-	    </select>
 	    
-
+    <select id="list" resultType="java.util.Map" parameterType="String">
+	    SELECT roomreservation.room_rsvdate, roomreservation.room_no, room.room_Name, roomreservation.totalpay, hotel.hotel_Name
+		FROM roomreservation JOIN room 
+		ON roomreservation.room_code = room.room_code
+		JOIN hotel
+		ON hotel.hotel_code = room.hotel_code;
+    </select>
+    
+    
+    <select id="transList" resultType="java.util.Map" parameterType="java.util.Map">
+    	SELECT TP.departure_Date, TP.departure_Time, TP.arrival_Time, TP.departure_code
+    		  ,TP.arrival_code, TI.trans_name, TP.Price, TR.transrs_seatno, TR.rsvdate, TR.id
+    	FROM transpro TP JOIN transreservation TR
+    	ON TP.transpro_code = TR.transpro_code
+    	JOIN transinfo TI
+    	ON TP.trans_code = TI.trans_code
+    	WHERE TP.transpro_code = #{transpro_code} AND TR.id = #{id}    	
+    </select>
+    
+	    
 	    
 </mapper>

@@ -6,94 +6,188 @@
 <mapper namespace="partner">
 
 <!-- 숙박 입력 -->
-<insert id="hotelinsert" parameterType="java.util.Map">
-INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address,p_id)
-VALUES(#{hotel_code}, #{arrival_code}, #{hotel_Type}, #{hotel_Name}, #{hotel_Prices}, #{hotel_filename},#{hotel_filesize},#{hotel_Content},#{hotel_tel},#{hotel_address},#{p_id})
-</insert>
+	<insert id="hotelinsert" parameterType="java.util.Map">
+		INSERT INTO hotel (hotel_code, arrival_code, hotel_Type, hotel_Name, hotel_Prices, hotel_filename, hotel_filesize, hotel_Content,hotel_tel,hotel_address,p_id)
+		VALUES(#{hotel_code}, #{arrival_code}, #{hotel_Type}, #{hotel_Name}, #{hotel_Prices}, #{hotel_filename},#{hotel_filesize},#{hotel_Content},#{hotel_tel},#{hotel_address},#{p_id})
+	</insert>
 
 <!-- 객실 입력 -->
-<insert id="detailinsert" parameterType="java.util.Map">
-INSERT INTO room (room_code,hotel_code,p_id,room_Name,room_price,room_filename, room_filesize, room_info,room_maxperson)
-VALUES(#{room_code}, #{hotel_code}, #{p_id}, #{room_Name}, #{room_price}, #{room_filename},#{room_filesize},#{room_info},#{room_maxperson})
-</insert>
+	<insert id="detailinsert" parameterType="java.util.Map">
+		INSERT INTO room (room_code,hotel_code,p_id,room_Name,room_price,room_filename, room_filesize, room_info,room_maxperson)
+		VALUES(#{room_code}, #{hotel_code}, #{p_id}, #{room_Name}, #{room_price}, #{room_filename},#{room_filesize},#{room_info},#{room_maxperson})
+	</insert>
 
  <!-- 판매자 호텔리스트 가져오기 -->
-<select id="hotellist" resultType="java.util.Map">
-select * from hotel 
-where p_id=#{p_id};
-</select>
+	<select id="hotellist" resultType="java.util.Map">
+		select * from hotel 
+		where p_id=#{p_id};
+	</select>
 
 <!-- 판매자 객실리스트 가져오기 -->
-<select id="hoteldetailList" resultType="java.util.Map">
-select * from room
-where hotel_code=#{hotel_code};
-</select>
+	<select id="hoteldetailList" resultType="java.util.Map">
+		select * from room
+		where hotel_code=#{hotel_code};
+	</select>
+
 <!-- 숙박삭제 -->
-<delete id="hoteldelete">
-delete from hotel 
-where hotel_code=#{hotel_code}
-</delete>
+	<delete id="hoteldelete">
+		delete from hotel 
+		where hotel_code=#{hotel_code}
+	</delete>
+
 <!-- 객실삭제 -->
-<delete id="roomdelete">
-delete from room
-where room_code=#{room_code}
-</delete>
+	<delete id="roomdelete">
+		delete from room
+		where room_code=#{room_code}
+	</delete>
 
-<insert id="insert" parameterType="kr.co.godtrip.partner.partnerDTO">
-INSERT INTO partner (p_id, p_passwd, p_name, p_tel, p_email, p_info, p_level)
- VALUES (#{p_id}, #{p_passwd}, #{p_name}, #{p_tel}, #{p_email}, #{p_info}, #{p_level})
-</insert>
+<!-- 판매자 파트 -->
+	<insert id="insert" parameterType="kr.co.godtrip.partner.partnerDTO">
+		INSERT INTO partner (p_id, p_passwd, p_name, p_tel, p_email, p_info, p_level)
+		 VALUES (#{p_id}, #{p_passwd}, #{p_name}, #{p_tel}, #{p_email}, #{p_info}, #{p_level})
+	</insert>
+	
+	<select id="duplicateId" parameterType="kr.co.godtrip.partner.partnerDTO" resultType="int">
+		select count(p_id) as cnt
+		from partner
+		where p_id=#{p_id}
+	</select>
+	
+	<select id="duplicateEmail" resultType="int" parameterType="kr.co.godtrip.partner.partnerDTO">
+		select count(p_email) as cnt
+		from partner
+		where p_email=#{p_email}
+	</select>
+	
+	<select id="loginProc" resultType="kr.co.godtrip.partner.partnerDTO" parameterType="kr.co.godtrip.partner.partnerDTO">
+		SELECT *
+		FROM partner
+		WHERE p_id=#{p_id} and p_passwd=#{p_passwd}
+	</select>
+	
+	<select id="select" resultType="kr.co.godtrip.partner.partnerDTO" parameterType="kr.co.godtrip.partner.partnerDTO">
+		select *
+		from partner
+		where p_id=#{p_id}
+	</select>
+	
+	<update id="update" parameterType="java.util.Map">
+		update partner
+		set
+		p_passwd=#{p_passwd},
+		p_name=#{p_name},
+		p_tel=#{p_tel},
+		p_email=#{p_email},
+		p_info=#{p_info}
+		where p_id=#{p_id}
+	</update>
+	
+	<select id="findID" parameterType="kr.co.godtrip.partner.partnerDTO" resultType="kr.co.godtrip.partner.partnerDTO">
+	    SELECT p_id
+	    FROM partner
+	    WHERE p_email=#{p_email} and p_name=#{p_name}
+	</select>
+	
+	<update id="renewPW" parameterType="kr.co.godtrip.partner.partnerDTO">
+	    UPDATE partner
+	    SET p_passwd=#{p_passwd}
+	    WHERE p_email=#{p_email} and p_name=#{p_name}
+	</update>
+	
+	<delete id="partnerdelete" parameterType="java.util.Map">
+		delete
+		from partner
+		where p_id=#{p_id}
+	</delete>
 
-<select id="duplicateId" parameterType="kr.co.godtrip.partner.partnerDTO" resultType="int">
-select count(p_id) as cnt
-from partner
-where p_id=#{p_id}
-</select>
 
-<select id="duplicateEmail" resultType="int" parameterType="kr.co.godtrip.partner.partnerDTO">
-select count(p_email) as cnt
-from partner
-where p_email=#{p_email}
-</select>
+<!-- 항공/기차상품 -->
 
-<select id="loginProc" resultType="kr.co.godtrip.partner.partnerDTO" parameterType="kr.co.godtrip.partner.partnerDTO">
-SELECT *
-FROM partner
-WHERE p_id=#{p_id} and p_passwd=#{p_passwd}
-</select>
+	<select id="F_infoList" resultType="java.util.Map" parameterType="String">
+		SELECT trans_code, FT_code, trans_name, filename, filesize
+		FROM transinfo
+		WHERE p_id = #{p_id} 		
+	</select>
+	
+	
+	<select id="T_infoList" resultType="java.util.Map" parameterType="String">
+		SELECT trans_code, FT_code, trans_name, filename, filesize
+		FROM transinfo
+		WHERE p_id = #{p_id}		
+	</select>
 
-<select id="select" resultType="kr.co.godtrip.partner.partnerDTO" parameterType="kr.co.godtrip.partner.partnerDTO">
-select *
-from partner
-where p_id=#{p_id}
-</select>
 
-<update id="update" parameterType="java.util.Map">
-	update partner
-	set
-	p_passwd=#{p_passwd},
-	p_name=#{p_name},
-	p_tel=#{p_tel},
-	p_email=#{p_email},
-	p_info=#{p_info}
-	where p_id=#{p_id}
-</update>
+	<insert id="F_infoInsert" parameterType="java.util.Map">
+		INSERT INTO transinfo(trans_code, FT_code, trans_name, filename, filesize, p_id)
+		VALUES(#{trans_code}, #{FT_code}, #{trans_name}, #{filename}, #{filesize}, #{p_id})
+	</insert>
+	
+	
+	<insert id="T_infoInsert" parameterType="java.util.Map">
+		INSERT INTO transinfo(trans_code, FT_code, trans_name, filename, filesize, p_id)
+		VALUES(#{trans_code}, #{FT_code}, #{trans_name}, #{filename}, #{filesize}, #{p_id})
+	</insert>
+	
+	
+	<insert id="F_proInsert" parameterType="java.util.Map">
+		INSERT INTO transpro(transpro_code, trans_code, departure_Date, departure_Time,
+							 arrival_Time, departure_code, arrival_code, Price, seat, p_id)
+		VALUES(#{transpro_code}, #{trans_code}, #{departure_Date}, #{departure_Time},
+			   #{arrival_Time}, #{departure_code}, #{arrival_code}, #{Price}, #{seat}, #{p_id})
+	</insert>
+	
+	
+	<insert id="T_proInsert" parameterType="java.util.Map">
+		INSERT INTO transpro(transpro_code, trans_code, departure_Date, departure_Time,
+							 arrival_Time, departure_code, arrival_code, Price, seat, p_id)
+		VALUES(#{transpro_code}, #{trans_code}, #{departure_Date}, #{departure_Time},
+			   #{arrival_Time}, #{departure_code}, #{arrival_code}, #{Price}, #{seat}, #{p_id})
+	</insert>
 
-<select id="findID" parameterType="kr.co.godtrip.partner.partnerDTO" resultType="kr.co.godtrip.partner.partnerDTO">
-    SELECT p_id
-    FROM partner
-    WHERE p_email=#{p_email} and p_name=#{p_name}
-</select>
 
-<update id="renewPW" parameterType="kr.co.godtrip.partner.partnerDTO">
-    UPDATE partner
-    SET p_passwd=#{p_passwd}
-    WHERE p_email=#{p_email} and p_name=#{p_name}
-</update>
+	<select id="F_proList" resultType="java.util.Map" parameterType="String">
+		SELECT TI.trans_code, TI.trans_name, TI.filename, TI.filesize,
+       		   TP.transpro_code, TP.departure_Date, TP.departure_Time, TP.arrival_Time,
+       		   TP.departure_code, TP.arrival_code, TP.Price, TP.seat
+		FROM transinfo TI
+		INNER JOIN transpro TP ON TI.trans_code = TP.trans_code
+		WHERE TI.FT_code = "F" AND TP.p_id = #{p_id}		
+		ORDER BY departure_Date
+	</select>
+	
 
-<delete id="partnerdelete" parameterType="java.util.Map">
-delete
-from partner
-where p_id=#{p_id}
-</delete>
+	<select id="T_proList" resultType="java.util.Map" parameterType="String">
+		SELECT TI.trans_code, TI.trans_name, TI.filename, TI.filesize,
+       		   TP.transpro_code, TP.departure_Date, TP.departure_Time, TP.arrival_Time,
+       		   TP.departure_code, TP.arrival_code, TP.Price, TP.seat
+		FROM transinfo TI
+		INNER JOIN transpro TP ON TI.trans_code = TP.trans_code
+		WHERE TI.FT_code = "T" AND TP.p_id = #{p_id}		
+		ORDER BY departure_Date
+	</select>
+	
+	
+	<delete id="F_infoDelete" parameterType="String">
+		DELETE FROM transinfo
+		WHERE trans_code = #{trans_code}
+	</delete>
+	
+	
+	<delete id="T_infoDelete" parameterType="String">
+		DELETE FROM transinfo
+		WHERE trans_code = #{trans_code}
+	</delete>
+	
+	
+	<delete id="F_proDelete" parameterType="String">
+		DELETE FROM transpro
+		WHERE transpro_code = #{transpro_code}
+	</delete>
+	
+	
+	<delete id="T_proDelete" parameterType="String">
+		DELETE FROM transpro
+		WHERE transpro_code = #{transpro_code}
+	</delete>
+
 </mapper>

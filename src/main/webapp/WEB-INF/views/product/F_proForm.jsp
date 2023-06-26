@@ -1,31 +1,30 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp" %>
+<%@ include file="../pheader.jsp" %>
 <!-- 본문시작 -->
 
 <div class="container" style="padding-top: 30px">
 	<br>
-	<h3><strong>항공/기차상품 등록</strong></h3>
+	<h3><strong>항공 상품등록</strong></h3>
 	<br>
 	<p>
-		<button type="button" class="btn btn-info" onclick="location.href='transinfoList'">항공/기차정보 목록</button>
-		<button type="button" class="btn btn-primary" onclick="location.href='transproList'">항공/기차상품 목록</button>
+		<button type="button" class="btn btn-info" onclick="location.href='F_infoList'">취소</button>		
 	</p>
 	<br>
-	<form name="transproFrm" id="transproFrm" method="post" action="transproInsert">
+	<form name="F_proFrm" id="F_proFrm" method="post" action="/partner/F_proInsert">
 	<input type="hidden" name="FT_code" id="FT_code" value="${FT_code}">
 	<input type="hidden" name="p_id" id="p_id" value="${p_id}">
 		<table class="table">
 		  <tr>
-			<td>교통편</td>
+			<th>교통편</th>
 			<td><input type="text" name="trans_code" value="${trans_code}"></td>
 		  </tr>
 		  <tr>
-			<td>출발일<br>(0000-00-00 형식으로 입력)</td>
+			<th>출발일<br>(0000-00-00 형식으로 입력)</th>
 			<td><input type="text" name="departure_Date"></td>
 		  </tr>
 		  <tr>
-			<td>출발지</td>
+			<th>출발지</th>
 			<td>
 				<select name="departure_code" id="departure_code">
 					<option value="G0001">제주</option>
@@ -51,7 +50,7 @@
 			</td>
 		  </tr>
 		  <tr>
-			<td>도착지</td>
+			<th>도착지</th>
 			<td>
 				<select name="arrival_code" id="arrival_code">
 					<option value="G0001">제주</option>
@@ -77,19 +76,19 @@
 			</td>
 		  </tr>
 		  <tr>
-			<td>출발시간<br>(00:00 형식으로 입력)</td>
+			<th>출발시간<br>(00:00 형식으로 입력)</th>
 			<td><input type="text" name="departure_Time"></td>
 		  </tr>
 		  <tr>
-			<td>도착시간<br>(00:00 형식으로 입력)</td>
+			<th>도착시간<br>(00:00 형식으로 입력)</th>
 			<td><input type="text" name="arrival_Time"></td>
 		  </tr>
 		  <tr>
-			<td>가격</td>
+			<th>가격</th>
 			<td><input type="text" name="Price"></td>
 		  </tr>
 		  <tr>
-			<td>잔여좌석</td>
+			<th>잔여좌석<br>(최대 10까지 가능)</th>
 			<td><input type="text" name="seat"></td>
 		  </tr>
 		  <tr>

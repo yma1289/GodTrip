@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>                                                                                                                                                                                                                                                                                                                                                                                                                          
 <%@ include file="../header.jsp" %>  
 <!-- 본문시작 -->
 
@@ -15,26 +15,23 @@
 	}
 </style>
 
-<script>
-	function updateDepartureCode(){
-		const departureCodeElem = document.getElementById('departure_code'); //select 요소 가져오기
-		const departureCode = departureCodeElem.value; //선택된 값 가져오기
-		document.getElementById('departure_code_hidden').value = departureCode; //hidden input 값 업데이트
-	}//updateDepartureCode() end
-</script>
 
 <div class="col-sm-12">
 	<div class="container" style="padding-top: 30px">
 	 <br>
 	 <h3><strong>항공/기차상품 선택</strong></h3>
 	</div>
-	
+		
 	<div class="container" style="padding-top: 20px">
 		<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/transinfoList'">
 	</div>
 	
-	<div class="container" style="align:center; padding-top: 10px"> 
-	 <table>
+	
+	<div class="container" style="align:center; padding-top: 10px">
+	<form name="depCodeFrm" id="depCodeFrm" method="get" action="depCodeSelect">
+	<input type="hidden" id="arrival_code" name="arrival_code" value="${arrival_code}">
+	<input type="hidden" id="arrival_Date" name="arrival_Date" value="${arrival_Date}">
+	<table>
 	  <tr>
 		<th style="text-align: center">출발일</th>		
 		<td>
@@ -44,7 +41,7 @@
 	  <tr>
 		<th style="text-align: center">출발지</th>
 		<td>
-			<select name="departure_code" id="departure_code" onchange="updateDepartureCode()">
+			<select name="departure_code" id="departure_code">
 				<option value="0">선택</option>
 				<option value="G0001">제주</option>
 				<option value="G0002">서울</option>
@@ -134,14 +131,14 @@
 			<!--<input type="text" name="arrival_code" id="arrival_code" size="10" maxlength="10" value="${city}">-->
 		</td>
 		<th style="text-align: center">
-			<input type="hidden" name="departure_code_hidden" id="departure_code_hidden" value="${departure_code}"> <!-- 추가할 hidden input -->
-			<input type="button" class="btn btn-primary" value="검색" onclick="location.href='depCodeSelect?departure_Date=${departure_Date}&arrival_code=${arrival_code}&departure_code=${departure_code_hidden.value}'" >
+			<input type="submit" class="btn btn-primary" value="검색">
 		</th>
 	  </tr>	
-	 </table>
+	 </table>	
+	</form>
 	</div>
 	
-	<div class="container" style="padding-top: 20px">
+	<div class="container" style="padding-top: 20px">	
 	 <table class="table">
 	  <thead>
 	   <tr>
@@ -300,8 +297,8 @@
 		<td>${transpro.Price}</td>
 		<td>${transpro.seat}</td>
 		<td>
-		
-			<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}&departure_Date=${departure_Date}&arrival_code=${arrival_code}&arrival_Date=${arrival_Date}'">
+			<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&arrival_code=${arrival_code}'">
+			<!--<input type="button" class="btn btn-warning" value="선택" onclick="transSelect('${transpro.transpro_code}','${departure_Date}','${arrival_code}','${arrival_Date}')">-->
 		</td>
 		<td>
 			<!-- 삭제버튼은 판매자에게만 노출될 수 있게 해야함! -->
@@ -311,7 +308,7 @@
 	   </c:if>
 	   </c:forEach>
 	  </tbody> 	
-	 </table>	
+	 </table>	 	
 	</div>		
 </div>
 
@@ -321,10 +318,6 @@
 			location.href='transproDelete?transpro_code='+transpro_code;
 		}//if end
 	}//confirmDelete() end
-</script>
-
-<script>
-
 </script>
 
 <!-- 본문끝 -->

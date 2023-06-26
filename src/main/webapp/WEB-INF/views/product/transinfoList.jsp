@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp" %>
+<%@ include file="../pheader.jsp" %>
 <!-- 본문시작 -->
 
 <div class="col-sm-12">
@@ -50,7 +50,7 @@
 				</c:choose>
 			</td>
 			<td>				
-				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/transproForm?trans_code=${transinfo.trans_code}&FT_code=${transinfo.FT_code}'">
+				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/transproForm?trans_code=${transinfo.trans_code}&FT_code=${transinfo.FT_code}&p_id=${p_id}'">
 			</td>
 			<td>				
 				<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${transinfo.trans_code}')">
