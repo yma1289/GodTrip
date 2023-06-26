@@ -9,7 +9,7 @@
 	<h3><strong>항공정보 목록</strong></h3>
 	<br>
 	<p>		
-		<button type="button" class="btn btn-success" onclick="location.href='F_infoForm'">항공정보 등록</button>
+		<button type="button" class="btn btn-success" onclick="location.href='/partner/F_infoForm'">항공정보 등록</button>
 	</p>	
 	</div>
 
@@ -50,7 +50,7 @@
 				</c:choose>
 			</td>
 			<td>				
-				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/F_proForm?trans_code=${F_info.trans_code}&FT_code=${F_info.FT_code}&p_id=${p_id}'">
+				<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/partner/F_proForm?trans_code=${F_info.trans_code}&FT_code=${F_info.FT_code}&p_id=${p_id}'">
 			</td>
 			<td>				
 				<input type="button" class="btn btn-danger" value="삭제" onclick="confirmDelete('${F_info.trans_code}')">

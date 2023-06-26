@@ -8,7 +8,7 @@
 	<h3><strong>항공 상품등록</strong></h3>
 	<br>
 	<p>
-		<button type="button" class="btn btn-info" onclick="location.href='F_infoList'">취소</button>		
+		<button type="button" class="btn btn-info" onclick="location.href='/partner/F_infoList'">취소</button>		
 	</p>
 	<br>
 	<form name="F_proFrm" id="F_proFrm" method="post" action="/partner/F_proInsert">
