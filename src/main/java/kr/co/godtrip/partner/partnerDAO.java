@@ -1,6 +1,7 @@
 package kr.co.godtrip.partner;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,6 +17,37 @@ public partnerDAO() {
 
 @Autowired
 SqlSession sqlSession;
+		
+		//호텔 등록
+		public void hotelinsert(Map<String, Object> map) {
+			sqlSession.insert("partner.hotelinsert", map); 
+		}//insert() end
+		
+		//객실 등록
+		public void detailinsert(Map<String, Object> map) {
+			sqlSession.insert("partner.detailinsert",map);
+		}
+		
+		//호텔 리스트 출력
+		 public List<Map<String, Object>>hotellist(String p_id){
+				return sqlSession.selectList("partner.hotellist",p_id);
+		}
+		 
+		//객실 리스트 출력 
+		public List<Map<String, Object>>hoteldetailList(String hotel_code){
+			return sqlSession.selectList("partner.hoteldetailList",hotel_code);
+		}
+
+		 
+		 //숙박 정보 삭제하기
+		 public void hoteldelete(String hotel_code) {
+			 sqlSession.delete("partner.hoteldelete",hotel_code);
+		 }
+		 
+		 //객실 정보 삭제하기 
+		 public void roomdelete(String room_code) {
+			 sqlSession.delete("partner.roomdelete",room_code);
+		 }
 
 		//회원가입
 		public void insert(partnerDTO dto) {

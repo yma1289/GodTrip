@@ -3,6 +3,9 @@ package kr.co.godtrip.review;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
@@ -31,7 +34,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.google.gson.JsonObject;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/review")
 public class ReviewCont {
 
 	public ReviewCont() {
@@ -41,24 +44,114 @@ public class ReviewCont {
 		@Autowired
 		ReviewDAO reviewDao;
 	
+		@RequestMapping("/reviewForm")
+		public String reviewForm() {
+		return "review/reviewForm";
+	 }
+		
+		@RequestMapping("/reviewdetail")
+		public ModelAndView reviewdetail(HttpServletRequest req){
+			String reviewno=req.getParameter("reviewno");
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("review/reviewdetail");
+			List list=null;  
+			reviewDao.viewcount(reviewno); //조회수 증가
+			list=reviewDao.reviewdetail(reviewno);
+			mav.addObject("list",list);
+			return mav;
+		}
+		
+		
 			@RequestMapping("/reviewList")
-			public String reviewList() {
-			return "review/reviewList";
-		 }
-			@RequestMapping("/reviewForm")
-			public String reviewForm() {
-			return "review/reviewForm";
-		 }
+			public ModelAndView reviewList(HttpServletRequest req) {
+				int totalRowCount=0;
+				String search=""; //검색문자열
+			    if (req.getParameter("word") != null) { //검색어가 존재하는지?
+					String word     =req.getParameter("word");
+					String col      =req.getParameter("col");
+					String area_name=req.getParameter("area_name");
+				 	//쿼리문에 사용할 검색어 넘기기
+					if(col.equals("title_content")) {
+						search +=" WHERE title LIKE '%" + word + "%'";
+						search +=" OR content LIKE '%" + word + "%'";
+					}else if(col.equals("title")) {
+						search +=" WHERE title LIKE '%" + word + "%' ";
+					}else if(col.equals("content")) {
+						search +=" WHERE content LIKE '%" + word + "%' ";
+					}else if(col.equals("id")) {
+						search +=" WHERE id LIKE '%" + word + "%' ";
+					}//else end
+				
+					if(!area_name.equals("all")) {
+						search +=" AND area_name = '" + area_name + "'";
+					}//end if
+					
+					
+				totalRowCount=reviewDao.totalRowCount1(search);
+			    } else {
+			    totalRowCount=reviewDao.totalRowCount2();
+			    }//if end
 			
+			    
+			    //페이징
+		        int numPerPage   = 5;    // 한 페이지당 레코드 갯수
+		        int pagePerBlock = 5;   // 페이지 리스트
+		        
+		        String pageNum=req.getParameter("pageNum");
+		        if(pageNum==null){
+		              pageNum="1";
+		        }
+		        
+		        int currentPage=Integer.parseInt(pageNum);
+		        //페이지에 출력할 수
+		        int startRow   =(currentPage-1)*numPerPage;  //가져올 데이터의 초기 위치값		
+		        int endRow     =numPerPage;					 //가져올 데이터 양
+		        
+		        //페이지 수
+		        double totcnt = (double)totalRowCount/numPerPage;
+		        int totalPage = (int)Math.ceil(totcnt);
+		        
+		        double d_page = (double)currentPage/pagePerBlock;
+		        int Pages     = (int)Math.ceil(d_page)-1;
+		        int startPage = Pages*pagePerBlock;
+		        int endPage   = startPage+pagePerBlock+1;
 			
+		        Map<String, Object> map=new HashMap<>();
+		        map.put("startRow", startRow);
+		        map.put("endRow", endRow);
+		        map.put("search", search);
+		        
+		        List list=null;      
+		        if(totalRowCount>0){            
+		        	list=reviewDao.list(map);
+		        } else {            
+		            list=Collections.EMPTY_LIST;            
+		        }//if end
+		        ModelAndView mav=new ModelAndView();
+		        mav.setViewName("review/reviewList");
+		        mav.addObject(pageNum, mav);
+		        //페이징 정보 넘기기
+		        mav.addObject("pageNum", currentPage);
+		        mav.addObject("count", totalRowCount);
+		        mav.addObject("totalPage", totalPage);
+		        mav.addObject("startPage", startPage);
+		        mav.addObject("endPage", endPage);
+		        
+		        
+		        //후기 정보 넘기기
+		        mav.addObject("list", list);    
+		      
+		        
+		        return mav;
+		 }
+		
+			//리뷰 생성
 			@PostMapping("/reviewcreate")
-			public void reviewcreate(HttpServletRequest req,@RequestParam Map<String, Object> map) {
-				System.out.println(map.get("title"));
-				System.out.println(map.get("content"));
-				String title= req.getParameter("title");
-				String summernote=req.getParameter("summernote");
-				System.out.println(title);
-				System.out.println(summernote);
+			public String reviewcreate(HttpServletRequest req,@RequestParam Map<String, Object> map) {
+				String id="young12"; //임시 아이디
+			    map.put("id", id);
+			    reviewDao.insert(map);
+			    return "redirect:/review/reviewList";
 			}
 			
 			
@@ -94,6 +187,26 @@ public class ReviewCont {
 				String a = jsonObject.toString();
 				return a;
 			}
+			
+			
+			//여행후기 삭제
+			@RequestMapping("/reviewdelete")
+			public String reviewdelete(HttpServletRequest req) {
+				String reviewno=req.getParameter("reviewno");
+				reviewDao.reviewdelete(reviewno);
+				return "redirect:/review/reviewList";
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 
 	}//class end
 

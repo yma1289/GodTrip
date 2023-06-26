@@ -1,6 +1,8 @@
 package kr.co.godtrip.partner;
 
+import java.io.File;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -11,14 +13,17 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -42,6 +47,148 @@ public class partnerCont {
 
 	}
 	
+	//숙박 입력폼
+	@RequestMapping("/hotelForm")
+	public String hotelForm() {
+		return "hotel/hotelForm";
+	}
+	
+	//hotelList에서 준 호텔코드
+	@RequestMapping("/hoteldetailForm")
+	public ModelAndView hoteldetailForm(HttpServletRequest req) {
+	String hotel_code=req.getParameter("hotel_code");	
+	ModelAndView mav=new ModelAndView();
+	mav.setViewName("hotel/hoteldetailForm");
+	mav.addObject("hotel_code" , hotel_code);
+	return mav;
+    }
+	
+	//객실 등록
+	@PostMapping("/detailinsert")
+	public String detailinsert(@RequestParam Map<String, Object> map
+	          				  ,@RequestParam MultipartFile img
+	          				  ,HttpServletRequest req
+	          				  ,HttpSession session) 
+	{
+			   //String p_ID=req.getParameter("p_ID"); //나중에 이부분으로 고쳐야 함
+		 		String p_id=(String) session.getAttribute("p_id");
+						
+			   int d = (int)(Math.random() * 9000 + 1000); 
+			   String room_code="R" + d;
+
+			   String filename="-";
+			   long filesize=0;
+			   
+         if(img != null && !img.isEmpty()) { //파일이 존재한다면
+        	   filename=img.getOriginalFilename();
+        	   filesize=img.getSize();
+      
+         try {
+        	   ServletContext application=req.getSession().getServletContext();
+        	   String path=application.getRealPath("/storagedetail");  //실제 물리적인 경로
+        	   img.transferTo(new File(path + "\\" + filename)); //파일저장
+		
+        	}catch (Exception e) {
+        	   e.printStackTrace(); //System.out.println(e);
+		    
+		   }//try end    		
+		}//if end
+        
+		map.put("room_filename", filename);
+		map.put("room_filesize", filesize);
+		map.put("room_code", room_code);
+		map.put("p_id", p_id);
+
+		partnerDAO.detailinsert(map);
+		
+		return "redirect:/partner/partnerpage";
+
+	}//insert() end
+	
+	//숙박 생성
+	@PostMapping("/hotelinsert")
+    public String insert(@RequestParam Map<String, Object> map
+    		          ,@RequestParam MultipartFile img
+    		          ,HttpServletRequest req
+    		          ,HttpSession session) {
+		    String p_id=(String) session.getAttribute("p_id");
+			//숙박코드 생성
+		    int d = (int)(Math.random() * 9000 + 1000);            
+		    String hotel_code="H" + d;
+			
+            String filename="-";
+            long filesize=0;
+            if(img != null && !img.isEmpty()) { //파일이 존재한다면
+    		
+            filename=img.getOriginalFilename();
+    		filesize=img.getSize();
+    		try {
+    			
+    			ServletContext application=req.getSession().getServletContext();
+    			String path=application.getRealPath("/storage");  //실제 물리적인 경로
+    			img.transferTo(new File(path + "\\" + filename)); //파일저장
+    			
+    		}catch (Exception e) {
+    			e.printStackTrace(); //System.out.println(e);
+			}//try end    		
+    	}//if end
+    	
+    	map.put("hotel_filename", filename);
+    	map.put("hotel_filesize", filesize);
+    	map.put("hotel_code", hotel_code);
+    	map.put("p_id", p_id);
+    	//System.out.println(filename);
+    	//System.out.println(filesize);
+    	partnerDAO.hotelinsert(map);
+    	//판매자 페이지로 이동
+    	return "redirect:/partner/partnerpage"; 
+    	
+    }//insert() end
+	
+		//세션값 가져오기 HttpSession session = request.getSession(true);
+		//판매 현황 보여주기
+		@RequestMapping("/partnerpage")
+		public ModelAndView partnerpage(HttpServletRequest request) {
+			HttpSession session = request.getSession(true);
+			//로그인중인 판매자 아이디 가져오기
+			String p_id=(String) session.getAttribute("p_id");
+			ModelAndView mav = new ModelAndView();
+			List list=null;
+			list=partnerDAO.hotellist(p_id);
+			mav.addObject("list",list);
+			mav.setViewName("/partner/partnerpage");
+			return mav;
+		}
+	
+		//숙박 삭제
+		@RequestMapping("/hoteldelete")
+		public String hoteldelete(HttpServletRequest req) {
+			String hotel_code=req.getParameter("hotel_code");
+			System.out.println(hotel_code);
+			partnerDAO.hoteldelete(hotel_code);	
+			return "redirect:/partner/partnerpage";
+		}
+		
+		//객실 정보 보여주기
+		@RequestMapping("/roompartner")
+		public ModelAndView roompartner(HttpServletRequest req) {
+			ModelAndView mav = new ModelAndView();
+			String hotel_code=req.getParameter("hotel_code");
+			List list=null;
+			list=partnerDAO.hoteldetailList(hotel_code);
+			mav.addObject("list",list);
+			mav.setViewName("/hotel/roompartner");
+			return mav;
+		}
+		//객실 삭제
+		@RequestMapping("/roomdelete")
+		public String roomdelete(HttpServletRequest req) {
+			String room_code=req.getParameter("room_code");
+			System.out.println(room_code);
+			partnerDAO.roomdelete(room_code);
+			return "redirect:/partner/partnerpage";
+		}
+	
 	@RequestMapping(value = "/partnerlogin.do")
 	public ModelAndView login(@RequestParam("p_id") String p_id, @RequestParam("p_passwd") String p_passwd,
 			HttpServletRequest request, HttpSession session) {
@@ -57,7 +204,7 @@ public class partnerCont {
 			// mlevel 값 가져오기
 			String p_level = dto.getP_level();
 
-			if (p_level != null) {
+			if (!(p_level.equals("F1"))) {
 				ModelAndView mav = new ModelAndView("redirect:/partner/partnerpage");
 				session.setAttribute("p_id", dto.getP_id());
 				session.setAttribute("p_passwd", dto.getP_passwd());
@@ -79,14 +226,7 @@ public class partnerCont {
 		}
 	}
 
-	//세션값 가져오기 HttpSession session = request.getSession(true);
-	@RequestMapping("/partnerpage")
-	public String partnerpage(HttpServletRequest request) {
-		HttpSession session = request.getSession(true);
-		return "partner/partnerpage";
 
-	}
-	
 	// 약관동의
 	@RequestMapping("/agreement")
 	public String partneragreement() {
@@ -279,7 +419,7 @@ public class partnerCont {
 								message.setSentDate(new Date());
 
 								Transport.send(message);
-								mav.addObject("PFindIdmessage", "이메일로 아이디와 임시 비밀번호가 전송되었습니다.");
+								mav.addObject("FindIdmessage", "이메일로 아이디와 임시 비밀번호가 전송되었습니다.");
 								
 							} catch (MessagingException e) {
 								e.printStackTrace();
