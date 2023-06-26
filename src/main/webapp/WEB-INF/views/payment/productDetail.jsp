@@ -19,17 +19,148 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td>2023-06-16</td>
-            <td>08:40</td>
-            <td>09:40</td>
-            <td>서울</td>
-            <td>제주</td>
-            <td>제주항공</td>
-            <td>A04</td>
-            <td>67,600</td>
-            <td>2023-06-01</td>
+      <c:forEach var="transList" items="${transList}">
+        <tr>          
+            <td>${transList.departure_Date}</td>
+            <td>${transList.departure_Time}</td>
+            <td>${transList.arrival_Time}</td>
+            
+            <td>
+              <c:choose>
+				<c:when test="${transList.departure_code == 'G0001'}">
+					제주
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0002'}">
+					서울
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0003'}">
+					인천
+				</c:when>	
+				<c:when test="${transList.departure_code == 'G0004'}">
+					수원
+				</c:when>	
+				<c:when test="${transList.departure_code == 'G0005'}">
+					가평
+				</c:when>	
+				<c:when test="${transList.departure_code == 'G0006'}">
+					강릉
+				</c:when>	
+				<c:when test="${transList.departure_code == 'G0007'}">
+					춘천
+				</c:when>	
+				<c:when test="${transList.departure_code == 'G0008'}">
+					제천
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0009'}">
+					대전
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0010'}">
+					남원
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0011'}">
+					군산
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0012'}">
+					영월
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0013'}">
+					부산
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0014'}">
+					경주
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0015'}">
+					포항
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0016'}">
+					통영거제
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0017'}">
+					목포
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0018'}">
+					여수
+				</c:when>
+				<c:when test="${transList.departure_code == 'G0019'}">
+					전주
+				</c:when>
+				<c:otherwise>
+					${transList.departure_code}
+				</c:otherwise>
+			  </c:choose>
+            </td>
+            
+            <td>
+              <c:choose>
+				<c:when test="${transList.arrival_code == 'G0001'}">
+					제주
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0002'}">
+					서울
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0003'}">
+					인천
+				</c:when>	
+				<c:when test="${transList.arrival_code == 'G0004'}">
+					수원
+				</c:when>	
+				<c:when test="${transList.arrival_code == 'G0005'}">
+					가평
+				</c:when>	
+				<c:when test="${transList.arrival_code == 'G0006'}">
+					강릉
+				</c:when>	
+				<c:when test="${transList.arrival_code == 'G0007'}">
+					춘천
+				</c:when>	
+				<c:when test="${transList.arrival_code == 'G0008'}">
+					제천
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0009'}">
+					대전
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0010'}">
+					남원
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0011'}">
+					군산
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0012'}">
+					영월
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0013'}">
+					부산
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0014'}">
+					경주
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0015'}">
+					포항
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0016'}">
+					통영거제
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0017'}">
+					목포
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0018'}">
+					여수
+				</c:when>
+				<c:when test="${transList.arrival_code == 'G0019'}">
+					전주
+				</c:when>
+				<c:otherwise>
+					${transList.arrival_code}
+				</c:otherwise>
+			  </c:choose>
+            </td>
+            
+            <td>${transList.trans_name}</td>
+            <td>${transList.transrs_seatno}</td>
+            <td>${transList.Price}</td>
+            <td>${transList.rsvdate}</td>          
         </tr>
+      </c:forEach>
     </tbody>
 </table>
 
@@ -44,9 +175,9 @@
             <th>예약일자</th>
         </tr>
     </thead>
-    
+        
   
-    <tbody>
+	<tbody>
         <tr>
          <c:forEach var="roomreservation" items="${list}">
             <td>${departure_Date}</td>
@@ -55,19 +186,20 @@
             <td>${roomreservation.totalpay}&#8361;</td>
             <td>${roomreservation.room_rsvdate}</td>
         </tr>
-    </tbody>
-    
+	</tbody>
+
 <c:if test="${vs.count mod 1==0}">
 		              	 	</tr> <tr>
-		           		</c:if>   
-      </c:forEach>
+						</c:if>   
+      </c:forEach>    
 </table>
 
 <div class="d-flex justify-content-center my-4">
-	<input type="button" value="결제하기" onclick="confirmPayment(${room_no}, ${transrs_no})"> 
+	<input type="button" value="결제하기" onclick="confirmPayment(${room_no}, ${transrs_no})">
 </div>
 
 </div>
+
 <script type="text/javascript">
 function confirmPayment(room_no,transrs_no) {
     if (confirm("결제를 진행하시겠습니까? (장바구니에 담은 상품은 삭제됩니다)")) {

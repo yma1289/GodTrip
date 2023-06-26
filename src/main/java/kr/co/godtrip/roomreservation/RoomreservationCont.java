@@ -94,7 +94,7 @@ public class RoomreservationCont {
 		String departure_Date = req.getParameter("departure_Date");				
 	    
 		Object transpro_code = session.getAttribute("transpro_code");
-		Object id = session.getAttribute("id");
+		Object id = session.getAttribute("s_id");
 		System.out.println("교통상품코드 : " + transpro_code);
 		System.out.println("아이디 : " + id);
 		
@@ -116,6 +116,7 @@ public class RoomreservationCont {
 			//교통장바구니에 있는거 list에 담아서 불러오기
 			List<Map<String, Object>> transList = roomreservationDao.transList(transpro_code, id);
 			mav.addObject("departure_Date", departure_Date);
+			System.out.println(departure_Date);
 			System.out.println(mav);
 			mav.addObject("transList", transList);
 			
