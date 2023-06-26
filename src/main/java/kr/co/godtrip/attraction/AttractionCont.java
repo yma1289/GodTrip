@@ -130,6 +130,8 @@ public class AttractionCont {
         map.put("startRow", startRow);
         map.put("endRow", endRow);
        // System.out.println(map);
+        
+        
         List list=null;      
         if(totalRowCount>0){            
         	list=attractionDao.list(map);
@@ -152,6 +154,9 @@ public class AttractionCont {
 		
 	}//list() end 
 
+	
+	
+	
 	
 	@RequestMapping("/attraction/attractioninsert")
 	public String insert(

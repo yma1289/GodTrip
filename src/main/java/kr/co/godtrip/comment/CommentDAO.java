@@ -19,8 +19,9 @@ public class CommentDAO {
 	 public int commentInsert(CommentDTO comment){        
 	        return sqlSession.insert("comment.insert", comment);
 	    }//insert() end
-	    
-	    
+
+	
+	
 	    public List<CommentDTO> commentlist(String tour_code){
 	        return sqlSession.selectList("comment.list", tour_code);
 	    }//list() end

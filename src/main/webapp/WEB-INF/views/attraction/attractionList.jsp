@@ -36,11 +36,13 @@
 		</tr>	
 		</thead>
 		
-		 <c:forEach var="attraction" items="${list}" >
+		 <c:forEach var="attraction" items="${list}" > 
 			<tr>
 				<td>
 					<!-- <a href="<c:url value='/attraction/attractionDetail/${dto.tour_code}' />">${dto.tour_name}</a> 이렇게 작성하면 controller에서 @PathVariable 로 사용할 수 있지만 통일성을 위해 아래코드로 사용한다. -->
-					<a href="<c:url value='/attraction/attractionDetail?tour_code=${attraction.tour_code}' />">${attraction.tour_name}</a>
+					<!-- <a href="<c:url value='/attraction/attractionDetail?tour_code=${attraction.tour_code}' />">${attraction.tour_name}</a>-->
+					<a href="/attraction/attractionDetail?tour_code=${attraction.tour_code}">${attraction.tour_name}</a>				
+				
 				</td>
 				<td>
 					<c:choose>

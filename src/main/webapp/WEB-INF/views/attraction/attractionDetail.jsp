@@ -190,8 +190,8 @@ function confirmDelete() {
 			commentInsert(insertData);//댓글등록 함수 호출
 		});//click() end
 		
-		
-		//댓글 등록 함수
+		/*
+		//댓글 등록 함수(원래버전)
 		function commentInsert(insertData) { 
 			//alert("댓글등록함수호출" + insertData);
 			$.ajax({
@@ -213,8 +213,34 @@ function confirmDelete() {
 		}//commentInsert() end
 		
 		//-> commentCont 실행됨
-		/////////
-		
+	*/
+	
+	//댓글 등록 함수(로그인안됐을때 알림창띄우기테스트)
+	  function commentInsert(insertData) {
+	    let id = '${sessionScope.s_id}'; // 현재 로그인된 사용자의 ID
+
+	    if (id === null || id === '') {
+	      // 로그인이 되어있지 않은 경우 알림창 띄우기
+	      alert('로그인이 필요한 서비스입니다.');
+	      return; // 함수 종료
+	    }
+
+	    $.ajax({
+	      url: '/comment/insert',
+	      type: 'post',
+	      data: insertData,
+	      error: function (error) {
+	        alert(error);
+	      },
+	      success: function (data) {
+	        if (data == 1) {
+	          commentList();
+	          $("#content").val('');
+	        }
+	      }
+	    });
+	  }
+
 function commentList() {
 			//alert("댓글 목록 함수 호출");
 			$.ajax({

@@ -15,7 +15,7 @@
 	<tr>
 		<td>지역</td>
 		<td>
-			<select name="area_code" class="form-control">
+			<select name="area_code"  id="area_code"class="form-control">
 			            <option value="G0001" ${attraction.area_code == 'G0001' ? 'selected' : ''}>제주</option>
 	                    <option value="G0002" ${attraction.area_code == 'G0002' ? 'selected' : ''}>서울</option>
 	                    <option value="G0003" ${attraction.area_code == 'G0003' ? 'selected' : ''}>인천</option>
@@ -39,12 +39,12 @@
 	</tr>
 	<tr>
 		<td>관광지명</td>
-		<td><input type="text" name="tour_name" class="form-control"  value="${attraction.tour_name}"></td>
+		<td><input type="text" name="tour_name"  id="tour_name" class="form-control"  value="${attraction.tour_name}"></td>
 	</tr>
 	<tr>
 	    <td>키워드</td>
 	    <td>
-	        <select name="keyword" class="form-control">
+	        <select name="keyword" id="keyword"  class="form-control">
 	            <c:choose>
 	                <c:when test="${attraction.keyword == '1'}">
 	                    <option value="1" selected>역사</option>
@@ -106,7 +106,7 @@
 	</tr>
 	<tr>
 		<td>내용</td>
-		<td><textarea name="content" rows="10" cols="20" class="form-control">${attraction.content}</textarea></td>	
+		<td><textarea name="content"  id="content" rows="10" cols="20" class="form-control">${attraction.content}</textarea></td>	
 	</tr>
 	<tr>
 		<td>관광지사진</td>
@@ -114,13 +114,13 @@
 	        <c:if test="${attraction.filename != '-'}">
 	              <img src="/storage/${attraction.filename}" width="100px"><br>
 	        </c:if>
-			<input type="file" name="img">
+			<input type="file" name="img" id="img" >
 		</td>
 	</tr>
 	<tr>
 		<td colsapn="2" align="center">
 			<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">
-			<input type="submit" value="수정" >
+			<input type="submit" value="수정" onclick="return validate()" >
 		</td>
 	</tr>
 	
@@ -130,9 +130,24 @@
 	<!-- action취해짐-> attractionUpdate라는 명령어 들어오면 update함수 호출 -->
 
 	
-	<c:if test="${sessionScope.member.mlevel != 'A1'}">
-    <p>죄송합니다. 관리자만 게시할 수 있습니다.</p>
-	</c:if>
+	<script>
+function validate() {
+	var tour_name = document.getElementById("tour_name").value;
+	if (tour_name === "") {
+		alert("관광지명을 입력해주세요.");
+		return false;
+	}
+	
+	var content = document.getElementById("content").value;
+	if (content === "") {
+		alert("내용을 입력해주세요.");
+		return false;
+	}
+	
+	// 유효성 검사 통과
+	return true;
+}
+</script>
 	
 
 </div><!-- col-sm-12 끝 -->
