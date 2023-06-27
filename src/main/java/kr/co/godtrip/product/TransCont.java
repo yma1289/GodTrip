@@ -207,7 +207,7 @@ public class TransCont {
 		ModelAndView mav = new ModelAndView();
 		
 		String departure_Date = req.getParameter("departure_Date");
-		String area_code = req.getParameter("arrival_code");
+		String arrival_code = req.getParameter("arrival_code");
 		String arrival_Date = req.getParameter("arrival_Date");
 		//System.out.println("도착일 : " + arrival_Date);
 
@@ -251,7 +251,7 @@ public class TransCont {
 		session.setAttribute("transpro_code", transpro_code);		
 		
 		mav.addObject("departure_Date", departure_Date);
-		mav.addObject("area_code", area_code);		
+		mav.addObject("arrival_code", arrival_code);		
 		mav.addObject("arrival_Date",arrival_Date);
 		mav.setViewName("redirect:/hotel/hotelList");
 		return mav;		
