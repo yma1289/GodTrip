@@ -31,8 +31,8 @@ document.cookie = "cookieName=cookieValue; SameSite=None; Secure";
 </script>
 <style>
 body, h1, h2, h3, h4, h5, h6 {
-	  font-family: 'Noto Sans KR', sans-serif;
-	}
+     font-family: 'Noto Sans KR', sans-serif;
+   }
 
 html {
 scroll-behavior: smooth;
@@ -85,17 +85,17 @@ footer {
   transition: all .3s ease-out;
 }
 .img-sz {
-	width: 85%;
-	height: auto;
-	margin-left: 30px;
+   width: 85%;
+   height: auto;
+   margin-left: 30px;
 }
 .navbar-logo {
-	max-height: 45%;
-	max-width: 45%;
-	height: auto;
-	width: auto;
-	margin-top: 0;
-	margin-bottom: 0;
+   max-height: 45%;
+   max-width: 45%;
+   height: auto;
+   width: auto;
+   margin-top: 0;
+   margin-bottom: 0;
 }
 
 /* 카카오맵 css*/
@@ -130,15 +130,20 @@ footer {
                 </li>
                 <li class="nav-item">
                 <c:choose>
-          <c:when test="${!(empty p_id || empty p_passwd || p_level == 'E1')}">
+          <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
+            <a class="nav-link" href="/member/memberpage">마이페이지</a>
+          </c:when>
+          
+          <c:when test="${!(empty p_id || empty p_passwd || empty p_level)}">
             <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
           </c:when>
+          
           <c:otherwise>
             <a class="nav-link" href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">마이페이지</a>
           </c:otherwise>
         </c:choose>
               </li>
-              		<c:choose>
+                    <c:choose>
                         <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1') && (empty p_id || empty p_passwd || p_level == 'E1')}">
                            <a href="/member/memberlogin"
                               class="w3-bar-item w3-button w3-mobile"><h6>로그인</h6></a>
