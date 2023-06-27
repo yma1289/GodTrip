@@ -537,7 +537,7 @@ public class partnerCont {
 		
 		partnerDAO.F_infoInsert(map);
 		
-		return "redirect:/product/F_infoList";
+		return "redirect:/partner/F_infoList";
 		
 	}//F_infoInsert() end
 	
@@ -571,13 +571,13 @@ public class partnerCont {
 		
 		partnerDAO.T_infoInsert(map);
 		
-		return "redirect:/product/T_infoList";
+		return "redirect:/partner/T_infoList";
 		
 	}//T_infoInsert() end
 	
 	
 	//F_proForm
-		@RequestMapping("/product/F_proForm")
+		@RequestMapping("/partner/F_proForm")
 		public ModelAndView F_proForm(HttpServletRequest req) {
 			String trans_code = req.getParameter("trans_code");
 			String FT_code = req.getParameter("FT_code");
@@ -593,7 +593,7 @@ public class partnerCont {
 		
 	
 	//T_proForm
-	@RequestMapping("/product/T_proForm")
+	@RequestMapping("/partner/T_proForm")
 	public ModelAndView T_proForm(HttpServletRequest req) {
 		String trans_code = req.getParameter("trans_code");
 		String FT_code = req.getParameter("FT_code");
@@ -656,7 +656,7 @@ public class partnerCont {
 		
 		partnerDAO.F_proInsert(map);
 		
-		return "redirect:/product/F_proList";
+		return "redirect:/partner/F_proList";
 		
 	}//F_proInsert() end
 	
@@ -710,13 +710,13 @@ public class partnerCont {
 		
 		partnerDAO.T_proInsert(map);
 		
-		return "redirect:/product/T_proList";
+		return "redirect:/partner/T_proList";
 		
 	}//F_proInsert() end
 	
 	
 	//F_proList
-		@RequestMapping("/product/F_proList")
+		@RequestMapping("/partner/F_proList")
 		public ModelAndView F_proList(HttpServletRequest request) {
 			
 			HttpSession session = request.getSession(true);
@@ -731,7 +731,7 @@ public class partnerCont {
 	
 	
 	//T_proList
-	@RequestMapping("/product/T_proList")
+	@RequestMapping("/partner/T_proList")
 	public ModelAndView T_proList(HttpServletRequest request) {
 		
 		HttpSession session = request.getSession(true);
@@ -750,7 +750,7 @@ public class partnerCont {
 		String trans_code = req.getParameter("trans_code");
 		partnerDAO.F_infoDelete(trans_code);
 		
-		return "redirect:/product/F_infoList";
+		return "redirect:/partner/F_infoList";
 	}//F_infoDelete() end
 	
 	
@@ -759,7 +759,7 @@ public class partnerCont {
 		String trans_code = req.getParameter("trans_code");
 		partnerDAO.T_infoDelete(trans_code);
 		
-		return "redirect:/product/T_infoList";
+		return "redirect:/partner/T_infoList";
 	}//T_infoDelete() end
 	
 	
@@ -768,7 +768,7 @@ public class partnerCont {
 		String transpro_code = req.getParameter("transpro_code");		
 		partnerDAO.F_proDelete(transpro_code);
 		
-		return "redirect:/product/F_proList";		
+		return "redirect:/partner/F_proList";		
 	}//F_proDelete() end
 	
 	
@@ -777,7 +777,7 @@ public class partnerCont {
 		String transpro_code = req.getParameter("transpro_code");		
 		partnerDAO.T_proDelete(transpro_code);
 		
-		return "redirect:/product/T_proList";		
+		return "redirect:/partner/T_proList";		
 	}//T_proDelete() end
 	
 		
