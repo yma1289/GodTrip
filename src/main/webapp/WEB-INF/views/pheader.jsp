@@ -98,14 +98,16 @@ footer p {
 <!-- Navbar -->
 <nav class="navbar navbar-expand-md navbar-light">
   <div class="container">
-    <a class="navbar-brand" href="/home.do">God지은여행</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavbar">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <strong>${p_name}</strong> 님 환영합니다!
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="navbar-nav ml-auto">
-      <c:choose>
+			<a class="navbar-brand" href="/partner/partnerpage">
+			<img src="/images/logo2.png" alt="Logo" class="navbar-logo"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#myNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<strong>${p_name}</strong> 님 환영합니다!
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="navbar-nav ml-auto">
+				 <c:choose>
     	<c:when test="${ not empty p_id && not empty p_passwd && p_level == 'A1' }">
         <li class="nav-item">
           <a class="nav-link" href="../partner/hotelForm">숙박 상품등록</a>
@@ -134,27 +136,27 @@ footer p {
           <a class="nav-link" href="../partner/F_proList">상품 판매현황</a>
         </li>
         </c:when>
-      </c:choose>    
-             
+      </c:choose>
 					<c:choose>
-						<c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level )}">
+						<c:when
+							test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level )}">
 							<a href="/member/memberlogin"
 								class="w3-bar-item w3-button w3-mobile"><h6>로그인</h6></a>
 							<a href="/partner/partnerlogin"
 								class="w3-bar-item w3-button w3-mobile"><h6>파트너로그인</h6></a>
 						</c:when>
 						<c:otherwise>
-							<a href="/member/logout.do"
+							<a href="/partner/partnerlogout.do"
 								class="w3-bar-item w3-button w3-mobile"><h6>로그아웃</h6></a>
 						</c:otherwise>
-					</c:choose></div>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<!-- Header -->
+					</c:choose>
+			</div>
+			</li>
+			</ul>
+		</div>
+		</div>
+	</nav>
+	<!-- Header -->
 
-
-<div class="container-fluid bg-3 text-center">    
-  <div class="row">
+	<div class="container-fluid bg-3 text-center">
+		<div class="row">

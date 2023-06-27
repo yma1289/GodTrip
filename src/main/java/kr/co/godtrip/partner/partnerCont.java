@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.utility.MyAuthenticator;
 
@@ -273,8 +273,9 @@ public class partnerCont {
 
 	//회원가입
 	@RequestMapping(value = "/partner/pRegister", method = RequestMethod.POST)
-	public String partnerRegister(partnerDTO dto) {
+	public String partnerRegister(partnerDTO dto,RedirectAttributes redirectAttributes) {
 	partnerDAO.insert(dto);
+	redirectAttributes.addFlashAttribute("registerSuccessMessage", "회원 가입이 성공적으로 완료되었습니다.");
 		return "redirect:/partner/partnerlogin";
 		}
 
@@ -457,7 +458,7 @@ public class partnerCont {
 					return mav;
 				}
 				
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 				
 	//F_infoList 출력
 	@RequestMapping("/partner/F_infoList")

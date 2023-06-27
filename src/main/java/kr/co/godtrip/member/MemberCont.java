@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.utility.MyAuthenticator;
 
@@ -72,6 +73,7 @@ public class MemberCont {
 				session.setAttribute("s_passwd", dto.getPasswd());
 				session.setAttribute("mname", dto.getMname());
 				session.setAttribute("s_mlevel", dto.getMlevel());
+				
 				return mav;
 			} else {
 				ModelAndView mav = new ModelAndView("/member/memberlogin");
@@ -99,8 +101,9 @@ public class MemberCont {
 
 	// 회원가입, post방식으로 데이터를 받은경우 insert
 	@RequestMapping(value = "/Register", method = RequestMethod.POST)
-	public String memRegister(MemberDTO dto) {
+	public String memRegister(MemberDTO dto,RedirectAttributes redirectAttributes) {
 		memberDao.insert(dto);
+		 redirectAttributes.addFlashAttribute("registerSuccessMessage", "회원 가입이 성공적으로 완료되었습니다.");		
 		return "redirect:/member/memberlogin";
 	}
 
@@ -319,6 +322,9 @@ public class MemberCont {
 			return mav;
 		}
 		
+		//세션 값이 넘어오지 않아서 
+		//request.getsession으로 세션 변수값들을 가져옴
+
 		@RequestMapping("/memberpage")
 		public String partnerpage(HttpServletRequest request) {
 			HttpSession session = request.getSession(true);

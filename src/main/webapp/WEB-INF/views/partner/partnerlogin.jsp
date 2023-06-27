@@ -5,10 +5,10 @@
 
 <style>
 {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Noto Sans KR", sans-serif;
+     margin: 0;
+     padding: 0;
+     box-sizing: border-box;
+     font-family: "Noto Sans KR", sans-serif;
 }
 
 a {
@@ -41,7 +41,7 @@ li {
 }
 
 h2 {
-  color: tomato;
+  color: skyblue;
   font-size: 2em;
 }
 .login_sns {
@@ -116,7 +116,7 @@ h2 {
   border: 0;
   outline: none;
   border-radius: 40px;
-  background: linear-gradient(to left, rgb(255, 77, 46), rgb(255, 155, 47));
+  background: linear-gradient(to left, #19b3eb, rgb(119, 219, 228));
   color: white;
   font-size: 1.2em;
   letter-spacing: 2px;
@@ -127,17 +127,26 @@ h2 {
 
 <c:choose>
 <c:when test="${ empty p_id  || empty p_passwd || empty p_level }"> 	
+
 <c:if test="${not empty Loginmessage}">
         <script>
             alert('${Loginmessage}');
         </script>
-    </c:if>
+</c:if>   
+ 
     
 <c:if test="${not empty FindIdmessage}">
         <script>
             alert('${FindIdmessage}');
         </script>
+</c:if>    
+
+<c:if test="${not empty registerSuccessMessage}">
+        <script>
+            alert('${registerSuccessMessage}');
+        </script>
     </c:if>    
+        
     
 
 <div class="wrap">
@@ -172,19 +181,8 @@ h2 {
         </form>
         </div>
     </div>
-
 </c:when>
-<c:otherwise>
-<div style="text-align:center;">
-	<strong>${p_name}</strong> 님
-      <a href="partnerlogout.do">[로그아웃]</a>
-      <br><br>
-      <a href="partnerModify">[회원정보 수정]</a>
-      <a href="partnerWithdraw">[회원 탈퇴]</a>
-    </div>
-  </c:otherwise>
-</c:choose>
-	
+</c:choose>	
 </div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
