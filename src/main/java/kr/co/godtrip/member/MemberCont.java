@@ -73,6 +73,7 @@ public class MemberCont {
 				session.setAttribute("s_passwd", dto.getPasswd());
 				session.setAttribute("mname", dto.getMname());
 				session.setAttribute("s_mlevel", dto.getMlevel());
+				
 				return mav;
 			} else {
 				ModelAndView mav = new ModelAndView("/member/memberlogin");

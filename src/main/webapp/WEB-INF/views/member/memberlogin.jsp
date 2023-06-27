@@ -181,11 +181,8 @@ h2 {
         </form>
         </div>
     </div>
-
 </c:when>
-</c:choose>
-	
-
+</c:choose>	
 </div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

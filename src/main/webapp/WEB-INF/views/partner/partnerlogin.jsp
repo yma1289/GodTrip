@@ -181,19 +181,8 @@ h2 {
         </form>
         </div>
     </div>
-
 </c:when>
-<c:otherwise>
-<div style="text-align:center;">
-	<strong>${p_name}</strong> 님
-      <a href="partnerlogout.do">[로그아웃]</a>
-      <br><br>
-      <a href="partnerModify">[회원정보 수정]</a>
-      <a href="partnerWithdraw">[회원 탈퇴]</a>
-    </div>
-  </c:otherwise>
-</c:choose>
-	
+</c:choose>	
 </div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>
