@@ -8,6 +8,7 @@ public class TransinfoDTO {
 	private String trans_name;
 	private String filename;
 	private long filesize;
+	private String p_id;
 	private List<TransproDTO> transpro;
 	
 	public String getTrans_code() {
@@ -40,6 +41,12 @@ public class TransinfoDTO {
 	public void setFilesize(long filesize) {
 		this.filesize = filesize;
 	}
+	public String getP_id() {
+		return p_id;
+	}
+	public void setP_id(String p_id) {
+		this.p_id = p_id;
+	}
 	public List<TransproDTO> getTranspro() {
 		return transpro;
 	}
@@ -50,7 +57,8 @@ public class TransinfoDTO {
 	@Override
 	public String toString() {
 		return "TransinfoDTO [trans_code=" + trans_code + ", FT_code=" + FT_code + ", trans_name=" + trans_name
-				+ ", filename=" + filename + ", filesize=" + filesize + ", transpro=" + transpro + "]";
+				+ ", filename=" + filename + ", filesize=" + filesize + ", p_id=" + p_id + ", transpro=" + transpro
+				+ "]";
 	}
 		
 }

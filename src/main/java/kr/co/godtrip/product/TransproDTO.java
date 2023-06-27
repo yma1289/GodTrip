@@ -11,7 +11,7 @@ public class TransproDTO {
 	private String arrival_code;
 	private int Price;
 	private String seat;	
-	
+	private String p_id;
 	
 	public String getTrans_code() {
 		return trans_code;
@@ -66,6 +66,12 @@ public class TransproDTO {
 	}
 	public void setSeat(String seat) {
 		this.seat = seat;
+	}	
+	public String getP_id() {
+		return p_id;
+	}
+	public void setP_id(String p_id) {
+		this.p_id = p_id;
 	}
 	
 	@Override
@@ -73,7 +79,7 @@ public class TransproDTO {
 		return "TransproDTO [trans_code=" + trans_code + ", transpro_code=" + transpro_code + ", departure_Date="
 				+ departure_Date + ", departure_Time=" + departure_Time + ", arrival_Time=" + arrival_Time
 				+ ", departure_code=" + departure_code + ", arrival_code=" + arrival_code + ", Price=" + Price
-				+ ", seat=" + seat + "]";
-	}
+				+ ", seat=" + seat + ", p_id=" + p_id + "]";
+	}	
 				
 }

@@ -10,6 +10,8 @@ public class TransDTO {
 	private String arrival_code;
 	private int Price;
 	private String seat;
+	private String p_id;
+	
 	public String getTranspro_code() {
 		return transpro_code;
 	}
@@ -63,13 +65,19 @@ public class TransDTO {
 	}
 	public void setSeat(String seat) {
 		this.seat = seat;
+	}	
+	public String getP_id() {
+		return p_id;
 	}
+	public void setP_id(String p_id) {
+		this.p_id = p_id;
+	}
+	
 	@Override
 	public String toString() {
 		return "TransDTO [transpro_code=" + transpro_code + ", trans_code=" + trans_code + ", departure_Date="
 				+ departure_Date + ", departure_Time=" + departure_Time + ", arrival_Time=" + arrival_Time
 				+ ", departure_code=" + departure_code + ", arrival_code=" + arrival_code + ", Price=" + Price
-				+ ", seat=" + seat + "]";
-	}
-	
+				+ ", seat=" + seat + ", p_id=" + p_id + "]";
+	}	
 }
