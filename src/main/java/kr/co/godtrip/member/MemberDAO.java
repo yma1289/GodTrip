@@ -92,4 +92,9 @@ public class MemberDAO {
 		    return cnt;
 		}
 		
+		
+		 public MemberDTO findById(String id) {
+		        return sqlSession.selectOne("member.findById", id);
+		    }	
+		
 }

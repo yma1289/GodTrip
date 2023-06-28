@@ -19,7 +19,7 @@ public class PaymentDAO {
 		sqlSession.delete("payment.delete",room_no);
 	}
 	
-	 public void roomDelete(String id) {
+	public void roomDelete(String id) {
 	      sqlSession.delete("payment.roomDelete", id);
 	   }//roomDelete() end
 	   
@@ -28,5 +28,10 @@ public class PaymentDAO {
 	      sqlSession.delete("payment.transDelete", id);
 	   }//transDelete() end
 	
+	////////////
+	//결제 정보
 	
+	public int insert(PaymentDTO dto) {
+        return sqlSession.insert("payment.Infoinsert", dto);
+    }
 }

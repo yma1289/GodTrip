@@ -67,4 +67,11 @@ where id=#{s_id}
     SET passwd=#{passwd}
     WHERE email=#{email} and mname=#{mname}
 </update>
+
+<select id="findById" parameterType="string" resultType="kr.co.godtrip.member.MemberDTO">
+SELECT * 
+FROM member
+WHERE id = #{id}
+</select>
+
 </mapper>
