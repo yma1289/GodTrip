@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.json.simple.JSONObject;
@@ -50,20 +51,23 @@ public class ReviewCont {
 	 }
 		
 		@RequestMapping("/reviewdetail")
-		public ModelAndView reviewdetail(HttpServletRequest req){
+		public ModelAndView reviewdetail(HttpServletRequest req,HttpSession session){
 			String reviewno=req.getParameter("reviewno");
+			String s_id=(String) session.getAttribute("s_id");
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("review/reviewdetail");
 			List list=null;  
 			reviewDao.viewcount(reviewno); //조회수 증가
 			list=reviewDao.reviewdetail(reviewno);
 			mav.addObject("list",list);
+			 //로그인 정보 넘기기
+	        mav.addObject("s_id",s_id);
 			return mav;
 		}
 		
 		
 			@RequestMapping("/reviewList")
-			public ModelAndView reviewList(HttpServletRequest req) {
+			public ModelAndView reviewList(HttpServletRequest req, HttpSession session) {
 				int totalRowCount=0;
 				String search=""; //검색문자열
 			    if (req.getParameter("word") != null) { //검색어가 존재하는지?
@@ -139,16 +143,18 @@ public class ReviewCont {
 		        
 		        
 		        //후기 정보 넘기기
-		        mav.addObject("list", list);    
-		      
+		        mav.addObject("list", list);
 		        
+		       
 		        return mav;
 		 }
 		
 			//리뷰 생성
 			@PostMapping("/reviewcreate")
-			public String reviewcreate(HttpServletRequest req,@RequestParam Map<String, Object> map) {
-				String id="young12"; //임시 아이디
+			public String reviewcreate(HttpServletRequest req,@RequestParam Map<String, Object> map,HttpSession session) {
+				String id=(String) session.getAttribute("s_id");
+				String content=req.getParameter("content");
+				System.out.println(content);
 			    map.put("id", id);
 			    reviewDao.insert(map);
 			    return "redirect:/review/reviewList";
@@ -193,12 +199,37 @@ public class ReviewCont {
 			@RequestMapping("/reviewdelete")
 			public String reviewdelete(HttpServletRequest req) {
 				String reviewno=req.getParameter("reviewno");
-				reviewDao.reviewdelete(reviewno);
-				return "redirect:/review/reviewList";
-			}
+				String code = reviewDao.contentname(reviewno);
+				String srcString = "src=\"/summernote_image/";
+		        int startIndex = 0;
+
+		        while (startIndex != -1) {
+		            startIndex = code.indexOf(srcString, startIndex);
+
+		            if (startIndex != -1) {
+		                startIndex += srcString.length(); // 파일명 시작 인덱스 설정
+
+		                int endIndex = code.indexOf("\"", startIndex); // 파일명이 끝나는 인덱스를 찾음
+
+		                if (endIndex != -1) {
+		                    String fileName = code.substring(startIndex, endIndex);
+
+		                    if (fileName != null && !fileName.equals("-")) {  // 파일이 존재한다면~
+		                        ServletContext application = req.getSession().getServletContext();
+		                        String path = application.getRealPath("summernote_image/"); // 실제 물리적인 경로
+		                        File file = new File(path + "\\" + fileName);
+		                        if (file.exists()) { // 파일에 다 모아놓고 -> 파일이 존재한다면
+		                            file.delete(); // 그 파일 다 삭제해라~
+					                        
+			    }//if end
+             }//if end 	
+	      }//if end
+       }//if end
+	}//while end 
 			
-			
-			
+						        reviewDao.reviewdelete(reviewno);
+				                return "redirect:/review/reviewList";
+}//reviewdelete end
 			
 			
 			
@@ -208,7 +239,7 @@ public class ReviewCont {
 			
 			
 
-	}//class end
+}//class end
 
 
 			    
