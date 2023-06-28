@@ -59,8 +59,8 @@
 	
 	
 	<insert id="transRsvInsert" parameterType="kr.co.godtrip.product.TransproDTO">
-		INSERT INTO transreservation(transrs_no, transpro_code, id, transrs_seatno, rsvdate, price)
-		VALUES(DEFAULT, #{transpro_code}, #{id}, #{transrs_seatno}, CURRENT_TIMESTAMP, #{price})
+		INSERT INTO transreservation(transrs_no, transpro_code, id, transrs_seatno, rsvdate)
+		VALUES(DEFAULT, #{transpro_code}, #{id}, #{transrs_seatno}, CURRENT_TIMESTAMP)
 	</insert>
 	
 	

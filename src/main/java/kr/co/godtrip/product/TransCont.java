@@ -216,10 +216,8 @@ public class TransCont {
 		//String s_id = "kim0602";
 		String id = (String) session.getAttribute("s_id");
 		//session.getAttribute() 메소드는 Object타입을 반환하기 때문에 (String) 추가
-		System.out.println(id);
-		
-		String price = req.getParameter("Price");
-		System.out.println(price);
+		System.out.println(id);		
+	
 		
 		//랜덤으로 좌석번호 지정하기
 		final int LETTER_RANGE = 26; //알파벳 갯수
