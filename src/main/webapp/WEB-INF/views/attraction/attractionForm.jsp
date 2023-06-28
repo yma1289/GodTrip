@@ -3,14 +3,15 @@
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
 <div class="col-sm-12">
+<div class="container mt-5">
 	<div class="container">
 
-<h3>관광지소개</h3>
+<h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">관광지소개 작성</h3>
 
 
 
 <form name="attraction" id="attraction" method="post" action="attractioninsert">
- <table class="table table-hover">
+ <table class="table">
 <tr>
 	<td>지역</td>
 	<td>
@@ -23,17 +24,16 @@
 			<option value="G0006">강릉</option>
 			<option value="G0007">춘천</option>
 			<option value="G0008">제천</option>
-			<option value="G0009">대전</option>
-			<option value="G0010">남원</option>
-			<option value="G0011">군산</option>
-			<option value="G0012">영월</option>
-			<option value="G0013">부산</option>
-			<option value="G0014">경주</option>
-			<option value="G0015">포항</option>
-			<option value="G0016">통영거제</option>
-			<option value="G0017">목포</option>
-			<option value="G0018">여수</option>
-			<option value="G0019">전주</option>
+			<option value="G0009">대전</option>			
+			<option value="G0010">군산</option>
+			<option value="G0011">영월</option>
+			<option value="G0012">부산</option>
+			<option value="G0013">경주</option>
+			<option value="G0014">포항</option>
+			<option value="G0015">통영거제</option>
+			<option value="G0016">목포</option>
+			<option value="G0017">여수</option>
+			<option value="G0018">전주</option>
 		</select>
 </tr>
 <tr>
@@ -54,23 +54,26 @@
 		</select>
 </tr>
 <tr>
-<td>
+<td colspan="2">
  <textarea id="summernote" name="content" required></textarea>
 </td>
 </tr>
 <tr>
-	<td style="text-align: center;">
-		<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">
+	<td colspan="2" style="text-align: center;">
 		<input type="submit" value="등록" onclick="return validate()">
+		<input type="button" value="취소" onclick="location.href='/attraction/attractionList'">		
 	</td>
 </tr>
 
 
 </table>
 </form>
+</div>
+</div>
+
 <script>
 
-$('#summernote').summernote({
+$('#summernote').summernote({	
 	height: 300,                 // 에디터 높이
 	minHeight: null,             // 최소 높이
 	maxHeight: null,             // 최대 높이
