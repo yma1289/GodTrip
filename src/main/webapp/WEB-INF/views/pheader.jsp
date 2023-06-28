@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>partner page</title>
+<title>GODTRIP : 파트너페이지</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -126,14 +126,23 @@ footer {
                     </c:choose>
 
                     <c:choose>
-                        <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level )}">
-                            <a href="/member/memberlogin" class="w3-bar-item w3-button w3-mobile"><h6>로그인</h6></a>
-                            <a href="/partner/partnerlogin" class="w3-bar-item w3-button w3-mobile"><h6>파트너로그인</h6></a>
-                        </c:when>
-                        <c:otherwise>
-                            <a href="/partner/partnerlogout.do" class="w3-bar-item w3-button w3-mobile"><h6>로그아웃</h6></a>
-                        </c:otherwise>
-                    </c:choose>
+		          	  <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level)}">
+		            	<li class="nav-item dropdown nav-item">
+		              	<li class="nav-item dropdown"><a
+		                    class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+		                    role="button" data-toggle="dropdown">로그인</a>
+		                      
+		                  <div class="dropdown-menu dropdown-menu-right">
+		                    <a class="dropdown-item" href="/member/memberlogin">회원로그인</a>                        
+		                    <a class="dropdown-item" href="/partner/partnerlogin">파트너로그인</a>	                        
+		                  </div>  
+		          	  </c:when>
+		          	  <c:otherwise>
+		            	<li class="nav-item" style="white-space: nowrap;">
+	                  	  <a href="/partner/partnerlogout.do" class="nav-link">로그아웃</a>
+	                	</li>
+		          	  </c:otherwise>
+		        	</c:choose>
                 </ul>
             </div>
         </div>

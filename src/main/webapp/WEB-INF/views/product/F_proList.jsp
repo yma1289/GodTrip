@@ -13,9 +13,15 @@
 		padding-top: 10px;
 		padding-right: 20px;
 	}
+	
+	.wrap {
+		  width: 100%;
+		  height: 80vh;
+		  display: flex;
+		  background: rgba(0, 0, 0, 0);	
 </style>
 
-
+<div class="wrap">
 <div class="col-sm-12">
 	<div class="container" style="padding-top: 30px">
 	 <br>
@@ -188,6 +194,7 @@
 	  </tbody> 	
 	 </table>	 	
 	</div>		
+</div>
 </div>
 
 <script>

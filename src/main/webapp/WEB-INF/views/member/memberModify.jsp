@@ -8,7 +8,7 @@
         <c:if test="${not empty updateMessage}">
             window.onload = function() {
                 alert('${updateMessage}');
-                location.href = '/member/memberlogin';
+                location.href = '/member/memberpage';
             }
         </c:if>
     </script>
@@ -89,7 +89,7 @@
 <tr>
 <td colspan="2">
 <input type="submit" value="회원정보 수정완료" class="btn btn-primary">
-<input type="button" value="취소" class="btn btn-light" onclick="location.href='/member/memberlogin'">
+<input type="button" value="취소" class="btn btn-light" onclick="location.href='/member/memberpage'">
 </td>
 </tr>
 </table>
