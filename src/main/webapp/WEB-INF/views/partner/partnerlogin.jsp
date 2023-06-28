@@ -22,18 +22,18 @@ li {
 
 .wrap {
   width: 100%;
-  height: 100vh;
+  height: 80vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0);
 }
 
 .login {
-  width: 30%;
-  height: 600px;
+  width: 80vh;
+  height: 80vh;
   background: white;
-  border-radius: 20px;
+  border-radius: 0px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,7 +151,7 @@ h2 {
 
 <div class="wrap">
         <div class="login">
-            <h2>*판매자 로그인*</h2>
+            <h2><strong>파트너 로그인</strong></h2>
             <div class="login_id">
                 <form action="partnerlogin.do" method="post" id="partnerloginfrm" name="partnerloginfrm" onsubmit="return partnerloginCheck()"> 
                 <h4>ID</h4>

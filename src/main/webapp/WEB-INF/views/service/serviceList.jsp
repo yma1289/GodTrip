@@ -47,8 +47,17 @@
     text-decoration: none;
 }
 
-</style>
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
 
+</style> 
+
+
+<div class="wrap">
 <div class="container mt-5">
     <h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">고객센터</h3>
     <table class="table table-hover table-responsive-md">
@@ -126,6 +135,7 @@
             </c:otherwise>
         </c:choose>
     </c:if>
+</div>
 </div>
 </div>
 

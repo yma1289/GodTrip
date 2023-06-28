@@ -2,10 +2,20 @@
 pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
- <div class="container">
- 
-<h1>나의여행기</h1>
+<style>
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
 
+
+<div class="wrap">
+<div class="container mt-5">
+
+<h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">나의 여행기</h3> 
 
 <div class="w3-row-padding w3-margin-top">
 <div class="w3-third">
@@ -13,7 +23,7 @@ pageEncoding="UTF-8"%>
 <a href='/review/reviewdetail?reviewno=5'><img src="/summernote_image/d4ba6169-1aaf-406a-a785-3ec84fd3e8da.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5>강릉 아르떼 뮤지엄 1박 2일</h5>
+<h5><strong>강릉 아르떼 뮤지엄 1박 2일</strong></h5>
 </div>
 </div>
 </div>
@@ -23,7 +33,7 @@ pageEncoding="UTF-8"%>
 <a href='/review/reviewdetail?reviewno=6'><img src="/summernote_image/841cb39a-caf4-43e8-944d-81c0d9fd39fe.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5>경주 여행기</h5>
+<h5><strong>경주 여행기</strong></h5>
 </div>
 </div>
 </div>
@@ -33,7 +43,7 @@ pageEncoding="UTF-8"%>
 <a href='/review/reviewdetail?reviewno=7'><img src="/summernote_image/a6aca6d9-c968-4e64-9aad-e35e207c0b27.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5>홍천&춘천 여행을 위한 애견 동반 리조트</h5>
+<h5><strong>홍천&춘천 여행을 위한 애견 동반 리조트</strong></h5>
 </div>
 </div>
 </div>
@@ -76,6 +86,7 @@ pageEncoding="UTF-8"%>
 						<option value="content">내용</option>
 						<option value="id">작성자</option>
 					</select>
+					&nbsp;&nbsp;
 					
 					<input type="text" name="word" id="word" placeholder="검색어를 입력해주세요" style="width:300px;height:40px;font-size:15px;">
 					<button type="submit" class="btn btn-primary btn-lg">검색</button>
@@ -143,4 +154,5 @@ pageEncoding="UTF-8"%>
 					</div> 
 				</c:if>	
     </div>
+</div>
 <%@ include file="../footer.jsp" %>

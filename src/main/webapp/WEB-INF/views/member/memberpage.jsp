@@ -2,6 +2,18 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
+<style>
+
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+
+</style>
+
+<div class="wrap">
 <!-- 본문시작 -->
 
 <c:choose>
@@ -15,7 +27,7 @@
 				<table class="table custom-table">
 					
 					<tr align="center">
-						<td style="padding-top: 40px; padding-bottom: 20px; padding-left: 10px;">
+						<td style="padding-top: 150px; padding-bottom: 20px; padding-left: 10px;">
 							<img src="/images/loggedin.png" alt="userPhoto" width="150vh">							
 						</td>						
 					</tr>
@@ -49,22 +61,16 @@
 <!-- 좌측 끝 -->			
 
 <!-- 우측 시작 -->
-			<div class="col-12 col-md-8 col-lg-9"  style="padding-bottom: 80px;">
+			<div class="col-12 col-md-8 col-lg-9"  style="padding-bottom: 40px;">
 				<table class="table custom-table" style="display: table; table-layout: fixed;" >
 					<tr align="center">
 						<td colspan="5" class="text-center lib-text" style="padding-top: 40px">
-							<h2><strong>마이페이지</strong></h2>					
+							<h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">최근 예약내역</h3>					
 						</td>
-					</tr>
-					<tr></tr>
-					<tr>
-						<td colspan="5" class="text-center lib-text" style="padding: 20px">
-							<h4>최근 예약내역</h4>
-						</td>
-					</tr>									
+					</tr>											
 				</table>
 				<div class="container">
-					<table align="center" class="table table-bordered">
+					<table class="table table-bordered">
 						<tr>
 							<th>예약일</th>
 							<th>예약번호</th>
@@ -87,4 +93,6 @@
 	</c:when>
 </c:choose>
 <!-- 본문끝 -->
+
+</div>
 <%@ include file="../footer.jsp" %>
