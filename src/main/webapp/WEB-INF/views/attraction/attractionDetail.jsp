@@ -1,15 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <%@ include file="../header.jsp" %>
 <!-- 본문시작 -->
+
+<style>
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
+
+
 <div class="col-sm-12">
-	<div class="container">
-	<br>
-	<h3>관광지소개상세보기</h3>
-<br>
+<div class="wrap">
+<div class="container mt-5">
+
+<div class="container" style="padding-top: 50px;">
 <table class="table table-condensed">
 <tr>
-<td>지역</td>
+<th>지역</th>
     <td>
 		<c:choose>
 			<c:when test="${attraction.area_code=='G0001'}">
@@ -38,35 +48,32 @@
 			</c:when>
 			<c:when test="${attraction.area_code=='G0009'}">
 				대전
-			</c:when>
+			</c:when>			
 			<c:when test="${attraction.area_code=='G0010'}">
-				남원
-			</c:when>
-			<c:when test="${attraction.area_code=='G0011'}">
 				군산
 			</c:when>
-			<c:when test="${attraction.area_code=='G0012'}">
+			<c:when test="${attraction.area_code=='G0011'}">
 				영월
 			</c:when>
-			<c:when test="${attraction.area_code=='G0013'}">
+			<c:when test="${attraction.area_code=='G0012'}">
 				부산
 			</c:when>
-			<c:when test="${attraction.area_code=='G0014'}">
+			<c:when test="${attraction.area_code=='G0013'}">
 				경주
 			</c:when>
-			<c:when test="${attraction.area_code=='G0015'}">
+			<c:when test="${attraction.area_code=='G0014'}">
 				포항
 			</c:when>
-			<c:when test="${attraction.area_code=='G0016'}">
+			<c:when test="${attraction.area_code=='G0015'}">
 				통영거제
 			</c:when>
-			<c:when test="${attraction.area_code=='G0017'}">
+			<c:when test="${attraction.area_code=='G0016'}">
 				목포
 			</c:when>
-			<c:when test="${attraction.area_code=='G0018'}">
+			<c:when test="${attraction.area_code=='G0017'}">
 				여수
 			</c:when>
-			<c:when test="${attraction.area_code=='G0019'}">
+			<c:when test="${attraction.area_code=='G0018'}">
 				전주
 			</c:when>
 			<c:otherwise>
@@ -76,11 +83,11 @@
 	</td>
 	</tr>			
     <tr>
-        <td>관광지명</td>
+        <th>관광지명</th>
         <td>${attraction.tour_name}</td>
     </tr>
     <tr>
-        <td>키워드</td>
+        <th>키워드</th>
 			<td>
 			<c:choose>
 				<c:when test="${attraction.keyword==1}">
@@ -109,57 +116,26 @@
 		</td>
 	</tr>
     <tr>
-        <td>내용</td>
+        <th>내용</th>
         <td>${attraction.content}</td>
     </tr>
  
     </table>
     
- <!--   
-<a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}"role="button" class="btn btn-outline-info">수정</a>
-<a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
--->
-<!-- 
-<div class="container">
-    <p>
-        <c:if test="${not empty p_id}">
-            <a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info">수정</a>
-            <a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
-        </c:if>
-        <c:if test="${empty p_id}">
-            <button type="button" class="btn btn-outline-info" onclick="alert('판매자만 수정 및 삭제할 수 있습니다.'); location.href='/partner/partnerlogin'">수정</button>
-            <button type="button" class="btn btn-outline-info" onclick="alert('판매자만 수정 및 삭제할 수 있습니다.'); location.href='/partner/partnerlogin'">삭제</button>
-        </c:if>
-    </p>
-</div>
--->
 
-
-<!-- 판매자만 수정/등록버튼 보임
-<c:if test="${not empty p_id}">
-    <a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info">수정</a>
-    <a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
-</c:if>
-
--->
-
-<!-- 
-<c:if test="${not empty s_id and s_level == 'A1'}">
-   <!--  <a href="/attraction/attractionUpdate?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info">수정</a>
-    <a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
-</c:if>
- -->
 
 
 <c:if test="${not empty s_id and s_mlevel == 'A1'}">
     <a href="/attraction/attractionDelete?tour_code=${attraction.tour_code}" role="button" class="btn btn-outline-info" onclick="return confirmDelete()">삭제</a>
 </c:if>
+</div>
+
 
 
 
 <script>
 function confirmDelete() {
-    return confirm(" 영구히 삭제됩니다. 삭제하겠습니까?");
+    return confirm("영구히 삭제됩니다. 삭제하겠습니까?");
 }
 </script>
 	
@@ -398,7 +374,8 @@ function commentList() {
 		
 	</script>
 
-
+</div>
+</div>
 </div><!-- col-sm-12 끝 -->
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

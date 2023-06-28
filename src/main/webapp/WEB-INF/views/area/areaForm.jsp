@@ -95,7 +95,7 @@ footer {
 </div> 
   </div>
 
-  <div class="col-md-3 bg-light text-dark" style="height: 80vh;">
+  <div class="col-md-3 bg-light text-dark" style="height: 100%;">
     <h5 class="mt-3" style="margin-top: 20px;">내가 만드는 여행 패키지</h5>
     <p>어떤 지역으로 여행하고 싶으신가요?</p>
     <p id="selectedArea"><i class="fa fa-arrow-right"></i> </p>
