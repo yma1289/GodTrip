@@ -297,7 +297,7 @@
 		<td>${transpro.Price}</td>
 		<td>${transpro.seat}</td>
 		<td>
-			<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&arrival_code=${arrival_code}'">
+			<input type="button" class="btn btn-warning" value="선택" onclick="location.href='transRsvInsert?transpro_code=${transpro.transpro_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&arrival_code=${arrival_code}&Price=${transpro.Price}'">
 			<!--<input type="button" class="btn btn-warning" value="선택" onclick="transSelect('${transpro.transpro_code}','${departure_Date}','${arrival_code}','${arrival_Date}')">-->
 		</td>
 		<td>
