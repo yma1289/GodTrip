@@ -218,6 +218,9 @@ public class TransCont {
 		//session.getAttribute() 메소드는 Object타입을 반환하기 때문에 (String) 추가
 		System.out.println(id);
 		
+		String price = req.getParameter("Price");
+		System.out.println(price);
+		
 		//랜덤으로 좌석번호 지정하기
 		final int LETTER_RANGE = 26; //알파벳 갯수
 		final int DIGIT_RANGE = 10;  //숫자의 범위 
@@ -230,7 +233,7 @@ public class TransCont {
 			
 		dto.setTranspro_code(transpro_code);
 		dto.setId(id);
-		dto.setTransrs_seatno(transrs_seatno);
+		dto.setTransrs_seatno(transrs_seatno);		
 				
 		//교통 장바구니에 상품이 담기면 좌석수를 -1 하기
 		int cnt = transDao.transRsvInsert(dto);
