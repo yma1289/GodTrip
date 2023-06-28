@@ -3,12 +3,23 @@
 <%@ include file="../header.jsp" %>
 
 <!-- 본문시작 -->
+<style>
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
+
+
 <link rel="stylesheet" href="/css/style.css">
-<div class="col-sm-12">
+
+<div class="wrap">
+<div class="container mt-5">
 	<div class="container">
-	
-	<br>
-	  <h3>관광지소개</h3>
+		
+	<h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">관광지소개</h3>
 	  
 	<br>
 	<!-- 검색창 : 검색부분 action이 serch로 따로 빼주는게 아니라, 검색된 결과에 따라 페이징도 달라지기 때문에 action이 acttractionList 하나로 묶여야 한다. -->	
@@ -72,35 +83,32 @@
 						</c:when>
 						<c:when test="${attraction.area_code=='G0009'}">
 							대전
-						</c:when>
+						</c:when>						
 						<c:when test="${attraction.area_code=='G0010'}">
-							남원
-						</c:when>
-						<c:when test="${attraction.area_code=='G0011'}">
 							군산
 						</c:when>
-						<c:when test="${attraction.area_code=='G0012'}">
+						<c:when test="${attraction.area_code=='G0011'}">
 							영월
 						</c:when>
-						<c:when test="${attraction.area_code=='G0013'}">
+						<c:when test="${attraction.area_code=='G0012'}">
 							부산
 						</c:when>
-						<c:when test="${attraction.area_code=='G0014'}">
+						<c:when test="${attraction.area_code=='G0013'}">
 							경주
 						</c:when>
-						<c:when test="${attraction.area_code=='G0015'}">
+						<c:when test="${attraction.area_code=='G0014'}">
 							포항
 						</c:when>
-						<c:when test="${attraction.area_code=='G0016'}">
+						<c:when test="${attraction.area_code=='G0015'}">
 							통영거제
 						</c:when>
-						<c:when test="${attraction.area_code=='G0017'}">
+						<c:when test="${attraction.area_code=='G0016'}">
 							목포
 						</c:when>
-						<c:when test="${attraction.area_code=='G0018'}">
+						<c:when test="${attraction.area_code=='G0017'}">
 							여수
 						</c:when>
-						<c:when test="${attraction.area_code=='G0019'}">
+						<c:when test="${attraction.area_code=='G0018'}">
 							전주
 						</c:when>
 						<c:otherwise>
@@ -161,6 +169,7 @@
 	</p>
 </div>
 -->
+<!-- 판매자한테만 등록버튼 보임 
 <div class="container">
     <p>
         <c:if test="${not empty p_id}">
@@ -168,6 +177,18 @@
         </c:if>
         <c:if test="${empty p_id}">
             <button type="button" class="btn btn-outline-info" onclick="alert('판매자만 등록할 수 있습니다.'); location.href='/partner/partnerlogin'">등록</button>
+        </c:if>
+    </p>
+-->
+
+<!-- mlevel이 A1인사람만 등록버튼보임 -->
+<div class="container">
+    <p>
+        <c:if test="${not empty s_id and s_mlevel == 'A1'}">
+            <button type="button" class="btn btn-outline-info" onclick="location.href='attractionForm'">등록</button>
+        </c:if>
+        <c:if test="${empty s_id or s_mlevel != 'A1'}">
+            <button type="button" class="btn btn-outline-info" style="display: none">등록</button>
         </c:if>
     </p>
 </div>
@@ -215,5 +236,6 @@
 	
 	
 </div><!-- col-sm-12 끝 -->
+</div>
 <!-- 본문끝 -->
 <%@ include file="../footer.jsp" %>

@@ -69,10 +69,7 @@ public class AttractionDAO {
     
     
     
-    public String filename(String tour_code) {
-        return sqlSession.selectOne("attraction.filename", tour_code);
-    }//filename() end
-    
+   
     
    	
     //검색
@@ -81,13 +78,14 @@ public class AttractionDAO {
     }//search() end 
 	
 	
-
+/*
   
 	//수정update dto사용
     public void attractionUpdate(AttractionDTO attractionDTO) {
         sqlSession.update("attraction.attractionUpdate", attractionDTO);
     }//update() end
- 
+ */
+    
     /*
 	
 	//수정
@@ -104,7 +102,9 @@ public class AttractionDAO {
     	sqlSession.update("attraction.viewcount",tour_code);	   
     }
     
-    
+    public String contentname(String tour_code) {
+    	return sqlSession.selectOne("attraction.contentname",tour_code);
+    }
     
     
     

@@ -42,7 +42,6 @@
 		<th style="text-align: center">출발지</th>
 		<td>
 			<select name="departure_code" id="departure_code">
-				<option value="0">선택</option>
 				<option value="G0001">제주</option>
 				<option value="G0002">서울</option>
 				<option value="G0003">인천</option>
@@ -52,16 +51,15 @@
 				<option value="G0007">춘천</option>
 				<option value="G0008">제천</option>
 				<option value="G0009">대전</option>
-				<option value="G0010">남원</option>
-				<option value="G0011">군산</option>
-				<option value="G0012">영월</option>
-				<option value="G0013">부산</option>
-				<option value="G0014">경주</option>
-				<option value="G0015">포항</option>
-				<option value="G0016">통영거제</option>
-				<option value="G0017">목포</option>
-				<option value="G0018">여수</option>
-				<option value="G0019">전주</option>
+				<option value="G0010">군산</option>
+				<option value="G0011">영월</option>
+				<option value="G0012">부산</option>
+				<option value="G0013">경주</option>
+				<option value="G0014">포항</option>
+				<option value="G0015">통영거제</option>
+				<option value="G0016">목포</option>
+				<option value="G0017">여수</option>
+				<option value="G0018">전주</option>
 			</select>
 		</td>
 		<th style="text-align: center">도착지</th>		
@@ -95,33 +93,30 @@
 					대전
 				</c:when>
 				<c:when test="${arrival_code == 'G0010'}">
-					남원
-				</c:when>
-				<c:when test="${arrival_code == 'G0011'}">
 					군산
 				</c:when>
-				<c:when test="${arrival_code == 'G0012'}">
+				<c:when test="${arrival_code == 'G0011'}">
 					영월
 				</c:when>
-				<c:when test="${arrival_code == 'G0013'}">
+				<c:when test="${arrival_code == 'G0012'}">
 					부산
 				</c:when>
-				<c:when test="${arrival_code == 'G0014'}">
+				<c:when test="${arrival_code == 'G0013'}">
 					경주
 				</c:when>
-				<c:when test="${arrival_code == 'G0015'}">
+				<c:when test="${arrival_code == 'G0014'}">
 					포항
 				</c:when>
-				<c:when test="${arrival_code == 'G0016'}">
+				<c:when test="${arrival_code == 'G0015'}">
 					통영거제
 				</c:when>
-				<c:when test="${arrival_code == 'G0017'}">
+				<c:when test="${arrival_code == 'G0016'}">
 					목포
 				</c:when>
-				<c:when test="${arrival_code == 'G0018'}">
+				<c:when test="${arrival_code == 'G0017'}">
 					여수
 				</c:when>
-				<c:when test="${arrival_code == 'G0019'}">
+				<c:when test="${arrival_code == 'G0018'}">
 					전주
 				</c:when>
 				<c:otherwise>
@@ -192,35 +187,32 @@
 				</c:when>
 				<c:when test="${transpro.departure_code == 'G0009'}">
 					대전
-				</c:when>
+				</c:when>				
 				<c:when test="${transpro.departure_code == 'G0010'}">
-					남원
-				</c:when>
-				<c:when test="${transpro.departure_code == 'G0011'}">
 					군산
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0012'}">
+				<c:when test="${transpro.departure_code == 'G0011'}">
 					영월
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0013'}">
+				<c:when test="${transpro.departure_code == 'G0012'}">
 					부산
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0014'}">
+				<c:when test="${transpro.departure_code == 'G0013'}">
 					경주
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0015'}">
+				<c:when test="${transpro.departure_code == 'G0014'}">
 					포항
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0016'}">
+				<c:when test="${transpro.departure_code == 'G0015'}">
 					통영거제
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0017'}">
+				<c:when test="${transpro.departure_code == 'G0016'}">
 					목포
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0018'}">
+				<c:when test="${transpro.departure_code == 'G0017'}">
 					여수
 				</c:when>
-				<c:when test="${transpro.departure_code == 'G0019'}">
+				<c:when test="${transpro.departure_code == 'G0018'}">
 					전주
 				</c:when>
 				<c:otherwise>
@@ -256,35 +248,32 @@
 				</c:when>
 				<c:when test="${transpro.arrival_code == 'G0009'}">
 					대전
-				</c:when>
+				</c:when>				
 				<c:when test="${transpro.arrival_code == 'G0010'}">
-					남원
-				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0011'}">
 					군산
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0012'}">
+				<c:when test="${transpro.arrival_code == 'G0011'}">
 					영월
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0013'}">
+				<c:when test="${transpro.arrival_code == 'G0012'}">
 					부산
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0014'}">
+				<c:when test="${transpro.arrival_code == 'G0013'}">
 					경주
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0015'}">
+				<c:when test="${transpro.arrival_code == 'G0014'}">
 					포항
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0016'}">
+				<c:when test="${transpro.arrival_code == 'G0015'}">
 					통영거제
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0017'}">
+				<c:when test="${transpro.arrival_code == 'G0016'}">
 					목포
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0018'}">
+				<c:when test="${transpro.arrival_code == 'G0017'}">
 					여수
 				</c:when>
-				<c:when test="${transpro.arrival_code == 'G0019'}">
+				<c:when test="${transpro.arrival_code == 'G0018'}">
 					전주
 				</c:when>
 				<c:otherwise>

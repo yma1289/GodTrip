@@ -65,7 +65,7 @@ public class MemberCont {
 			String mlevel = dto.getMlevel();
 
 			if (!(mlevel.equals("F1"))) {
-				ModelAndView mav = new ModelAndView("redirect:/member/memberpage");
+				ModelAndView mav = new ModelAndView("redirect:/home");
 				// 로그인 성공시 이동 페이지
 				// 로그인 성공한 경우 세션 부여하기
 

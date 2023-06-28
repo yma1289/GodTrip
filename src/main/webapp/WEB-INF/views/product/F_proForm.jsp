@@ -3,6 +3,17 @@
 <%@ include file="../pheader.jsp" %>
 <!-- 본문시작 -->
 
+<style>
+.wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
+
+
+<div class="wrap">
 <div class="container" style="padding-top: 30px">
 	<br>
 	<h3><strong>항공 상품등록</strong></h3>
@@ -36,16 +47,15 @@
 					<option value="G0007">춘천</option>
 					<option value="G0008">제천</option>
 					<option value="G0009">대전</option>
-					<option value="G0010">남원</option>
-					<option value="G0011">군산</option>
-					<option value="G0012">영월</option>
-					<option value="G0013">부산</option>
-					<option value="G0014">경주</option>
-					<option value="G0015">포항</option>
-					<option value="G0016">통영거제</option>
-					<option value="G0017">목포</option>
-					<option value="G0018">여수</option>
-					<option value="G0019">전주</option>			
+					<option value="G0010">군산</option>
+					<option value="G0011">영월</option>
+					<option value="G0012">부산</option>
+					<option value="G0013">경주</option>
+					<option value="G0014">포항</option>
+					<option value="G0015">통영거제</option>
+					<option value="G0016">목포</option>
+					<option value="G0017">여수</option>
+					<option value="G0018">전주</option>			
 				</select>
 			</td>
 		  </tr>
@@ -62,16 +72,15 @@
 					<option value="G0007">춘천</option>
 					<option value="G0008">제천</option>
 					<option value="G0009">대전</option>
-					<option value="G0010">남원</option>
-					<option value="G0011">군산</option>
-					<option value="G0012">영월</option>
-					<option value="G0013">부산</option>
-					<option value="G0014">경주</option>
-					<option value="G0015">포항</option>
-					<option value="G0016">통영거제</option>
-					<option value="G0017">목포</option>
-					<option value="G0018">여수</option>
-					<option value="G0019">전주</option>			
+					<option value="G0010">군산</option>
+					<option value="G0011">영월</option>
+					<option value="G0012">부산</option>
+					<option value="G0013">경주</option>
+					<option value="G0014">포항</option>
+					<option value="G0015">통영거제</option>
+					<option value="G0016">목포</option>
+					<option value="G0017">여수</option>
+					<option value="G0018">전주</option>			
 				</select>
 			</td>
 		  </tr>
@@ -98,6 +107,7 @@
 		  </tr>		  		
 		</table>
 	</form>	
+</div>
 </div>
 
 <!-- 본문끝 -->

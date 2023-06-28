@@ -6,8 +6,8 @@
 
 	
 	<insert id="attractioninsert" parameterType="java.util.Map">
-	    INSERT INTO attraction (tour_code,area_code, tour_name, keyword, content, filename, filesize)
-	    VALUES (#{tour_code},#{area_code}, #{tour_name}, #{keyword}, #{content}, #{filename}, #{filesize})
+	    INSERT INTO attraction (tour_code,area_code, tour_name, keyword, content)
+	    VALUES (#{tour_code},#{area_code}, #{tour_name}, #{keyword}, #{content})
 	</insert>
 	
 
@@ -65,11 +65,7 @@
 	</delete>
 	
 	
-	<select id="filename" resultType="String" parameterType="String">
-		select filename
-		from attraction
-		where tour_code = #{tour_code}
-	</select>
+	
 	
 	<select id="search" resultType="java.util.Map" parameterType="String">
 		select *
@@ -92,6 +88,11 @@
         WHERE tour_code=#{tour_code}
     </update>
  
+ <select id="contentname" resultType="String">
+ select content
+ from attraction
+ where tour_code=#{tour_code}
+ </select>
 	 
 		<!--  
 	<update id="attractionUpdate" parameterType="java.util.Map">

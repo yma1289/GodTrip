@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>intro</title>
+<title>GODTRIP : 갓지은여행</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -30,12 +30,22 @@ body, html {
   line-height: 1.8;
 }
 
-.w3-bar .w3-button {
-  padding: 16px;
+.Linkbutton {
+	border-radius: 5px;
+	background: white;	
+	border-style: hidden;
+	width: 300px;
+	height: 50px;
+	opacity: 0.7;	
+}
+
+.Linkbutton:hover {
+	background-color: white;
+	opacity: 1.0;
 }
 
 .navbar {
-  background-color: #f8f9fa;
+  background-color: white;
   height: auto;
 }
 
@@ -65,7 +75,7 @@ h3 {
 }
 
 footer {
-   background-color: #f8f9fa;
+   background-color: white;
 }
 .img-fluid:hover {
     transform: scale(1.1);
@@ -100,9 +110,18 @@ footer {
 		</button>
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item" style="white-space: nowrap;">
-					<a class="nav-link" href="../area/areaForm">내·만·패</a>
-	        	</li>
+				
+			    <li class="nav-item" style="white-space: nowrap;">
+			    <c:choose>
+			      <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
+       				<a class="nav-link" href="../area/areaForm">내·만·패</a>
+	              </c:when>	          
+	              <c:otherwise>
+	          	    <a class="nav-link" href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">내·만·패</a>
+	              </c:otherwise>		            
+                </c:choose>
+                </li>				
+				
 	        	<li class="nav-item" style="white-space: nowrap;">
 	          		<a class="nav-link" href="../attraction/attractionList">관광지소개</a>
 	        	</li>
@@ -114,79 +133,75 @@ footer {
 	        	</li>
 	        	<li class="nav-item" style="white-space: nowrap;">
 	        	<c:choose>
-	            <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1' )}">
-	              <a class="nav-link" href="/member/memberpage">마이페이지</a>
-	            </c:when>
-	            <c:when test="${!(empty p_id || empty p_passwd ||  empty p_level )}">
-	              <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
-	            </c:when>
-	            <c:otherwise>
-	              <a class="nav-link" href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">마이페이지</a>
-	            </c:otherwise>
-	          </c:choose>
-	                </li>
+	              <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1' )}">
+	                <a class="nav-link" href="/member/memberpage">마이페이지</a>
+	              </c:when>
+	              <c:when test="${!(empty p_id || empty p_passwd ||  empty p_level )}">
+	                <a class="nav-link" href="/partner/partnerpage">마이페이지</a>
+	              </c:when>
+	              <c:otherwise>
+	                <a class="nav-link" href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">마이페이지</a>
+	              </c:otherwise>
+	          	</c:choose>
+	            </li>
 	                
-	                <c:choose>
-	                <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level)}">
+	            <c:choose>
+	              <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level)}">
 	                <li class="nav-item dropdown nav-item">
-	                 <li class="nav-item dropdown"><a
-	                       class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-	                       role="button" data-toggle="dropdown">로그인</a>
-	                       <div class="dropdown-menu dropdown-menu-right">
-	                          
-	                                <a class="dropdown-item" href="/partner/partnerlogin">파트너로그인</a>
-	                                <a class="dropdown-item" href="/member/memberlogin">회원로그인</a>
-	                             </c:when>
-	                             <c:otherwise>
-	           
-	                                <a href="/member/logout.do" class="w3-bar-item w3-button w3-mobile"><h6>로그아웃</h6></a>
-	                             </c:otherwise>
-	                          </c:choose>
-	          		</div>
-	        	</li>
-			</ul>
-		</div>
+	                  <li class="nav-item dropdown"><a
+	                      class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+	                      role="button" data-toggle="dropdown">로그인</a>
+	                      
+	                      <div class="dropdown-menu dropdown-menu-right">
+	                        <a class="dropdown-item" href="/member/memberlogin">회원로그인</a>                        
+	                        <a class="dropdown-item" href="/partner/partnerlogin">파트너로그인</a>	                        
+	                      </div>  
+	              </c:when>
+	              <c:otherwise>
+	                <li class="nav-item" style="white-space: nowrap;">
+                      <a href="/member/logout.do" class="nav-link">로그아웃</a>
+                    </li>
+	              </c:otherwise>
+	            </c:choose>
+	    	</ul>
+		</div>		
 	</div>
 </nav>
 
+<!-- image header -->
 <header class="w3-display-container w3-content w3-hide-small" style="max-width:100%;">
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-  <ol class="carousel-indicators">
-    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-  </ol>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="../images/header2.jpg" class="d-block w-100" alt="header2" style="width:100%; max-height: 60vh;">
-    </div>
-    <div class="carousel-item">
-      <img src="../images/header3.jpg" class="d-block w-100" alt="header3" style="width:100%; max-height: 60vh;">
-    </div>
-    <div class="carousel-item">
-      <img src="../images/header6.jpg" class="d-block w-100" alt="london6" style="width:100%; max-height: 60vh;">
-    </div>
-  </div>
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
-</div>
-<div class="w3-display-middle" style="width:40%">
-  <div class="w3-display-left w3-padding w3-hide-small" style="width:100%">
-    <div class="w3-light-gray w3-opacity w3-hover-opacity-off w3-padding-large w3-round-large" style="text-align: center; max-width: 80%; margin: 0 auto;">
-      <h5 class="w3-large" id="my">나만의 여행패키지를 만들어보세요</h5>
-      <hr class="w3-opacity">
-      <p style="text-align: center;">
-        <button class="w3-button w3-block w3-Gray w3-round" id="start" onclick="location.href='../area/areaForm'" style="margin: 0 auto; display: block;">바로가기</button>
-      </p>
-    </div>
-  </div>
-</div>
+	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+	  <ol class="carousel-indicators">
+	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+	    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+	  </ol>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	    <a href="../area/areaForm">
+	      <img src="../images/배너1.png" class="d-block w-100" alt="배너1" >
+	    </a>
+	    </div>
+	    <div class="carousel-item">
+	    <a href="../area/areaForm">
+	      <img src="../images/배너2.png" class="d-block w-100" alt="배너2" >
+	    </a>  
+	    </div>
+	    <div class="carousel-item">
+	    <a href="../area/areaForm">
+	      <img src="../images/배너3.png" class="d-block w-100" alt="배너3" >
+	     </a>
+	    </div>
+	  </div>
+	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Previous</span>
+	  </a>
+	  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="sr-only">Next</span>
+	  </a>
+	</div>
 </header>
 
 

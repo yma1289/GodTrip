@@ -3,6 +3,16 @@
 <%@ include file="../pheader.jsp" %>
 <!-- 본문시작 -->
 
+<style>
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
+
+<div class="wrap">
 <div class="container" style="padding-top: 30px">
 	<br>
 	<h3><strong>기차정보 등록</strong></h3>
@@ -40,6 +50,7 @@
 		  </tr>		  		
 		</table>
 	</form>	
+</div>
 </div>
 
 <!-- 본문끝 -->

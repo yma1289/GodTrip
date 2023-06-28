@@ -47,4 +47,8 @@ public class ReviewDAO {
 		 return sqlSession.selectOne("review.totalRowCount2");
 	 }
 	 
+	 public String contentname(String reviewno) {
+	    	return sqlSession.selectOne("review.contentname",reviewno);
+	    }
+	 
 }

@@ -24,17 +24,16 @@
 	                    <option value="G0006" ${attraction.area_code == 'G0006' ? 'selected' : ''}>강릉</option>
 	                    <option value="G0007" ${attraction.area_code == 'G0007' ? 'selected' : ''}>춘천</option>
 	                    <option value="G0008" ${attraction.area_code == 'G0008' ? 'selected' : ''}>제천</option>
-	                    <option value="G0009" ${attraction.area_code == 'G0009' ? 'selected' : ''}>대전</option>
-	                    <option value="G0010" ${attraction.area_code == 'G0010' ? 'selected' : ''}>남원</option>
-	                    <option value="G0011" ${attraction.area_code == 'G0011' ? 'selected' : ''}>군산</option>
-	                    <option value="G0012" ${attraction.area_code == 'G0012' ? 'selected' : ''}>영월</option>
-	                    <option value="G0013" ${attraction.area_code == 'G0013' ? 'selected' : ''}>부산</option>
-	                    <option value="G0014" ${attraction.area_code == 'G0014' ? 'selected' : ''}>경주</option>
-	                    <option value="G0015" ${attraction.area_code == 'G0015' ? 'selected' : ''}>포항</option>
-	                    <option value="G0016" ${attraction.area_code == 'G0016' ? 'selected' : ''}>통영거제</option>
-	                    <option value="G0017" ${attraction.area_code == 'G0017' ? 'selected' : ''}>목포</option>
-	                    <option value="G0018" ${attraction.area_code == 'G0018' ? 'selected' : ''}>여수</option>
-	                    <option value="G0019" ${attraction.area_code == 'G0019' ? 'selected' : ''}>전주</option>
+	                    <option value="G0009" ${attraction.area_code == 'G0009' ? 'selected' : ''}>대전</option>	                    
+	                    <option value="G0010" ${attraction.area_code == 'G0010' ? 'selected' : ''}>군산</option>
+	                    <option value="G0011" ${attraction.area_code == 'G0011' ? 'selected' : ''}>영월</option>
+	                    <option value="G0012" ${attraction.area_code == 'G0012' ? 'selected' : ''}>부산</option>
+	                    <option value="G0013" ${attraction.area_code == 'G0013' ? 'selected' : ''}>경주</option>
+	                    <option value="G0014" ${attraction.area_code == 'G0014' ? 'selected' : ''}>포항</option>
+	                    <option value="G0015" ${attraction.area_code == 'G0015' ? 'selected' : ''}>통영거제</option>
+	                    <option value="G0016" ${attraction.area_code == 'G0016' ? 'selected' : ''}>목포</option>
+	                    <option value="G0017" ${attraction.area_code == 'G0017' ? 'selected' : ''}>여수</option>
+	                    <option value="G0018" ${attraction.area_code == 'G0018' ? 'selected' : ''}>전주</option>
 			</select>
 	</tr>
 	<tr>
