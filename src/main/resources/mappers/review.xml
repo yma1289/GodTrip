@@ -49,6 +49,11 @@
 	        SELECT COUNT(*) FROM review 
 	    </select>
 	    
+	    <select id="contentname" resultType="String">
+ 		select content
+ 		from review
+ 		where reviewno=#{reviewno}
+ 		</select>	
 	    
 	    
 	    

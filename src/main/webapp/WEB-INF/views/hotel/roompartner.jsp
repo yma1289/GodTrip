@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ include file="../pheader.jsp" %>
+<style>
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
+}
+</style>
+<div class="wrap">
 <div class="col-sm-12">
       <div style="text-align: center; padding-top: 30px; margin-top: 10px;">
         <h4>객실상품 판매현황</h4>
@@ -37,7 +46,8 @@ pageEncoding="UTF-8"%>
 			<td>${roompartner.room_maxperson}</td>
 			<td>${roompartner.room_state}</td>
 			<td>															
-				<input type="button" class="btn btn-danger" value="삭제하기" onclick="location.href='/partner/roomdelete?room_code=${roompartner.room_code}'">			
+				<!--  <input type="button" class="btn btn-danger" value="삭제하기" onclick="location.href='/partner/roomdelete?room_code=${roompartner.room_code}'">	-->		
+			<input type="button" class="btn btn-danger" value="삭제하기" onclick="roomDelete('${roompartner.room_code}')">			
 			</td>
 		  </tr>
 		</c:forEach>			
@@ -46,10 +56,11 @@ pageEncoding="UTF-8"%>
 		</div>
 	</div>                        
  </div>
-<script>
+ </div>
+<script type="text/javascript">
 function roomDelete(room_code) {
-    if (confirm("정말로 삭제 하시겠습니까?) {
-      location.href = 'partner/roomdelete?room_code=' + room_code;
+    if (confirm("정말로 삭제 하시겠습니까?")) {
+      location.href = '/partner/roomdelete?room_code=' + room_code;
     }
   }
 </script>
