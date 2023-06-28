@@ -88,7 +88,7 @@ public class CommentCont {
 	    }//mCommentServiceList() end
 	    
 	    
-	   
+	   /*이거최종
 	    @RequestMapping("/delete/{commentno}")
 	    @ResponseBody
 	    public int mCommentServiceDelete(@PathVariable int commentno) throws Exception {
@@ -107,7 +107,34 @@ public class CommentCont {
 	    }//update() end
 	    
 	    
-	
+	*/
+	    
+	    @RequestMapping("/delete/{commentno}")
+	    @ResponseBody
+	    public int mCommentServiceDelete(@PathVariable int commentno,HttpSession session,CommentDTO comment) throws Exception {
+	    	
+	    	String id=(String)session.getAttribute("s_id"); //세션에서 id속성 가져오기	
+	    	 comment.setId(id);  
+	    	return commentDao.commentDelete(commentno);
+	    }//mCommentServiceDelete() end
+	    
+	    
+	    
+	    @RequestMapping("/update")
+	    @ResponseBody
+	    private int mCommentServiceUpdateProc(@RequestParam int commentno, @RequestParam String content,HttpSession session) throws Exception {
+	       
+	    	
+	    	String id=(String)session.getAttribute("s_id"); //세션에서 id속성 가져오기	
+	    	 
+	    	CommentDTO comment=new CommentDTO();
+	        comment.setCommentno(commentno);
+	        comment.setContent(content);
+	        comment.setId(id); 
+	        return commentDao.commentUpdate(comment);
+	    }//update() end
+	    
+	    
 	 
 	 
 	 

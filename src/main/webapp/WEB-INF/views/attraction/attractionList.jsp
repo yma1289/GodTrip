@@ -161,6 +161,7 @@
 	</p>
 </div>
 -->
+<!-- 
 <div class="container">
     <p>
         <c:if test="${not empty p_id}">
@@ -172,13 +173,37 @@
     </p>
 </div>
 
+ -->
+
+<!-- 판매자한테만 등록버튼 보임 
+<p>
+    <c:if test="${not empty p_id}">
+        <button type="button" class="btn btn-outline-info" onclick="location.href='attractionForm'">등록</button>
+    </c:if>
+    <c:if test="${empty p_id}">
+        <button type="button" class="btn btn-outline-info" style="display: none">등록</button>
+    </c:if>
+</p>
+-->
+
+<!-- mlevel이 A1인사람만 등록버튼보임 -->
+<div class="container">
+    <p>
+        <c:if test="${not empty s_id and s_mlevel == 'A1'}">
+            <button type="button" class="btn btn-outline-info" onclick="location.href='attractionForm'">등록</button>
+        </c:if>
+        <c:if test="${empty s_id or s_mlevel != 'A1'}">
+            <button type="button" class="btn btn-outline-info" style="display: none">등록</button>
+        </c:if>
+    </p>
+</div>
 
 
 
 
 
 
-	
+
 	
 	 <!-- 패이징 리스트 -->
 			   <c:if test="${requestScope.count>0 }">
