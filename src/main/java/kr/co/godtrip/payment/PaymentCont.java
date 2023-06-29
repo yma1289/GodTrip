@@ -148,6 +148,8 @@ public class PaymentCont {
 	            paymentDTO.setDepartureDate(departureDate);
 	            paymentDTO.setArrivalDate(arrivalDate);
 	           
+	            paymentDao.roomDelete(id);
+			    paymentDao.transDelete(id);
 	            
 	            System.out.println(paymentDTO);
 	            
