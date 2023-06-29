@@ -12,12 +12,12 @@ public PaymentDTO() {}
         private String id;
         private int amount;  //총 결제금액 
         private String orderDate;	//결제 날짜
-        private int totalpay;			//교통 최종 결제 금액
-        private int totalpay1 ;			//숙박 최종 결제 금액
+		private int Price; 		//교통 최종 결제 금액
+        private int Total;			//숙박 최종 결제 금액
         private String room_code;			//숙박 코드
         private String transpro_code;  //교통 코드
-        private String departureDate; //도착일
-        private String arrivalDate;
+        private String departureDate; //출발
+        private String arrivalDate;		//도착
 		public String getMerchant_uid() {
 			return merchant_uid;
 		}
@@ -60,17 +60,17 @@ public PaymentDTO() {}
 		public void setOrderDate(String orderDate) {
 			this.orderDate = orderDate;
 		}
-		public int getTotalpay() {
-			return totalpay;
+		public int getPrice() {
+			return Price;
 		}
-		public void setTotalpay(int totalpay) {
-			this.totalpay = totalpay;
+		public void setPrice(int price) {
+			Price = price;
 		}
-		public int getTotalpay1() {
-			return totalpay1;
+		public int getTotal() {
+			return Total;
 		}
-		public void setTotalpay1(int totalpay1) {
-			this.totalpay1 = totalpay1;
+		public void setTotal(int total) {
+			Total = total;
 		}
 		public String getRoom_code() {
 			return room_code;
@@ -101,11 +101,9 @@ public PaymentDTO() {}
 		public String toString() {
 			return "PaymentDTO [merchant_uid=" + merchant_uid + ", pg=" + pg + ", payMethod=" + payMethod
 					+ ", productName=" + productName + ", id=" + id + ", amount=" + amount + ", orderDate=" + orderDate
-					+ ", totalpay=" + totalpay + ", totalpay1=" + totalpay1 + ", room_code=" + room_code
-					+ ", transpro_code=" + transpro_code + ", departureDate=" + departureDate + ", arrivalDate="
-					+ arrivalDate + "]";
+					+ ", Price=" + Price + ", Total=" + Total + ", room_code=" + room_code + ", transpro_code="
+					+ transpro_code + ", departureDate=" + departureDate + ", arrivalDate=" + arrivalDate + "]";
 		}
-		
 		
               
         

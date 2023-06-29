@@ -23,7 +23,7 @@
             <td>${transList.departure_Date} 
             <td>${transList.departure_Time}</td>
             <td>${transList.arrival_Time}</td>
-			<td> <input type="hidden" class="transpro_code" value="${transList.transpro_code}"></td>
+			
             
             <td>
               <c:choose>
@@ -157,8 +157,9 @@
             
             <td>${transList.trans_name}</td>
             <td>${transList.transrs_seatno}</td>
-            <td>${transList.Price}&#8361; <input type="hidden" class="totalpay1" value="${transList.Price}"></td>
-            <td>${transList.rsvdate}</td>          
+            <td>${transList.Price}</td>
+            <td>${transList.rsvdate}</td>      
+			<input type="hidden" class="Price" value="${transList.Price}">    
         </tr>
       </c:forEach>
     </tbody>
@@ -183,9 +184,10 @@
             <td>${departure_Date}</td>
             <td>${roomreservation.hotel_Name}</td>
             <td>${roomreservation.room_Name}</td>
-            <td>${roomreservation.totalpay}&#8361; <input type="hidden" class="totalpay" value="${roomreservation.totalpay}"></td>
+            <td>${roomreservation.totalpay}&#8361; </td>
             <td>${roomreservation.room_rsvdate} </td>
-			<td><input type="hidden" class="room_code" value="${roomreservation.room_code}"></td></td>
+			<!-- room_code 값이 넘어오지 않음 -->
+			<input type="hidden" class="totalpay" value="${roomreservation.totalpay}">
         </tr>
     </tbody>
     
@@ -196,161 +198,168 @@
 </table>
 
 <div class="d-flex justify-content-center my-4">
-	<input type="button" value="결제하기" onclick="confirmPayment('${roomreservation.room_no}', '${transreservation.transrs_no}')"> 
+	<input type="button" value="결제하기" onclick="confirmPayment('${room_code}', '${transpro_code}')"> 
 </div>
 
 </div>
 <script>
-	function confirmPayment(room_no, transrs_no) {
-	  if (
-		confirm(
-		  "결제를 진행하시겠습니까? (장바구니에 담은 상품은 삭제됩니다)"
-		)
-	  ) {
-		let totalpayElements1 =
-		  document.getElementsByClassName("totalpay1");
-		let totalpayElements =
-		  document.getElementsByClassName("totalpay");
+	function confirmPayment(room_code, transpro_code) {
+		
+	  if (confirm("결제를 진행하시겠습니까? (장바구니에 담은 상품은 삭제됩니다)"	)) {
+		  
+			//가격을 구하기	  숙박->totalpay  교통->price 		  
+			let PriceElements = document.getElementsByClassName("Price");
+			  
+			let totalpayElements = document.getElementsByClassName("totalpay");
+		
+			let totalSum = 0;
+			let PriceSum = 0;
+			
+			for (var i = 0; i < totalpayElements.length; i++) {
+			  totalSum += Number(totalpayElements[i].value);
+			  alert(totalSum+"숙박 가격");
+			}
+			for (var i = 0; i < PriceElements.length; i++) {
+				PriceSum += Number(PriceElements[i].value);
+			  alert(PriceSum+"교통 가격");
+			}
+			alert(totalSum+PriceSum+"총 가격");
+			
+			let finalSum=0;
+			finalSum=totalSum+PriceSum;
+			//alert(finalSum);
+			//alert(room_code); 
+			//alert(transpro_code);
+		
+			var departureDate = "${departure_Date}";
+			var arrivalDate = "${arrival_Date}";
+		    //alert(departureDate+"출발일");
+			//alert(arrivalDate+"도착일");
+		
+				requestPay(
+							id,
+						  totalSum,
+						  PriceSum,
+						  finalSum,
+						  room_code,
+						  transpro_code,
+						  departureDate,
+						  arrivalDate
+				);
+		  }//if end
+	}//confirmPayment() end
 	
-		let totalSum = 0;
-		let totalSum1 = 0;
-	
-		for (var i = 0; i < totalpayElements.length; i++) {
-		  totalSum += Number(totalpayElements[i].value);
-		}
-		for (var i = 0; i < totalpayElements1.length; i++) {
-		  totalSum1 += Number(totalpayElements1[i].value);
-		}
-	
-		let room_code = document.getElementsByClassName("room_code");
-		let transpro_code =
-		  document.getElementsByClassName("transpro_code");
-	
-		requestPay(
-		  room_no,
-		  transrs_no,
-		  totalSum,
-		  totalSum1,
-		  room_code[0].value,
-		  transpro_code[0].value
-		);
-	  }
-	}
-	
+	//회원 정보 가져오기
+	let Email, Name, Tel, Addr, Postcode, id;
 	function getPayInfo() {
-	  $.ajax({
-		type: "GET",
-		url: "/payment/productDetail",
-		success: function (data) {
-		  Email = data.buyer_email;
-		  Name = data.buyer_name;
-		  Tel = data.buyer_tel;
-		  Addr = data.buyer_addr;
-		  Postcode = data.buyer_postcode;
-		},
-		error: function (request, status, error) {
-		  console.log("Error: " + error);
-		},
-	  });
-	}
+
+		  $.ajax({
+			type: "GET",
+			url: "/payment/productDetail",
+			success: function (data) {
+				//console.log(data);
+			  Email = data.email;
+			  Name = data.mname;
+			  Tel = data.tel;
+			  Addr = data.address1;
+			  Postcode = data.zipcode;
+			  id=data.id;
+			//   alert(Email);
+			//   alert(Name);
+			//   alert(Tel);
+			//  alert("아이디 확인"+id);
+	
+			},
+			error: function (request, status, error) {
+			  console.log("Error: " + error);
+			},
+		  });
+	}//getPayInfo() end
+	
 	
 	$(document).ready(function () {
-	  getPayInfo();
+	  	getPayInfo();
 	});
 	
+	///주문번호 새엇ㅇ
 	function createOrderNum() {
 	  const date = new Date();
 	  const year = date.getFullYear();
 	  const month = String(date.getMonth() + 1).padStart(2, "0");
 	  const day = String(date.getDate()).padStart(2, "0");
 	
-	  var orderNum = year + month + day;
+	  let orderNum = year + month + day;
 	  for (let i = 0; i < 10; i++) {
 		orderNum += Math.floor(Math.random() * 8);
 	  }
 	  return orderNum;
-	}
+	}//createOrderNum() end
 	
-	var departureDate = "${departure_Date}";
-	var arrivalDate = "${arrival_Date}";
-	
-	<c:set var="s_id" value="${requestScope.s_id}" />
-	var s_id = '${s_id}';
+	///////////////여기서 부터 결제
 	// 초기화 1회꼭하기
 	var IMP = window.IMP;
-	IMP.init("imp30544481"); // 가맹점식별코드
+	IMP.init("imp21612430"); // 가맹점식별코드
 	
-	function requestPay(
-		s_id,
-	  room_no,
-	  transrs_no,
-	  totalSum,
-	  totalSum1,
-	  room_code,
-	  transpro_code
-	) {
-	  let productAmount = totalSum + totalSum1;
-	  var orderNum = createOrderNum();
-	  var Email = '<c:out value="${buyer_email}" />';
-	  var Name = '<c:out value="${buyer_name}" />';
-	  var Tel = '<c:out value="${buyer_tel}" />';
-	  var Addr = '<c:out value="${buyer_addr}" />';
-	  var Postcode = '<c:out value="${buyer_postcode}" />';
-	
-	  IMP.request_pay(
-		{
-		  pg: "kcp",
-		  pay_method: "card",
-		  merchant_uid: orderNum,
-		  name: "Godtrip 여행상품",
-		  amount: productAmount,
-		  buyer_email: Email,
-		  buyer_name: Name,
-		  buyer_tel: Tel,
-		  buyer_addr: Addr,
-		  buyer_postcode: Postcode,
-		},
-		function (rsp) {
-		  if (rsp.success) {
-			fetch("/payment/payfetch", {
-			  method: "POST",
-			  headers: {
-				"Content-Type": "application/json",
-			  },
-			  body: JSON.stringify({
-				id: s_id,
-				merchantUid: rsp.merchant_uid,
-				pg: "kcp",
-				payMethod: "card",
-				productName: "Godtrip 여행상품",
-				amount: productAmount,
-				orderdate: new Date()
-				  .toISOString()
-				  .substring(0, 10),
-				totalpay1: totalSum1,
-				totalpay: totalSum,
-				room_code: room_code,
-				transpro_code: transpro_code,
-				departureDate: departureDate,
-				arrivalDate: arrivalDate,
-			  }),
-			})
-			  .then((response) => response.json())
-			  .then((data) => {
-				if (data.result === "success") {
-				  alert("결제가 완료되었습니다.");
-				} else {
-				  alert("결제 처리 중 오류가 발생하였습니다.");
-				}
-			  })
-			  .catch((error) => {
-				console.error(":", error);
-				alert("결제 처리 중 오류가 발생하였습니다.");
-			  });
-		  }
-		}
-	  );
-	}
-	</script>
+	function requestPay(id, totalSum, PriceSum, finalSum, room_code, transpro_code, departureDate, arrivalDate) {
+	  
+		  var orderNum = createOrderNum();	  
+		 
+		  IMP.request_pay(
+			{
+			  pg: "kcp",
+			  pay_method: "card",
+			  merchant_uid: orderNum,
+			  name: "Godtrip 여행상품",
+			  amount: finalSum,
+			  buyer_email: Email,
+			  buyer_name: Name,
+			  buyer_tel: Tel,
+			  buyer_addr: Addr,
+			  buyer_postcode: Postcode,
+			},
+			function (rsp) {
+			  if (rsp.success) {
+				fetch("/payment/payfetch", {
+				  method: "POST",
+				  headers: {
+					"Content-Type": "application/json",
+				  },
+				  body: JSON.stringify({
+					id: id,
+					merchantUid: rsp.merchant_uid,
+					pg: "kcp",
+					payMethod: "card",
+					productName: "Godtrip 여행상품",
+					amount: finalSum,
+					orderdate: new Date().toISOString().substring(0, 10),
+					Price: PriceSum,
+					Total: finalSum,
+					room_code: room_code,
+					transpro_code: transpro_code,
+					departureDate: departureDate,
+					arrivalDate: arrivalDate
+				  }),
+				})
+				  .then((response) => response.json())
+				  .then((data) => {	
+					  //alert(data);
+					  //alert("#"+data.result+"#");
+					  console.log(data);
+					if (data.result === "success") {
+					  	alert("결제가 완료되었습니다.");
+					  	location.href="http://localhost:9095/payment/finalreserveForm";
+					} else {
+					  	alert("결제 처리 중 오류가 발생하였습니다.1");
+					}
+				  })
+				  .catch((error) => {
+					console.error(":", error);
+					alert("결제 처리 중 오류가 발생하였습니다.2");
+				  });
+			  }
+			}
+		  );
+	}//requestPay() end
+</script> 
 
 <%@ include file="../footer.jsp" %>

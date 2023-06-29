@@ -68,6 +68,7 @@ public class RoomreservationCont {
 		
 		
         Map<String, Object> map=new HashMap<>();
+       
         map.put("id", id);
         map.put("room_code", room_code);
         map.put("departure_Date", departure_Date);
@@ -92,8 +93,8 @@ public class RoomreservationCont {
 	@RequestMapping("/cartlist")
 	public ModelAndView roomreservationList(HttpServletRequest req,HttpSession session) {
 		String room_code = req.getParameter("room_code");		
-		String departure_Date=req.getParameter("departure_Date");
-			
+		String departure_Date=req.getParameter("departure_Date");	
+		String arrival_Date=req.getParameter("arrival_Date");
 		    String id = (String)session.getAttribute("s_id");
 			ModelAndView mav = new ModelAndView();
 			mav.setViewName("payment/productDetail");
@@ -102,11 +103,13 @@ public class RoomreservationCont {
 			List<Map<String, Object>>list=roomreservationDao.list(id);
 			mav.addObject("list",list);
 			mav.addObject("departure_Date",departure_Date);
-			
+			mav.addObject("room_code",room_code);
+			mav.addObject("arrival_Date",arrival_Date);
 			
 			List<Map<String, Object>> transList = roomreservationDao.transList(id);
 			mav.addObject("departure_Date", departure_Date);
 			mav.addObject("transList", transList);
+			
 			return mav;
 	}
 
