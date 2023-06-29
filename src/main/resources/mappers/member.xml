@@ -68,7 +68,7 @@ where id=#{s_id}
     WHERE email=#{email} and mname=#{mname}
 </update>
 
-<select id="findById" parameterType="string" resultType="kr.co.godtrip.member.MemberDTO">
+<select id="findById" parameterType="string" resultType="java.util.Map">
 SELECT * 
 FROM member
 WHERE id = #{id}
