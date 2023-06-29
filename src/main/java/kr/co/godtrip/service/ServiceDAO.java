@@ -1,15 +1,15 @@
 package kr.co.godtrip.service;
 
-import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ServiceDAO {
-	
+
     @Autowired
     SqlSession sqlSession;
 
@@ -25,20 +25,15 @@ public class ServiceDAO {
         sqlSession.update("service.serviceUpdate", dto);
     }
 
-    public List<ServiceDTO> serviceList() {
-        return sqlSession.selectList("service.serviceList");
+    public List<Map<String, Object>> list(Map<String, Object> map) {
+        return sqlSession.selectList("service.serviceList", map);
     }
 
-    public ServiceDTO serviceDetail(int c_code) {
-        return sqlSession.selectOne("service.serviceDetail", c_code);
+    public ServiceDTO serviceDetail(int cno) {
+        return sqlSession.selectOne("service.serviceDetail", cno);
     }
 
-    public List<ServiceDTO> serviceList(int page, int limit) {
-        int offset = (page - 1) * limit;
-        return sqlSession.selectList("service.serviceList", null, new RowBounds(offset, limit));
-    }
-
-    public int getTotalCount() {
-        return sqlSession.selectOne("service.getTotalCount");
+    public int getTotalCount(Map<String, Object> map) {
+        return sqlSession.selectOne("service.getTotalCount", map);
     }
 }

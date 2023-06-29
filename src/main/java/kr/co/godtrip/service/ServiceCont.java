@@ -3,45 +3,91 @@ package kr.co.godtrip.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import kr.co.godtrip.member.MemberCont;
+import kr.co.godtrip.member.MemberDAO;
+import kr.co.godtrip.member.MemberDTO;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/service")
 public class ServiceCont {
-    public ServiceCont() {
-        System.out.println("-----ServiceCont() 객체생성됨");
-    }
+
+    private final ServiceDAO serviceDao;
+    private final MemberCont memberCont;
+    private final MemberDAO memberDAO;
 
     @Autowired
-    ServiceDAO serviceDao;
-
-    @RequestMapping("/serviceList")
-    public ModelAndView serviceList() {
-        return serviceList(1); // 페이지 번호를 1로 지정하여 호출
+    public ServiceCont(ServiceDAO serviceDao, MemberCont memberCont, MemberDAO memberDAO) {
+        this.serviceDao = serviceDao;
+        this.memberCont = memberCont;
+        this.memberDAO = memberDAO;
     }
 
-    @RequestMapping("/serviceList/{page}")
-    public ModelAndView serviceList(@PathVariable int page) {
-        int limit = 5;
+    @RequestMapping("/serviceList")
+    public ModelAndView list(HttpServletRequest req) {
+        String title = req.getParameter("title");
         ModelAndView mav = new ModelAndView();
+        Map<String, Object> map = new HashMap<>();
+        map.put("title", title);
+
+        int getTotalCount = serviceDao.getTotalCount(map);
+        int numPerPage = 5;    // 한 페이지당 레코드 갯수
+        int pagePerBlock = 5;  // 페이지 리스트
+
+        String pageNum = req.getParameter("pageNum");
+        if (pageNum == null) {
+            pageNum = "1";
+        }
+
+        int currentPage = Integer.parseInt(pageNum);
+        int startRow = (currentPage - 1) * numPerPage;
+        int endRow = numPerPage;
+
+        double totcnt = (double) getTotalCount / numPerPage;
+        int totalPage = (int) Math.ceil(totcnt);
+
+        double d_page = (double) currentPage / pagePerBlock;
+        int Pages = (int) Math.ceil(d_page) - 1;
+        int startPage = Pages * pagePerBlock;
+        int endPage = startPage + pagePerBlock + 1;
+
+        map.put("startRow", startRow);
+        map.put("endRow", endRow);
+
+        List<Map<String, Object>> list;
+        if (getTotalCount > 0) {
+            list = serviceDao.list(map);
+        } else {
+            list = Collections.emptyList();
+        }
+
+        mav.addObject("pageNum", currentPage);
+        mav.addObject("count", getTotalCount);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("startPage", startPage);
+        mav.addObject("endPage", endPage);
+        mav.addObject("list", list);
+
         mav.setViewName("service/serviceList");
-        mav.addObject("list", serviceDao.serviceList(page, limit));
-        int totalCount = serviceDao.getTotalCount();
-        mav.addObject("totalPages", (totalCount + limit - 1) / limit);
-        mav.addObject("currentPage", page);
         return mav;
     }
 
-    @RequestMapping("/serviceDetail/{c_code}")
-    public ModelAndView serviceDetail(@PathVariable int c_code) {
+    @RequestMapping("/serviceDetail/{cno}")
+    public ModelAndView serviceDetail(@PathVariable int cno) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("service/serviceDetail");
-        mav.addObject("service", serviceDao.serviceDetail(c_code));
-        mav.addObject("updateUrl", "/service/serviceUpdate");
+
+        ServiceDTO service = serviceDao.serviceDetail(cno);
+        mav.addObject("service", service);
+
         return mav;
     }
 
@@ -51,31 +97,39 @@ public class ServiceCont {
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 
- 
-
     @RequestMapping("/serviceForm")
-    public String serviceForm() {
-        return "service/serviceForm";
+    public ModelAndView serviceForm(HttpSession session) {
+        ModelAndView mav = new ModelAndView("service/serviceForm");
+        String id = (String) session.getAttribute("s_id");
+        mav.addObject("id", id);
+        return mav;
     }
 
-    @PostMapping("/serviceInsert")
-    public ModelAndView serviceInsert(ServiceDTO dto) {
-        serviceDao.serviceInsert(dto);
-        return new ModelAndView("redirect:/service/serviceList");
+    @RequestMapping(value = "/serviceInsert", method = RequestMethod.POST)
+    public String serviceInsert(@ModelAttribute("service") ServiceDTO service, HttpSession session) {
+        String id = (String) session.getAttribute("s_id");
+        service.setId(id);
+
+        // 작성자 정보 업데이트
+        MemberDTO member = memberDAO.select(id);
+        service.setId(member.getMname());
+        service.setId("webmaster");
+        serviceDao.serviceInsert(service);
+
+        return "redirect:/service/serviceList";
     }
 
     @RequestMapping("/serviceUpdate/{cno}")
-    public ModelAndView serviceUpdate(@PathVariable int cno) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("service/serviceUpdate");
-        mav.addObject("service", serviceDao.serviceDetail(cno));
+    public ModelAndView serviceUpdateForm(@PathVariable int cno) {
+        ModelAndView mav = new ModelAndView("service/serviceUpdate");
+        ServiceDTO service = serviceDao.serviceDetail(cno);
+        mav.addObject("service", service);
         return mav;
     }
 
     @PostMapping("/serviceUpdate")
-    @ResponseBody
-    public ResponseEntity<String> serviceUpdate(ServiceDTO dto) {
-        serviceDao.serviceUpdate(dto);
-        return ResponseEntity.ok("게시글이 수정되었습니다.");
+    public String serviceUpdate(ServiceDTO service) {
+        serviceDao.serviceUpdate(service);
+        return "redirect:/service/serviceDetail/" + service.getCno();
     }
 }
