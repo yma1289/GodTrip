@@ -6,18 +6,17 @@ pageEncoding="UTF-8"%>
 <c:forEach var="reviewdetail" items="${list}"> 
  <h3>제목:${reviewdetail.title}</h3>
  <h6 style="text-align: right;">작성자:${reviewdetail.id}</h6>
-${reviewdetail.content}
+ ${reviewdetail.content}
   </tr>
   <c:if test="${vs.count mod 5==0}">
   </tr> <tr>
   </c:if> 
-  <c:set var="id" value="${session.getAttribute('s_id')}" />   		
-  <c:if test="${id == reviewdetail.id}">
+  <c:if test="${s_id == reviewdetail.id}">
    <input type="button" value="삭제하기" onclick="confirmDelete('${reviewdetail.reviewno}')"> 
    </c:if> 	
 	</c:forEach>
 	</div>
-	</div>
+	</div> 
 	
 <script type="text/javascript">
 function confirmDelete(reviewNo) {

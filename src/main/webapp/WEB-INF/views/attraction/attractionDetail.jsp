@@ -9,6 +9,20 @@
   display: flex;
   background: rgba(0, 0, 0, 0);
 }
+
+
+
+
+.container label {
+  text-align: left;
+  width: 100%;
+}
+
+#commentInsertBtn {
+  float: right;
+}
+
+
 </style>
 
 
@@ -130,7 +144,7 @@
 </c:if>
 </div>
 
-
+<br><br>
 
 
 <script>
@@ -145,21 +159,22 @@ function confirmDelete() {
 
 <br><br>
 <!-- 댓글 -->
-<!-- 내용을 div로 감싸줘야 해당부분을 찾아가 수정과 삭제가 가능함 -->
+
 	<div class="container">
-		<label for="content">댓글</label>
-		<!--<form name="commentInsertForm" id="commentInsertForm">-->
-		<form name="commentInsertForm" id="commentInsertForm">
+		 <label for="content">댓글 :</label>
+		<form name="commentInsertForm" id="commentInsertForm" >
 			<div>
-				<!-- 부모글번호 -->
 				<input type="hidden" name="tour_code" id="tour_code" value="${attraction.tour_code}">
-				<input type="text" name="content" id="content" placeholder="내용을 입력해 주세요">
-				<button type="button"  name="commentInsertBtn" id="commentInsertBtn" >등록</button>
+				<textarea rows="5" cols="100" name="content" id="content" placeholder="로그인 후 댓글입력이 가능합니다" class="form-control"></textarea> 
+				<br>
+				<button type="button"  name="commentInsertBtn" id="commentInsertBtn"  class="btn btn-info">등록</button>
 			</div>
 		</form>
 	</div>
-
 	
+	
+
+	<br><br>
 	<div class="container">
 		<!-- 댓글목록 -->
 		<div class="commentList"></div>
@@ -171,39 +186,27 @@ function confirmDelete() {
 	
 		let tour_code = '${attraction.tour_code}'; //부모글 번호
 	
-		//댓글 등록버튼 클릭했을때
-		$("#commentInsertBtn").click(function(){
+
+		
+		//댓글 등록버튼 클릭했을때(수정완료)
+			$("#commentInsertBtn").click(function(){
 			//alert($);
 			//<form id="commentInsertForm"></form>의 내용을 전부 가져옴
+			
+			 let content = $("#content").val().trim();
+		    if (content === '') {
+		      alert('내용을 입력하세요.');
+		      return;
+		    }
+			
 			let insertData=$("#commentInsertForm").serialize();
 			//alert(insertData);//tour_code=2&content=내용
 			commentInsert(insertData);//댓글등록 함수 호출
 		});//click() end
+
 		
-		/*
-		//댓글 등록 함수(원래버전)
-		function commentInsert(insertData) { 
-			//alert("댓글등록함수호출" + insertData);
-			$.ajax({
-				  url:'/comment/insert'  //요청명령어
-				, type:'post'
-				, data:insertData        //요청정보
-				, error:function(error){
-					alert(error);
-				}//error end
-			    , success:function(data){
-			    	//alert(data);
-			    	if(data==1){ //댓글 등록 성공
-			    		commentList(); //댓글 작성후 댓글 목록 함수 호출
-			    		//기존 댓글 내용을 빈 문자열로 대입
-			    		$("#content").val('');
-			    	}//if end
-			    }//success end
-			});//ajax() end
-		}//commentInsert() end
 		
-		//-> commentCont 실행됨
-	*/
+		
 	
 	//댓글 등록 함수(로그인안됐을때 알림창띄우기테스트)
 	  function commentInsert(insertData) {
@@ -226,6 +229,7 @@ function confirmDelete() {
 	        if (data == 1) {
 	          commentList();
 	          $("#content").val('');
+	          alert('댓글이 등록되었습니다.');
 	        }
 	      }
 	    });
@@ -304,8 +308,8 @@ function commentList() {
 			}); //ajax() end
 			
 		}//commentList() end
-		
 		*/
+	
 		
 		//댓글수정 - 댓글 내용 출력을 input 폼으로 변경
 		function commentUpdate(commentno, content) {
@@ -313,20 +317,17 @@ function commentList() {
 			let a='';
 			a += '<div class="input-group">';
 			a += '    <input type="text" value="' + content + '" id="content_' + commentno + '">';
-			a += '    <button type="button" onclick="commentUpdateProc(' + commentno + ')">수정</button>';
+			a += '    <button type="button" onclick="commentUpdateProc(' + commentno + ')"  >수정</button>';
 			a += '</div>';
 			//alert(a);
 			$(".commentContent" + commentno).html(a);
 		}//commentUpdate() end
 		
-
-
-
+		
 		
 		
 		//댓글수정
 		function commentUpdateProc(commentno) {
-			
 			
 			//alert("댓글수정"+cno);
 			let updateContent=$('#content_' + commentno).val();
@@ -339,6 +340,7 @@ function commentList() {
 			    , success:function(data){
 			    	if(data==1){
 			    		commentList(); //댓글 수정후 목록 출력
+			    		alert('댓글이 수정되었습니다.');
 			    	}//if end
 			    }//if end
 			 });//ajax() end
