@@ -35,34 +35,34 @@ footer {
       <img src="../images/GANGNEUNGSI.png" area_code="G0006" class="img-fluid" alt="강릉" onclick="handleClickEvent(this)">
       </div>
       <div class="col-md-4">
-      <img src="../images/BUSANSI.png" area_code="G0013" class="img-fluid" alt="부산" onclick="handleClickEvent(this)">
+      <img src="../images/BUSANSI.png" area_code="G0012" class="img-fluid" alt="부산" onclick="handleClickEvent(this)">
       </div>
     </div>
     <div class="row mt-4" style="margin-left: 20px; margin-right: 20px;">
     <div class="col-md-4">
-    	<img src="../images/GYEONGJU.png" area_code="G0014" class="img-fluid" alt="경주" onclick="handleClickEvent(this)">
+    	<img src="../images/GYEONGJU.png" area_code="G0013" class="img-fluid" alt="경주" onclick="handleClickEvent(this)">
     </div>
     <div class="col-md-4">
       <img src="../images/GAPYEONG.png" area_code="G0005" class="img-fluid" alt="가평	" onclick="handleClickEvent(this)">
     </div>
     <div class="col-md-4">
-    <img src="../images/YEOSU.png" area_code="G0018" class="img-fluid" alt="여수" onclick="handleClickEvent(this)">
+    <img src="../images/YEOSU.png" area_code="G0017" class="img-fluid" alt="여수" onclick="handleClickEvent(this)">
     </div>
   </div>
   <div class="row mt-4" style="margin-left: 20px; margin-right: 20px;">
   <div class="col-md-4">
-  	<img src="../images/JEONJU.png" area_code="G0019" class="img-fluid" alt="전주" onclick="handleClickEvent(this)">
+  	<img src="../images/JEONJU.png" area_code="G0018" class="img-fluid" alt="전주" onclick="handleClickEvent(this)">
   </div>
   <div class="col-md-4">
   	<img src="../images/CHUNCHEON.png" area_code="G0007" class="img-fluid" alt="춘천" onclick="handleClickEvent(this)">
   </div>
   <div class="col-md-4">
-  	<img src="../images/GEOJE.png" area_code="G0016" class="img-fluid" alt="거제" onclick="handleClickEvent(this)">
+  	<img src="../images/GEOJE.png" area_code="G0015" class="img-fluid" alt="통영거제" onclick="handleClickEvent(this)">
   </div>
 </div>
 <div class="row mt-4" style="margin-left: 20px; margin-right: 20px;">
 <div class="col-md-4">
-	<img src="../images/POHANG.png" area_code="G0015" class="img-fluid" alt="포항" onclick="handleClickEvent(this)">
+	<img src="../images/POHANG.png" area_code="G0014" class="img-fluid" alt="포항" onclick="handleClickEvent(this)">
 </div>
 <div class="col-md-4">
 	<img src="../images/DAEJEON.png" area_code="G0009" class="img-fluid" alt="대전" onclick="handleClickEvent(this)">
@@ -73,13 +73,13 @@ footer {
 </div>
 <div class="row mt-4" style="margin-left: 20px; margin-right: 20px;">
 <div class="col-md-4">
-	<img src="../images/MOKPO.png" area_code="G0017" class="img-fluid" alt="목포" onclick="handleClickEvent(this)">
+	<img src="../images/MOKPO.png" area_code="G0016" class="img-fluid" alt="목포" onclick="handleClickEvent(this)">
 </div>
 <div class="col-md-4">
-	<img src="../images/YEONGWOL.png" area_code="G0012" class="img-fluid" alt="영월" onclick="handleClickEvent(this)">
+	<img src="../images/YEONGWOL.png" area_code="G0011" class="img-fluid" alt="영월" onclick="handleClickEvent(this)">
 </div>
 <div class="col-md-4">
-	<img src="../images/GUNSAN.png" area_code="G0011" class="img-fluid" alt="군산" onclick="handleClickEvent(this)">
+	<img src="../images/GUNSAN.png" area_code="G0010" class="img-fluid" alt="군산" onclick="handleClickEvent(this)">
 </div>
 </div>
 <div class="row mt-4" style="margin-left: 20px; margin-right: 20px;">
