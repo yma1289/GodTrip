@@ -93,7 +93,7 @@ public class MemberDAO {
 		}
 		
 		
-		 public MemberDTO findById(String id) {
+		 public Map<String, Object> findById(String id) {
 		        return sqlSession.selectOne("member.findById", id);
 		    }	
 		
