@@ -42,6 +42,7 @@
 		<th style="text-align: center">출발지</th>
 		<td>
 			<select name="departure_code" id="departure_code">
+				<option value="0">선택</option>
 				<option value="G0001">제주</option>
 				<option value="G0002">서울</option>
 				<option value="G0003">인천</option>
