@@ -12,7 +12,10 @@
 		DELETE FROM transreservation
 		WHERE id = #{id}
 	</delete>
-	
+<insert id="Infoinsert" parameterType="kr.co.godtrip.payment.PaymentDTO">
+    INSERT INTO payment (id, merchant_uid, pg, payMethod, productName, amount, orderDate, totalpay, totalpay1, room_code, transpro_code, departureDate, arrivalDate)
+    VALUES(#{id}, #{merchant_uid}, #{pg}, #{payMethod}, #{productName}, #{amount}, #{orderDate}, #{totalpay}, #{totalpay1}, #{room_code}, #{transpro_code}, #{departureDate}, #{arrivalDate})
+</insert>
 
 </mapper>
 
