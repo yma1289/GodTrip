@@ -333,7 +333,7 @@
 					amount: finalSum,
 					orderdate: new Date().toISOString().substring(0, 10),
 					Price: PriceSum,
-					Total: finalSum,
+					Total: totalSum,
 					room_code: room_code,
 					transpro_code: transpro_code,
 					departureDate: departureDate,
