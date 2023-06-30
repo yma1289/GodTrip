@@ -20,13 +20,33 @@
 	    
 	    
 	    
-	    <select id="list2" resultType="java.util.Map">
-		SELECT DISTINCT room.room_code, room.hotel_code, room.p_id, room.room_Name, room.room_price, room.room_filename, room.room_filesize, room.room_info, room.room_maxperson, hotel.hotel_Name, hotel.hotel_filename, hotel.hotel_Content, hotel.hotel_address
-		FROM room
-		JOIN hotel ON room.hotel_code = hotel.hotel_code
-		WHERE room.hotel_code = #{hotel_code}
+	    <!-- id="list222222" 와 id="count" 를 통합함 -->
+	    
+	    <select id="list2" resultType="java.util.Map"  parameterType="java.util.Map">
+	    	<![CDATA[
+				select   DISTINCT AA.*, RM.*
+				from (
+				        SELECT DISTINCT room.room_code as r1, room.hotel_code, room.p_id, room.room_Name, room.room_price, room.room_filename, room.room_filesize, 
+				                        room.room_info,room.room_state ,room.room_maxperson, hotel.hotel_Name, hotel.hotel_filename, hotel.hotel_Content, hotel.hotel_address
+				        FROM room JOIN hotel 
+				        ON room.hotel_code = hotel.hotel_code
+				        WHERE room.hotel_code = #{hotel_code}
+				) RM 
+				left join (
+				        SELECT room_code as r2
+				        FROM payment
+				        where #{departure_Date}<arrivalDate
+				        and   #{arrival_Date}>departureDate
+				)AA 
+				on RM.r1=AA.r2
+			]]>	
 	    </select>
 	    
+
+	   
+	    
+	    
+	
 	    	
 		<!-- 전체 레코드 수 조회 -->
 	    <select id="totalRowCount" resultType="java.lang.Integer">
@@ -35,9 +55,10 @@
             AND hotel_Name LIKE CONCAT('%', #{hotel_Name}, '%')
         	</if>
         	<if test="hotel_Type != null and hotel_Type != ''">
-            AND hotel_Type = #{hotel_Type}
+            AND hotel_Type = #{hotel_Type} 
        		</if>
 	    </select>
+	   
 	   
 	  
 	    
