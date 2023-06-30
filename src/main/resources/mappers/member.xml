@@ -69,9 +69,20 @@ where id=#{s_id}
 </update>
 
 <select id="findById" parameterType="string" resultType="java.util.Map">
-SELECT * 
-FROM member
-WHERE id = #{id}
+	SELECT * 
+	FROM member
+	WHERE id = #{id}
+</select>
+
+<select id="paymentList" resultType="java.util.Map" parameterType="String">
+	SELECT PM.merchant_uid, PM.orderDate, PM.amount, PM.departureDate, PM.Price, PM.Total, 
+	HT.hotel_Name, RM.room_Name, TP.departure_Time, TP.arrival_Time, TP.departure_code, TP.arrival_code, TI.trans_name
+	FROM payment PM
+	JOIN room RM ON PM.room_code = RM.room_code
+	JOIN transpro TP ON PM.transpro_code = TP.transpro_code	
+	JOIN transinfo TI ON TP.trans_code = TI.trans_code
+	JOIN hotel HT ON HT.hotel_code = RM.hotel_code
+	WHERE PM.id = #{id}
 </select>
 
 </mapper>

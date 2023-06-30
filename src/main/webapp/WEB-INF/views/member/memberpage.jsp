@@ -6,7 +6,7 @@
 
 .wrap {
   width: 100%;
-  height: 80vh;
+  height: 100%;
   display: flex;
   background: rgba(0, 0, 0, 0);
 }
@@ -20,7 +20,7 @@
 	<c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1')}">
 
 <!-- 좌측 시작 -->
-	<div class="container-fluid" style="padding:0px;">
+	<div class="container-fluid">
 		<div class="row">
 			<!-- 개인정보창 -->
 			<div class="container-fluid col-12 col-md-4 col-lg-3">			
@@ -62,29 +62,197 @@
 
 <!-- 우측 시작 -->
 			<div class="col-12 col-md-8 col-lg-9"  style="padding-bottom: 40px;">
-				<table class="table custom-table" style="display: table; table-layout: fixed;" >
-					<tr align="center">
-						<td colspan="5" class="text-center lib-text" style="padding-top: 40px">
-							<h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">최근 예약내역</h3>					
-						</td>
-					</tr>											
-				</table>
+			
+			<h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold; padding-top: 40px;">최근 예약내역</h3>	
+				
+				<c:forEach var="payment" items="${paymentList}">		
 				<div class="container">
-					<table class="table table-bordered">
-						<tr>
-							<th>예약일</th>
+					<table class="table table-bordered" style="display: table; table-layout: fixed; border-width: thick;">
+						<tr align="center">
 							<th>예약번호</th>
-							<th>예약내용</th>
-							<th>예약상황</th>
+							<td>${payment.merchant_uid}</td>
+							<th>예약일</th>
+							<td>${payment.orderDate}</td>
+							<th>총 결제금액</th>
+							<td>${payment.amount}</td>												
 						</tr>
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>										
 					</table>
-				</div>
+					<h6 style="font-weight: bold; text-align: left; padding-top: 10px;">▶ 교통 예약내역</h6>
+					<table class="table table-bordered">					
+					<thead>
+						<tr>							
+							<th>출발일</th>
+							<th>항공사/기차정보</th>								
+							<th>출발지</th>
+							<th>도착지</th>
+							<th>출발시간</th>
+							<th>도착시간</th>														
+							<th>가격</th>
+						</tr>
+					</thead>
+					<tbody>					
+						<tr>							
+							<td>${payment.departureDate}</td>
+							<td>${payment.trans_name}</td>								
+							<td>
+								<c:choose>
+								<c:when test="${payment.departure_code == 'G0001'}">
+									제주
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0002'}">
+									서울
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0003'}">
+									인천
+								</c:when>	
+								<c:when test="${payment.departure_code == 'G0004'}">
+									수원
+								</c:when>	
+								<c:when test="${payment.departure_code == 'G0005'}">
+									가평
+								</c:when>	
+								<c:when test="${payment.departure_code == 'G0006'}">
+									강릉
+								</c:when>	
+								<c:when test="${payment.departure_code == 'G0007'}">
+									춘천
+								</c:when>	
+								<c:when test="${payment.departure_code == 'G0008'}">
+									제천
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0009'}">
+									대전
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0010'}">
+									남원
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0011'}">
+									군산
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0012'}">
+									영월
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0013'}">
+									부산
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0014'}">
+									경주
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0015'}">
+									포항
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0016'}">
+									통영거제
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0017'}">
+									목포
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0018'}">
+									여수
+								</c:when>
+								<c:when test="${payment.departure_code == 'G0019'}">
+									전주
+								</c:when>
+								<c:otherwise>
+									${payment.departure_code}
+								</c:otherwise>
+							  </c:choose>
+							</td>
+							<td>
+								<c:choose>
+								<c:when test="${payment.arrival_code == 'G0001'}">
+									제주
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0002'}">
+									서울
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0003'}">
+									인천
+								</c:when>	
+								<c:when test="${payment.arrival_code == 'G0004'}">
+									수원
+								</c:when>	
+								<c:when test="${payment.arrival_code == 'G0005'}">
+									가평
+								</c:when>	
+								<c:when test="${payment.arrival_code == 'G0006'}">
+									강릉
+								</c:when>	
+								<c:when test="${payment.arrival_code == 'G0007'}">
+									춘천
+								</c:when>	
+								<c:when test="${payment.arrival_code == 'G0008'}">
+									제천
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0009'}">
+									대전
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0010'}">
+									남원
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0011'}">
+									군산
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0012'}">
+									영월
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0013'}">
+									부산
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0014'}">
+									경주
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0015'}">
+									포항
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0016'}">
+									통영거제
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0017'}">
+									목포
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0018'}">
+									여수
+								</c:when>
+								<c:when test="${payment.arrival_code == 'G0019'}">
+									전주
+								</c:when>
+								<c:otherwise>
+									${payment.arrival_code}
+								</c:otherwise>
+							  </c:choose>
+							</td>
+							<td>${payment.departure_Time}</td>
+							<td>${payment.arrival_Time}</td>														
+							<td>${payment.Price}</td>
+						</tr>					
+					</tbody>														
+					</table>
+					
+					<h6 style="font-weight: bold; text-align: left; padding-top: 10px;">▶ 숙박 예약내역</h6>
+					<table class="table table-bordered">					
+					<thead>
+						<tr>							
+							<th>체크인날짜</th>							
+							<th>숙박정보</th>
+							<th>객실상품</th>
+							<th>가격</th>														
+						</tr>
+					</thead>
+					<tbody>					
+						<tr>							
+							<td>${payment.departureDate}</td>							
+							<td>${payment.hotel_Name}</td>
+							<td>${payment.room_Name}</td>							
+							<td>${payment.Total}</td>							
+						</tr>					
+					</tbody>														
+					</table>
+					
+					<br><hr><br>
+				</div>																
+				</c:forEach>														
+				
 			</div>
 		</div>	
 	</div>
