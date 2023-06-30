@@ -23,14 +23,19 @@ public class HotelDAO {
 	 public List<Map<String, Object>> list(Map<String, Object> map){
      	    return sqlSession.selectList("hotel.list", map);
      }//list() end
-	
+	 
 	//객실db값 가져오기
-	 public List<Map<String, Object>> list2(String hotel_code){
-  	    return sqlSession.selectList("hotel.list2",hotel_code);
+	 public List<Map<String, Object>> list2(Map<String, Object> map){
+	  	    return sqlSession.selectList("hotel.list2",map);
 	 }//list() end
-		 
+	
 	 //총 호텔갯수 가져오기
 	 public int totalRowCount(Map<String, Object>map) {
 	        return sqlSession.selectOne("hotel.totalRowCount",map);
 	    }
+	 
+	
+	 
+	
+
 }//class end

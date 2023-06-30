@@ -1,25 +1,16 @@
 package kr.co.godtrip.hotel;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -37,20 +28,28 @@ public class HotelCont {
 
 	
  
+
 	 @GetMapping("/hoteldetail")
 	    public ModelAndView list2(HttpServletRequest req) {
 	 		String hotel_code=req.getParameter("hotel_code");
 	 		String departure_Date=req.getParameter("departure_Date");
 	 		String arrival_Date=req.getParameter("arrival_Date");
-	        ModelAndView mav=new ModelAndView();
+	 		
+	 		Map<String, Object> map = new HashMap<>();
+ 		    map.put("hotel_code", hotel_code);
+ 		    map.put("departure_Date", departure_Date);
+ 		    map.put("arrival_Date", arrival_Date);
+
+	 		List<Map<String, Object>> list = hotelDao.list2(map);
+	 		System.out.println(list);
+	 		ModelAndView mav=new ModelAndView();
 	        mav.setViewName("hotel/hoteldetail");
-	        mav.addObject("list",hotelDao.list2(hotel_code));//DB에서 where 칼럼명  
+	        mav.addObject("list",list);//DB에서 where 칼럼명  
 	        mav.addObject("departure_Date",departure_Date);
 	        mav.addObject("arrival_Date",arrival_Date);
 	        return mav;
 	 }//list() end
-	
-	
+
 	
 	// @RequestMapping()
 	 // 부모페이지 .jsp에서 <a href="/hotelList?area_code=여기에클릭한지역코드출력"></a>

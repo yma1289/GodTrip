@@ -32,14 +32,19 @@ pageEncoding="UTF-8"%>
     			
                  <h3>${hotel.room_Name}</h3>
                       <h6 style="text-align: right;">최대 ${hotel.room_maxperson} 인</h6>
-                      
+                  
     			 ${hotel.room_info}
     			<br>
                1박기준 가격 : <fmt:formatNumber value="${hotel.room_price}" />&#8361;
                 <div style="text-align: right;">
                 <!-- AJAX는 서버로 갔다가 다시 자기 자신의 페이지(hoteldetail.jsp)로 돌아오는 방식임  -->
                 <!-- <button type="button" onclick="selectRoom('${hotel.room_code}')">선택하기</button> -->
-                <button type="button" onclick="location.href='/roomreservationinsert?room_code=${hotel.room_code}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&room_price=${hotel.room_price}'">선택하기</button>
+               <c:if test="${hotel.r2 == null}"> 
+                <button type="button" onclick="location.href='/roomreservationinsert?room_code=${hotel.r1}&departure_Date=${departure_Date}&arrival_Date=${arrival_Date}&room_price=${hotel.room_price}'">선택하기</button>
+                </c:if>
+               <c:if test="${hotel.r2 == hotel.r1}">
+                <button type="button" class="btn btn-primary" disabled>예약불가</button>
+                </c:if>
                 </div>
                 	<br>		
     		  	</div>
