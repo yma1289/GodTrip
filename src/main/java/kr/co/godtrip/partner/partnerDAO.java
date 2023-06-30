@@ -37,7 +37,11 @@ SqlSession sqlSession;
 		public List<Map<String, Object>>hoteldetailList(String hotel_code){
 			return sqlSession.selectList("partner.hoteldetailList",hotel_code);
 		}
-
+		
+		//예약된 객실 일정 출력
+		public List<Map<String, Object>>roomcheck(String room_code){
+			return sqlSession.selectList("partner.roomcheck",room_code);
+		}
 		 
 		 //숙박 정보 삭제하기
 		 public void hoteldelete(String hotel_code) {
