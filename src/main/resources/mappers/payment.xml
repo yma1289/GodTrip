@@ -4,7 +4,7 @@
 	
 	<delete id="roomDelete" parameterType="String">
 		 delete from roomreservation
-		 where room_no=#{room_no} 
+		 where id=#{id} 
 	</delete>
 	
 	

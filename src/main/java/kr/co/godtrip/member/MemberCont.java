@@ -2,6 +2,7 @@ package kr.co.godtrip.member;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.godtrip.payment.PaymentDAO;
 import net.utility.MyAuthenticator;
 
 @Controller
@@ -326,10 +328,23 @@ public class MemberCont {
 		//request.getsession으로 세션 변수값들을 가져옴
 
 		@RequestMapping("/memberpage")
-		public String partnerpage(HttpServletRequest request) {
-			HttpSession session = request.getSession(true);
-			return "member/memberpage";
-
+		public ModelAndView partnerpage(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession(true);			
+			String id = (String)session.getAttribute("s_id");
+			
+			ModelAndView mav = new ModelAndView();
+			mav.setViewName("/member/memberpage");
+			
+			//payment 테이블에 있는 내용 list에 담아서 불러오기
+			List<Map<String, Object>> paymentList = memberDao.paymentList(id);
+			mav.addObject("paymentList", paymentList);
+			mav.addObject("id", id);			
+			
+			
+			
+			
+			return mav;
 		}
 		
 		

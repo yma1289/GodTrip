@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,6 +20,7 @@ public class MemberDAO {
 		
 		@Autowired
 		SqlSession sqlSession;
+		
 		//회원가입
 		public void insert(MemberDTO dto) {
 			sqlSession.insert("member.insert",dto);
@@ -96,5 +98,11 @@ public class MemberDAO {
 		 public Map<String, Object> findById(String id) {
 		        return sqlSession.selectOne("member.findById", id);
 		    }	
+		 
+		 
+		 //memberpage에 최근 예약내역 띄우기
+		 public List<Map<String, Object>> paymentList(String id) {
+			 return sqlSession.selectList("member.paymentList", id);
+		 }
 		
 }
