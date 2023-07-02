@@ -17,6 +17,12 @@
 		VALUES(#{room_code}, #{hotel_code}, #{p_id}, #{room_Name}, #{room_price}, #{room_filename},#{room_filesize},#{room_info},#{room_maxperson})
 	</insert>
 
+	<!-- 예약된 객실 정보 가져오기 -->
+	<select id="roomcheck" parameterType="String" resultType="java.util.Map"> 
+	select * from payment
+	where room_code=#{room_code}
+	</select>
+
  <!-- 판매자 호텔리스트 가져오기 -->
 	<select id="hotellist" resultType="java.util.Map">
 		select * from hotel 

@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import ch.qos.logback.core.recovery.ResilientSyslogOutputStream;
 import net.utility.MyAuthenticator;
 
 @Controller
@@ -62,6 +63,18 @@ public class partnerCont {
 	mav.addObject("hotel_code" , hotel_code);
 	return mav;
     }
+	
+	//예약된 객실 일정 보기
+	@RequestMapping("/partner/roomcheck")
+	public ModelAndView roomcheck(HttpServletRequest req) {
+	 String room_code=req.getParameter("room_code");
+	 List list=null;
+	 list=partnerDAO.roomcheck(room_code);
+	 ModelAndView mav=new ModelAndView();
+	 mav.setViewName("hotel/roomcheck");
+	 mav.addObject("list",list);
+	 return mav;
+	}
 	
 	//객실 등록
 	@PostMapping("/partner/detailinsert")
