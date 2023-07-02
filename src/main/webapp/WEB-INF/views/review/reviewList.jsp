@@ -2,17 +2,6 @@
 pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp" %>
 
-<style>
-.wrap {
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  background: rgba(0, 0, 0, 0);
-}
-</style>
-
-
-<div class="wrap">
 <div class="container mt-5">
 
 <h3 class="display-6 text-center mb-5" style="color: #19b3eb; font-weight: bold;">나의 여행기</h3> 
@@ -153,5 +142,4 @@ pageEncoding="UTF-8"%>
 					</div> 
 				</c:if>	
     </div>
-</div>
 <%@ include file="../footer.jsp" %>

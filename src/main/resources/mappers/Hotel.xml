@@ -27,7 +27,7 @@
 				select   DISTINCT AA.*, RM.*
 				from (
 				        SELECT DISTINCT room.room_code as r1, room.hotel_code, room.p_id, room.room_Name, room.room_price, room.room_filename, room.room_filesize, 
-				                        room.room_info,room.room_state ,room.room_maxperson, hotel.hotel_Name, hotel.hotel_filename, hotel.hotel_Content, hotel.hotel_address
+				                        room.room_info,room.room_maxperson, hotel.hotel_Name, hotel.hotel_filename, hotel.hotel_Content, hotel.hotel_address
 				        FROM room JOIN hotel 
 				        ON room.hotel_code = hotel.hotel_code
 				        WHERE room.hotel_code = #{hotel_code}
