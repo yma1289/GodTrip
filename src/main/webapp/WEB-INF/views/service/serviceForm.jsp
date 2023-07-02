@@ -23,6 +23,7 @@
         margin-bottom: 20px;
         border-radius: 5px;
         border: 1px solid #ced4da;
+        white-space: pre-wrap; /* 줄바꿈 */
     }
 
     .form-container button {

@@ -5,13 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import kr.co.godtrip.member.MemberCont;
 import kr.co.godtrip.member.MemberDAO;
 import kr.co.godtrip.member.MemberDTO;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,63 +18,53 @@ import java.util.Map;
 @RequestMapping("/service")
 public class ServiceCont {
 
-    private final ServiceDAO serviceDao;
-    private final MemberCont memberCont;
+	private final ServiceDAO serviceDao;
     private final MemberDAO memberDAO;
 
     @Autowired
-    public ServiceCont(ServiceDAO serviceDao, MemberCont memberCont, MemberDAO memberDAO) {
+    public ServiceCont(ServiceDAO serviceDao, MemberDAO memberDAO) {
         this.serviceDao = serviceDao;
-        this.memberCont = memberCont;
         this.memberDAO = memberDAO;
     }
 
     @RequestMapping("/serviceList")
-    public ModelAndView list(HttpServletRequest req) {
-        String title = req.getParameter("title");
-        ModelAndView mav = new ModelAndView();
-        Map<String, Object> map = new HashMap<>();
-        map.put("title", title);
+    public ModelAndView serviceList(HttpServletRequest request) {
+        ModelAndView mav = new ModelAndView("service/serviceList");
 
-        int getTotalCount = serviceDao.getTotalCount(map);
-        int numPerPage = 5;    // 한 페이지당 레코드 갯수
-        int pagePerBlock = 5;  // 페이지 리스트
-
-        String pageNum = req.getParameter("pageNum");
-        if (pageNum == null) {
-            pageNum = "1";
+        String categoryParam = request.getParameter("category");
+        int category = 0;
+        if (categoryParam != null && !categoryParam.isEmpty()) {
+            category = Integer.parseInt(categoryParam);
         }
 
-        int currentPage = Integer.parseInt(pageNum);
-        int startRow = (currentPage - 1) * numPerPage;
-        int endRow = numPerPage;
+        String keyword = request.getParameter("keyword");
 
-        double totcnt = (double) getTotalCount / numPerPage;
-        int totalPage = (int) Math.ceil(totcnt);
+        int pageNum = 1;
+        if (request.getParameter("pageNum") != null) {
+            pageNum = Integer.parseInt(request.getParameter("pageNum"));
+        }
 
-        double d_page = (double) currentPage / pagePerBlock;
-        int Pages = (int) Math.ceil(d_page) - 1;
-        int startPage = Pages * pagePerBlock;
-        int endPage = startPage + pagePerBlock + 1;
+        int rowsPerPage = 10;
+        int startRow = (pageNum - 1) * rowsPerPage;
+        int endRow = pageNum * rowsPerPage;
 
+        Map<String, Object> map = new HashMap<>();
+        map.put("category", category);
+        map.put("keyword", keyword);
         map.put("startRow", startRow);
         map.put("endRow", endRow);
 
-        List<Map<String, Object>> list;
-        if (getTotalCount > 0) {
-            list = serviceDao.list(map);
-        } else {
-            list = Collections.emptyList();
-        }
+        int totalCount = serviceDao.getTotalCount(map);
+        int totalPage = (totalCount - 1) / rowsPerPage + 1;
 
-        mav.addObject("pageNum", currentPage);
-        mav.addObject("count", getTotalCount);
-        mav.addObject("totalPage", totalPage);
-        mav.addObject("startPage", startPage);
-        mav.addObject("endPage", endPage);
+        List<Map<String, Object>> list = serviceDao.list(map);
+
         mav.addObject("list", list);
+        mav.addObject("totalPage", totalPage);
+        mav.addObject("pageNum", pageNum);
+        mav.addObject("keyword", keyword);
+        mav.addObject("category", category);
 
-        mav.setViewName("service/serviceList");
         return mav;
     }
 
@@ -97,7 +85,7 @@ public class ServiceCont {
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 
-    @RequestMapping("/serviceForm")
+    @GetMapping("/serviceForm")
     public ModelAndView serviceForm(HttpSession session) {
         ModelAndView mav = new ModelAndView("service/serviceForm");
         String id = (String) session.getAttribute("s_id");
@@ -105,7 +93,7 @@ public class ServiceCont {
         return mav;
     }
 
-    @RequestMapping(value = "/serviceInsert", method = RequestMethod.POST)
+    @PostMapping("/serviceInsert")
     public String serviceInsert(@ModelAttribute("service") ServiceDTO service, HttpSession session) {
         String id = (String) session.getAttribute("s_id");
         service.setId(id);
@@ -113,7 +101,6 @@ public class ServiceCont {
         // 작성자 정보 업데이트
         MemberDTO member = memberDAO.select(id);
         service.setId(member.getMname());
-        service.setId("webmaster");
         serviceDao.serviceInsert(service);
 
         return "redirect:/service/serviceList";
