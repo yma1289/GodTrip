@@ -3,47 +3,59 @@
 <%@ include file="../header.jsp" %>
 
 <style>
-    .container {
-        padding: 20px;
-    }
+.wrap {
+	  width: 100%;
+	  height: 100%;
+	  display: flex;
+	  background: rgba(0, 0, 0, 0);
+	}
 
-    .container h3 {
-        font-size: 2rem;
-        color: #19b3eb;
-        margin-bottom: 30px;
-    }
+.container {
+    padding: 20px;
+}
 
-    .table {
-        box-shadow: 0 2px 4px rgb(114, 114, 114);
-    }
+.container h3 {
+    font-size: 2rem;
+    color: #19b3eb;
+    margin-bottom: 30px;
+}
 
-    .table th,
-    .table td {
-        vertical-align: middle;
-    }
+.table {
+    box-shadow: 0 2px 4px rgb(114, 114, 114);
+}
 
-    #editForm label {
-        font-weight: bold;
-        margin-bottom: 10px;
-        display: block;
-    }
+.table th,
+.table td {
+    vertical-align: middle;
+}
 
-    #editForm input[type="text"],
-    #editForm textarea,
-    #editForm select {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        resize: vertical;
-    }
+#editForm label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#editForm input[type="text"],
+#editForm textarea,
+#editForm select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+pre {
+    text-align: left; 
+}
 </style>
 
-<div class="container">
+<div class="col-sm-12">
+<div class="wrap">
+<div class="container mt-5">
     <h3>고객센터 상세</h3>
     <table class="table">
-        <thead class="thead-light">
+        <thead class="thead">
             <tr>
                 <th>${service.cno}</th>
                 <th>
@@ -64,17 +76,17 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td colspan='4'>${service.content}</td>
-            </tr>
-        </tbody>
+        <tr>
+            <td colspan="4"><pre>${service.content}</pre></td>
+        </tr>
+    </tbody>
     </table>
     <div class="text-center mt-4" style="padding: 30px;">
-    <c:if test="${not empty s_id and s_id == 'webmaster'}">
-        <button onclick="editService()" class="btn btn-info">수정</button>
-        <button onclick="confirmDelete()" class="btn btn-info">삭제</button>
+        <c:if test="${not empty s_id and s_id == 'webmaster'}">
+            <button onclick="editService()" class="btn btn-outline-warning">수정</button>
+            <button onclick="confirmDelete()" class="btn btn-outline-danger">삭제</button>
         </c:if>
-        <input type="button" value="목록" class="btn btn-info" onclick="location.href='/service/serviceList'" />
+        <input type="button" value="목록" class="btn btn-outline-info" onclick="location.href='/service/serviceList'" />
     </div>
 </div>
 
@@ -151,5 +163,7 @@
         xhr.send();
     }
 </script>
-
+</div>
+</div>
+</div><!-- col-sm-12 끝 -->
 <%@ include file="../footer.jsp" %>

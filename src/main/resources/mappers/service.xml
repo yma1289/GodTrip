@@ -10,9 +10,21 @@
     <select id="serviceList" resultType="java.util.Map">
         SELECT *
         FROM customerservice
-        <if test="title != null and title != ''">
-            WHERE title LIKE CONCAT('%', #{title}, '%')
-        </if>
+        <where>
+            <if test="category != 0">
+                <choose>
+                    <when test="category == 1">
+                        c_code = 0
+                    </when>
+                    <when test="category == 2">
+                        c_code = 1
+                    </when>
+                </choose>
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (title LIKE CONCAT('%', #{keyword}, '%') OR content LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
         ORDER BY cno DESC
         LIMIT #{startRow}, #{endRow}
     </select>
