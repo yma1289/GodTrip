@@ -20,12 +20,7 @@
 	<div class="container" style="padding-top: 30px">
 	 <br>
 	 <h3><strong>항공/기차상품 선택</strong></h3>
-	</div>
-		
-	<div class="container" style="padding-top: 20px">
-		<input type="button" class="btn btn-success" value="상품등록" onclick="location.href='/product/transinfoList'">
-	</div>
-	
+	</div>		
 	
 	<div class="container" style="align:center; padding-top: 10px">
 	<form name="depCodeFrm" id="depCodeFrm" method="get" action="depCodeSelect">
@@ -35,7 +30,7 @@
 	  <tr>
 		<th style="text-align: center">출발일</th>		
 		<td>
-			<input type="text" name="departure_Date" id="departure_Date" size="10" maxlength="10" value="${departure_Date}">
+			<input type="text" name="departure_Date" id="departure_Date" size="10" maxlength="10" value="${departure_Date}" readonly>
 		</td>
 	  </tr>
 	  <tr>

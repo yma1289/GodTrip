@@ -22,11 +22,11 @@
 	}
 </style>
 
-<div>
+<div class="wrap">
 <div class="col-sm-12">
 	<div class="container" style="padding-top: 30px">
 	 <br>
-	 <h3><strong>기차 상품목록</strong></h3>
+	 <h3><strong>기차상품 판매현황</strong></h3>
 	</div>
 		
 	
