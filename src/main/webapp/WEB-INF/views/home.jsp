@@ -170,38 +170,65 @@ footer {
 
 <!-- image header -->
 <header class="w3-display-container w3-content w3-hide-small" style="max-width:100%;">
-	<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-	  <ol class="carousel-indicators">
-	    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-	    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-	    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-	  </ol>
-	  <div class="carousel-inner">
-	    <div class="carousel-item active">
-	    <a href="../area/areaForm">
-	      <img src="../images/배너1.png" class="d-block w-100" alt="배너1" >
-	    </a>
-	    </div>
-	    <div class="carousel-item">
-	    <a href="../area/areaForm">
-	      <img src="../images/배너2.png" class="d-block w-100" alt="배너2" >
-	    </a>  
-	    </div>
-	    <div class="carousel-item">
-	    <a href="../area/areaForm">
-	      <img src="../images/배너3.png" class="d-block w-100" alt="배너3" >
-	     </a>
-	    </div>
-	  </div>
-	  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	    <span class="sr-only">Previous</span>
-	  </a>
-	  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	    <span class="sr-only">Next</span>
-	  </a>
-	</div>
+  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <c:choose>
+          <c:when test="${!(empty s_id || empty s_passwd || empty s_mlevel || s_mlevel == 'F1')}">
+            <a href="../area/areaForm">
+              <img src="../images/배너1.png" class="d-block w-100" alt="배너1">
+            </a>
+          </c:when>
+          <c:otherwise>
+            <a href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">
+              <img src="../images/배너1.png" class="d-block w-100" alt="배너1">
+            </a>
+          </c:otherwise>
+        </c:choose>
+      </div>
+      <div class="carousel-item">
+        <c:choose>
+          <c:when test="${!(empty s_id || empty s_passwd || empty s_mlevel || s_mlevel == 'F1')}">
+            <a href="../area/areaForm">
+              <img src="../images/배너2.png" class="d-block w-100" alt="배너2">
+            </a>
+          </c:when>
+          <c:otherwise>
+            <a href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">
+              <img src="../images/배너2.png" class="d-block w-100" alt="배너2">
+            </a>
+          </c:otherwise>
+        </c:choose>
+      </div>
+      <div class="carousel-item">
+        <c:choose>
+          <c:when test="${!(empty s_id || empty s_passwd || empty s_mlevel || s_mlevel == 'F1')}">
+            <a href="../area/areaForm">
+              <img src="../images/배너3.png" class="d-block w-100" alt="배너3">
+            </a>
+          </c:when>
+          <c:otherwise>
+            <a href="/member/memberlogin" onclick="alert('로그인이 필요한 서비스입니다.');">
+              <img src="../images/배너3.png" class="d-block w-100" alt="배너3">
+            </a>
+          </c:otherwise>
+        </c:choose>
+      </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
 </header>
 
 
