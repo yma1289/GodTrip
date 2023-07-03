@@ -9,52 +9,31 @@
   font-size: 30px;
   text-align: center;
   margin-top: 30px;
+  font-weight: bold; 
+}
+
+.wrap {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  background: rgba(0, 0, 0, 0);
 }
 </style>
 </head>
 <body>
-<h3>최종예약확인</h3>
+
+<div class="wrap">
+<div class="container" style="padding: 80px;">
 <div id="reservation-header">예약이 완료되었습니다</div>
 
-<div class="container mt-4">
-<table class="table">
-  <tbody>
-    <c:forEach items="${list}" var="finalreserve">
-      <tr class="thead-light">
-        <th>예약번호</th>
-        <td>${finalreserve.fno}</td>
-      </tr>
-      <tr class="thead-light">
-        <th>아이디</th>
-        <td>${finalreserve.paycode}</td>
-      </tr>
-      <tr class="thead-light">
-        <th>결제일자</th>
-        <td>${finalreserve.transpro_code}</td>
-      </tr>
-      <tr class="thead-light">
-        <th>여행지</th>
-        <td>${finalreserve.transinfo}</td>
-      </tr>
-      <tr class="thead-light">
-        <th>일정</th>
-        <td>${finalreserve.room_code}</td>
-      </tr>
-      <tr class="thead-light">
-        <th>예약내역</th>
-        <td>
-          항공편: 제주항공 08:40 - 09:40<br>
-          좌석번호: A04<br>
-          숙소: 홈스랜드 펜션 102동
-        </td>
-      </tr>
-    </c:forEach>
-  </tbody>
-</table>
+<div style="padding-top: 10px;"><h5>자세한 예약내역은 마이페이지에서 확인하세요</h5></div>
+
+
+<div class="form-group d-flex justify-content-center" style="padding-top: 70px;">
+  <input type="button" value="홈으로" class="btn btn-info" onclick="location.href='/home'">
+  <input type="button" value="마이페이지" class="btn btn-warning" onclick="location.href='/member/memeberpage'">
 </div>
-<div class="form-group d-flex justify-content-center">
-  <input type="button" value="홈으로" class="btn btn-info disabled" onclick="location.href='/home.do'">
-  <input type="button" value="마이페이지" class="btn btn-warning disabled" onclick="location.href=''">
+</div>
 </div>
 
 </body>
