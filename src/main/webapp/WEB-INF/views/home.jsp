@@ -113,7 +113,7 @@ footer {
 				
 			    <li class="nav-item" style="white-space: nowrap;">
 			    <c:choose>
-			      <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1')}">
+			      <c:when test="${!(empty s_id || empty s_passwd || empty s_mlevel || s_mlevel == 'F1')}">
        				<a class="nav-link" href="../area/areaForm">내·만·패</a>
 	              </c:when>	          
 	              <c:otherwise>
@@ -133,7 +133,7 @@ footer {
 	        	</li>
 	        	<li class="nav-item" style="white-space: nowrap;">
 	        	<c:choose>
-	              <c:when test="${!(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1' )}">
+	              <c:when test="${!(empty s_id || empty s_passwd || empty s_mlevel || s_mlevel == 'F1' )}">
 	                <a class="nav-link" href="/member/memberpage">마이페이지</a>
 	              </c:when>
 	              <c:when test="${!(empty p_id || empty p_passwd ||  empty p_level )}">
@@ -146,7 +146,7 @@ footer {
 	            </li>
 	                
 	            <c:choose>
-	              <c:when test="${(empty s_id || empty s_passwd || s_mlevel == 'E1' || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level)}">
+	              <c:when test="${(empty s_id || empty s_passwd || empty s_mlevel || s_mlevel == 'F1') && (empty p_id || empty p_passwd || empty p_level)}">
 	                <li class="nav-item dropdown nav-item">
 	                  <li class="nav-item dropdown"><a
 	                      class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
