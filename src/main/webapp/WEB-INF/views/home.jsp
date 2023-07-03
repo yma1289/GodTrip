@@ -270,21 +270,21 @@ footer {
       	<div class="col-lg-4 col-md-6 mb-4">
         	<div class="card">
           	<a href="../review/reviewList">
-            <img src="../images/review_gn.png" alt="House" class="card-img-top">
+            <img src="../images/리뷰1.png" alt="House" class="card-img-top">
           	</a>
         	</div>
       	</div>
       	<div class="col-lg-4 col-md-6 mb-4">
         	<div class="card">
           	<a href="../review/reviewList">
-            <img src="../images/review_gj.png" alt="House" class="card-img-top">
+            <img src="../images/리뷰2.png" alt="House" class="card-img-top">
           	</a>
         	</div>
       	</div>
       	<div class="col-lg-4 col-md-6 mb-4">
         	<div class="card">
           	<a href="../review/reviewList">
-            <img src="../images/review_hc.png" alt="House" class="card-img-top">
+            <img src="../images/리뷰3.png" alt="House" class="card-img-top">
           	</a>
        		</div>
       	</div>

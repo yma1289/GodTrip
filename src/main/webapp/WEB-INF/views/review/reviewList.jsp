@@ -9,30 +9,30 @@ pageEncoding="UTF-8"%>
 <div class="w3-row-padding w3-margin-top">
 <div class="w3-third">
 <div class="w3-card">
-<a href='/review/reviewdetail?reviewno=5'><img src="/summernote_image/d4ba6169-1aaf-406a-a785-3ec84fd3e8da.png" style="width:100%"></a>
+<a href='/review/reviewdetail?reviewno=5'><img src="/summernote_image/리뷰1.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5><strong>강릉 아르떼 뮤지엄 1박 2일</strong></h5>
+<h5><strong>1박 2일 강릉 여행기</strong></h5>
 </div>
 </div>
 </div>
 
 <div class="w3-third">
 <div class="w3-card">
-<a href='/review/reviewdetail?reviewno=6'><img src="/summernote_image/841cb39a-caf4-43e8-944d-81c0d9fd39fe.png" style="width:100%"></a>
+<a href='/review/reviewdetail?reviewno=6'><img src="/summernote_image/리뷰2.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5><strong>경주 여행기</strong></h5>
+<h5><strong>가족들과 함께하는 제주도</strong></h5>
 </div>
 </div>
 </div>
 
 <div class="w3-third">
 <div class="w3-card">
-<a href='/review/reviewdetail?reviewno=7'><img src="/summernote_image/a6aca6d9-c968-4e64-9aad-e35e207c0b27.png" style="width:100%"></a>
+<a href='/review/reviewdetail?reviewno=7'><img src="/summernote_image/리뷰3.png" style="width:100%"></a>
 <hr>
 <div class="w3-container">
-<h5><strong>홍천&춘천 여행을 위한 애견 동반 리조트</strong></h5>
+<h5><strong>힐링 명소 남이섬</strong></h5>
 </div>
 </div>
 </div>
