@@ -115,12 +115,12 @@ footer {
                     <c:choose>
                         <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'B1' }">
                             <li class="nav-item">
-                                <a class="nav-link" href="../partner/T_proList">상품 판매현황</a>
+                                <a class="nav-link" href="../partner/partnerpage">상품 판매현황</a>
                             </li>
                         </c:when>
                         <c:when test="${ not empty p_id && not empty p_passwd && p_level == 'C1' }">
                             <li class="nav-item">
-                                <a class="nav-link" href="../partner/F_proList">상품 판매현황</a>
+                                <a class="nav-link" href="../partner/partnerpage">상품 판매현황</a>
                             </li>
                         </c:when>
                     </c:choose>
