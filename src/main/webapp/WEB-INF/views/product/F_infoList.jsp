@@ -5,7 +5,7 @@
 <style>
 .wrap {
   width: 100%;
-  height: 80vh;
+  height: 100%;
   display: flex;
   background: rgba(0, 0, 0, 0);
 }

@@ -143,7 +143,6 @@
 		<th class="text-center">가격</th>
 		<th class="text-center">잔여좌석</th>
 		<th class="text-center">상품선택</th>		
-		<th class="text-center">삭제</th>
 	   </tr>
 	  </thead>
 	  
