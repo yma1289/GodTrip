@@ -2,10 +2,10 @@
 
 # ⭐ GodTrip - 5조 갓지은여행 (내가 만드는 여행 패키지)
 
-### 📅 프로젝트 기간: 2023.06.01 ~ 2023.07.04 (총 5주)<br>
-### 👧 프로젝트 인원: 5명
+#### 📅 프로젝트 기간: 2023.06.01 ~ 2023.07.04 (총 5주)<br>
+#### 👧 프로젝트 인원: 5명
 
-<div align=left><h3>📚 STACKS</h3></div>
+<div align=left><h34>📚 STACKS</h4></div>
 <div align=center> 
   <img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"> 
   <br>
@@ -27,7 +27,7 @@
 </div>
 
 
-### 📌 프로젝트 주제
+#### 📌 프로젝트 주제
 <h4>'여행은 가고 싶은데
 정보 찾기는 귀찮아,<br>
 혹은 계획 세울 여유가 없어'</h4><br>
@@ -36,8 +36,9 @@
 여행지 → 여행 일정 → 교통(버스/항공) → 숙박(호텔/펜션)
 순차적으로 선택하여 한번에 예약하고 결제하는 시스템
 
+<br><br>
 
-### 📌 팀원 구성 및 개인별 업무
+#### 📌 팀원 구성 및 개인별 업무
 <h5>
   
 황영리 ( 조장 )
@@ -75,7 +76,9 @@
 * 아임포트API
 </h5>
 
-### 📌 개발일정
+<br><br>
+
+#### 📌 개발일정
 · 1, 2주차 (BACKLOG, 메인페이지)
 - 주제선정, 프로토 타입 설계
 - 테이블 설계, 정의서·시나리오 작성
@@ -91,4 +94,26 @@
 - 아임포트 결제 API
 - 테스트 및 호스팅
 
-### 📌 테이블 설계
+<br><br>
+
+#### 📌 테이블 설계
+![image](https://github.com/yma1289/GodTrip/assets/122091224/76d375ad-0565-4ced-b1ef-f001be3eaa86)
+
+<br><br>
+
+#### 📌 벤치마킹 사이트
+![image](https://github.com/yma1289/GodTrip/assets/122091224/0dc8915d-fac1-408c-b72e-eb482acb5de1)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/44606cca-fb19-4065-8c53-6f6fbf2875fa)
+
+<br><br>
+
+#### 📌 졸업작품 주요 화면
+![image](https://github.com/yma1289/GodTrip/assets/122091224/332ffcfc-3b2f-4bdd-b9a5-bf5fc09844d8)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/2e56c21e-800e-4c98-b478-27a8f0c49b7a)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/e9367a37-9269-4500-a76d-552aa6939cce)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/01c1be6f-9c49-47c3-acfc-dc0f20dc8c9d)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/00d94f8f-a270-4b75-a25b-4179040efb8f)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/a38bd45f-d398-41b1-88ed-acfa89cf3e7e)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/326e5c44-a909-4036-bba1-917aa9112674)
+![image](https://github.com/yma1289/GodTrip/assets/122091224/08d45345-6c9f-41ee-927b-b0d0b208c2cc)
+
