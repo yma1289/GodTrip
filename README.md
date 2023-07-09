@@ -26,6 +26,7 @@
   <br>
 </div>
 
+<br><br>
 
 #### 📌 프로젝트 주제
 <h4>'여행은 가고 싶은데
@@ -109,11 +110,18 @@
 
 #### 📌 졸업작품 주요 화면
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/332ffcfc-3b2f-4bdd-b9a5-bf5fc09844d8)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/2e56c21e-800e-4c98-b478-27a8f0c49b7a)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/e9367a37-9269-4500-a76d-552aa6939cce)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/01c1be6f-9c49-47c3-acfc-dc0f20dc8c9d)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/00d94f8f-a270-4b75-a25b-4179040efb8f)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/a38bd45f-d398-41b1-88ed-acfa89cf3e7e)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/326e5c44-a909-4036-bba1-917aa9112674)
+---
 ![image](https://github.com/yma1289/GodTrip/assets/122091224/08d45345-6c9f-41ee-927b-b0d0b208c2cc)
 
